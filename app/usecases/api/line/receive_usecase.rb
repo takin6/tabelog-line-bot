@@ -28,12 +28,6 @@ module Api
           return ServiceResult.new(true)
         end
 
-        message = nil
-        ActiveRecord::Base.transaction do
-          message = event_wrapper.receive
-          event_wrpper.reply(search_history)
-        end
-
         return ServiceResult.new(true)
       end
 
