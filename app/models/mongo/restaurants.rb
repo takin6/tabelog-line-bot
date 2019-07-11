@@ -13,14 +13,20 @@ module Mongo
       end.reverse
     end
 
-    def self.create_index(apparent_pager)
-      pager = apparent_pager - 1
-      if pager == 0
+    def self.next_page(current_page)
+      return nil if current_page + 1 > self.max_page
+
+      return current_page + 1
+    end
+
+    def self.create_index(apparent_page)
+      page = apparent_page - 1
+      if page == 0
         from = 0
         to = 8
       else
-        from = pager * 9,
-        to = pager * 9 + 8
+        from = page * 9
+        to = apparent_page == max_page ? self.restaurants.length : page * 9 + 8
       end
 
       return from, to

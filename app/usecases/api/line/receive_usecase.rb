@@ -60,9 +60,11 @@ module Api
             # 「フォーマットに従ってください」メッセージをリターンする
             return ServiceResult.new(false, "message type not text")
           end
-        end
 
-        return ServiceResult.new(true)
+           return ServiceResult.new(true)
+        end
+      when ::Line::Bot::Event::Postback
+        Messenger::Line::PostbackWrapper.new(user, event)
       end
 
       def find_or_create_user(source, client)

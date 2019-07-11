@@ -4,11 +4,13 @@ class Message < ApplicationRecord
   has_one :message_text, dependent: :destroy
   has_one :message_restaurant, dependent: :destroy
 
-  enum message_type: %i[text error_text restaurants]
+  enum message_type: %i[text error_text restaurants postback]
   enum status: %i[reply receive]
 
   delegate :value, to: :message_text, prefix: :message_text
+  # ここをpageに変えたいなー。。。
   delegate :mongo_restaurants_id, :pager, to: :message_restaurant, prefix: false
+  delegate :mongo_restaurants_id, :page, to: :message_postback, prefix: false
 
   def self.create_receive_message!(params)
     message = self.create!(
