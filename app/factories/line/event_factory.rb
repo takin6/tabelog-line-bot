@@ -1,6 +1,6 @@
 module Line
   class EventFactory
-    attr_reader :event
+    attr_reader :user, :event
 
     def initialize(user, event)
       @user = user
@@ -13,12 +13,16 @@ module Line
         case event.type
         when ::Line::Bot::Event::MessageType::Text
           return Messenger::Line::TextWrapper.new(user, event)
-        when ::Line::Bot::Event::Postback
-          return Messenger::Line::PostbackWrapper.new(user, event)
         else
           # 「フォーマットに従ってください」メッセージをリターンする
           return ServiceResult.new(false, "message type not text")
         end
+      when ::Line::Bot::Event::Postback
+        return Messenger::Line::PostbackWrapper.new(user, event)
+      else
+        return ServiceResult.new(false, "event type not existed")
+      end
+
     end
 
   end

@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_115145) do
+ActiveRecord::Schema.define(version: 2019_07_11_234106) do
+
+  create_table "message_postbacks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.integer "mongo_restaurants_id", null: false
+    t.integer "page", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_postbacks_on_message_id"
+  end
 
   create_table "message_restaurants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "message_id", null: false
     t.string "mongo_restaurants_id", null: false
-    t.integer "pager", default: 1, null: false
+    t.integer "page", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_message_restaurants_on_message_id"
@@ -52,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_07_10_115145) do
     t.string "meal_genre"
     t.string "situation"
     t.string "other_requests"
+    t.boolean "completed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_search_histories_on_user_id"
@@ -82,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_07_10_115145) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "message_postbacks", "messages"
   add_foreign_key "message_restaurants", "messages"
   add_foreign_key "message_texts", "messages"
   add_foreign_key "messages", "users"

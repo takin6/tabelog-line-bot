@@ -1,30 +1,32 @@
 module Messenger
   module Line
     class TextWrapper < BaseWrapper
-      attr_reader :text
-      def initialize(event)
+      attr_reader :user, :text
+      def post_initialize
         @text = event.message['text']
       end
 
       def validate
-        result = ValidateReceivedMessagePolicy.new(received_message).check
+        result = ValidateReceivedMessagePolicy.new(user, text).check
 
-        return reply_error_messages(result) if result.present?
+        return result if result.present?
       end
 
       def reply_error_messages(message_params)
         # どんなメッセージを送ってきたのかの履歴を見れる用
-        Message.create_receive_message!({ message_type: "text", user: user, message: text })
-        message_params.each do |param|
-          message = Message.create_reply_message!(param)
-          Messenger::ReplyErrorMessageWorker.perform_async(user.id, message.id)
+        ActiveRecord::Base.transaction do
+          Message.create_receive_message!({ message_type: "text", user: user, message: text })
+          message_params.each do |param|
+            message = Message.create_reply_message!(param)
+            Messenger::ReplyErrorMessageWorker.perform_async(user.id, message.id)
+          end
         end
       end
 
       def receive
         # ここはmessage_search_history的な感じにした方が良いのかなーーーー？
         received_message = Message.create_receive_message!({ message_type: "text", user: user, message: text  })
-        SearchHistory.create_from_message(user.id, received_message)
+        SearchHistory.create_from_message(user.id, text)
 
         return received_message
       end
@@ -39,12 +41,13 @@ module Messenger
           message_params = [{ message_type: "text", user: user, message: "レストランが一件も検索されませんでした。" }]
           reply_error_messages(message_params)
 
-          return ServiceResult.new(true)
+          return
+        else
+          search_history.completed = true
+          search_history.save!
         end
 
         Messenger::ReplyRestaurantsFlexMessageWorker.perform_async search_history.id
-
-        return ServiceResult.new(true)
       end
 
     end

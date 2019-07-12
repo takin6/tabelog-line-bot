@@ -14,10 +14,15 @@ module Mongo
       return {
         station_id: search_history.station_id,
         other_requests: search_history.other_requests,
+        max_page: max_page,
         restaurants: restaurant_wrappers.map do |restaurant|
           restaurant.to_restaurant_document(search_history.meal_type)
         end
       }
+    end
+
+    def max_page
+      return (restaurant_wrappers.count / 8.0).ceil
     end
 
   end

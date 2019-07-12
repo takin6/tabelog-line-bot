@@ -8,9 +8,9 @@ module Mongo
 
     def to_restaurant_document(meal_type)
       budget_selector = meal_type == "dinner" ? ".cpy-dinner-budget-val" : ".cpy-lunch-budget-val"
-      redierct_url =  restaurant.search(".list-rst__rst-name-target.cpy-rst-name")[0].values.select { |element| UrlUtil.valid_url?(element) }[0],
+      redirect_url =  restaurant.search(".list-rst__rst-name-target.cpy-rst-name")[0].values.select { |element| UrlUtil.valid_url?(element) }[0]
+      
       # thumbnail_image, url, name, rating, 予算, genre
-
       restaurant_hash = {
         id: struct_restaurant_id(redirect_url),
         name: restaurant.search(".list-rst__rst-name-target.cpy-rst-name")[0].text,

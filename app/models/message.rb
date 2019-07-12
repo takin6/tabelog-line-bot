@@ -1,16 +1,16 @@
 class Message < ApplicationRecord
   belongs_to :user, optional: true
 
+  delegate :value, to: :message_text, prefix: :message_text
+  delegate :mongo_restaurants_id, :page, to: :message_restaurant, prefix: true
+  delegate :mongo_restaurants_id, :page, to: :message_postback, prefix: true
+
   has_one :message_text, dependent: :destroy
   has_one :message_restaurant, dependent: :destroy
+  has_one :message_postback, dependent: :destroy
 
   enum message_type: %i[text error_text restaurants postback]
   enum status: %i[reply receive]
-
-  delegate :value, to: :message_text, prefix: :message_text
-  # ここをpageに変えたいなー。。。
-  delegate :mongo_restaurants_id, :pager, to: :message_restaurant, prefix: false
-  delegate :mongo_restaurants_id, :page, to: :message_postback, prefix: false
 
   def self.create_receive_message!(params)
     message = self.create!(
@@ -40,5 +40,7 @@ class Message < ApplicationRecord
     self.becomes("Messages::#{message_type.camelcase}".constantize)
   end
 
-  def create_associates(_params); end
+  def create_associates(_params)
+    raise NotImplementedError, "You must implement #{self.class}##{__method__}"
+  end
 end

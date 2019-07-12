@@ -1,10 +1,10 @@
 module Messages
-  class PostBack < Message
+  class Postback < Message
 
     def create_associates(params)
-      MessagePostBack.create!(
+      MessagePostback.create!(
         message: self,
-        mongo_restaurants_id: mongo_restaurants_id,
+        mongo_restaurants_id: params[:mongo_restaurants_id],
         page: params[:page]
       )
     end

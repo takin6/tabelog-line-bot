@@ -9,6 +9,7 @@ class CreateSearchHistories < ActiveRecord::Migration[5.2]
       t.string :meal_genre, null: true
       t.string :situation, null: true
       t.string :other_requests, null: true
+      t.boolean :completed, null: false, default: false
       t.timestamps
     end
   end

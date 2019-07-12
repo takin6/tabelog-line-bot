@@ -1,15 +1,20 @@
 class ValidateReceivedMessagePolicy
-  attr_reader :message
-  def initialize(message)
+  attr_reader :user, :message
+  def initialize(user, message)
+    @user = user
     @message = message
   end
 
   def check
     message_params = []
+    # 始めのトライ
+    if message == "Hello, world"
+      message_params = [{　message_type: "text", user: user, message: "first try" }]
+      return message_params
+    end
 
-    parse_message_result = parse_message(message)
-    if validate_message_result.present?
-      message_params = [{ message_type: "text", user: user, message: result }]
+    if message_format_error.present?
+      message_params = [{ message_type: "text", user: user, message: message_format_error }]
       # メッセージを格納するファイル作らなくちゃなー
       format_message = "以下のフォーマットに沿って教えてね⬇\n━━━━━━━━━━━━━━━━━\n場所\n食事タイプ（ランチ or ディナー）\n予算（ex. 下限~上限）\nレストランのジャンル（ex. 和食、フレンチ）\n用途（ex. デート、記念日、女子会）\nその他（ex. 個室あり、全席禁煙）\n━━━━━━━━━━━━━━━━━"
       message_params.push({ message_type: "text", user: user, message: format_message })
@@ -17,15 +22,14 @@ class ValidateReceivedMessagePolicy
       return message_params
     end
 
-    validate_message_result = validate_message(received_message)
-    message_params = [{ message_type: "text", user: user, message: result }] if result.present?
+    message_params = [{ message_type: "text", user: user, message: message_content_error }] if message_content_error.present?
     
     return message_params
   end
 
   private
 
-  def parse_message
+  def message_format_error
     error_message = ""
     base_message = "エラー❗️\n ━━━━━━━━━━━━━━━━\n"
 
@@ -38,7 +42,7 @@ class ValidateReceivedMessagePolicy
   end
 
 
-  def validate_message
+  def message_content_error
     # ISSUE: situation, other_hopeはこちらで絞っておく？？
     error_message = ""
     base_message = "エラー❗️\n ━━━━━━━━━━━━━━━━\n"

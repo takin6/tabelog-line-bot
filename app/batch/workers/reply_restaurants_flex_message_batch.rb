@@ -1,6 +1,7 @@
 module Workers
   class ReplyRestaurantsFlexMessageBatch
-    def execute(serach_history_id, pager)
+    def execute(serach_history_id, page)
+      page = page.to_i
       search_history = SearchHistory.find(serach_history_id)
       user = search_history.user
 
@@ -8,10 +9,11 @@ module Workers
       messages = []
 
       ActiveRecord::Base.transaction do
+        from, to = mongo_restaurants.create_index(page)
         message_with_text = Message.create_reply_message!({
           user: user, 
           message_type: :text,
-          message: "📍検索結果 1~8/#{mongo_restaurans.retaurants.length}"
+          message: "📍検索結果 #{from}~#{to}/#{mongo_restaurants.restaurants.length}"
         }).cast
         messages.push(message_with_text)
 
@@ -19,7 +21,7 @@ module Workers
           user: user, 
           message_type: :restaurants, 
           mongo_restaurants_id: mongo_restaurants.id.to_s,
-          pager: pager
+          page: page
         }).cast
         messages.push(message_with_restaurant)
       end
