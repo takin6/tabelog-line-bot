@@ -2,8 +2,8 @@ class Message < ApplicationRecord
   belongs_to :user, optional: true
 
   delegate :value, to: :message_text, prefix: :message_text
-  delegate :mongo_restaurants_id, :page, to: :message_restaurant, prefix: true
-  delegate :mongo_restaurants_id, :page, to: :message_postback, prefix: true
+  delegate :mongo_custom_restaurants_id, :page, to: :message_restaurant, prefix: :restaurant
+  delegate :mongo_custom_restaurants_id, :page, to: :message_postback, prefix: :postback
 
   has_one :message_text, dependent: :destroy
   has_one :message_restaurant, dependent: :destroy

@@ -4,13 +4,14 @@ module Messages
     def create_associates(params)
       MessageRestaurant.create!(
         message: self,
-        mongo_restaurants_id: params[:mongo_restaurants_id],
+        mongo_custom_restaurants_id: params[:mongo_custom_restaurants_id],
         page: params[:page]
       )
     end
 
     def line_post_param
-      Messenger::RestaurantsFlexMessageValue.new(self.message_restaurant_mongo_restaurants_id, self.message_restaurant_page).line_post_param
+      search_history = self.user.search_histories.last
+      Messenger::RestaurantsFlexMessageValue.new(self.restaurant_mongo_custom_restaurants_id, self.restaurant_page).line_post_param
     end
   end
 end

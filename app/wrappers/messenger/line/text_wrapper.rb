@@ -43,6 +43,15 @@ module Messenger
 
           return
         else
+          mongo_restaurants = Mongo::Restaurants.find_by(station_id: search_history.station_id)
+          Mongo::CustomRestaurants.create_document!(search_history, mongo_restaurants)
+
+          if Mongo::CustomRestaurants.find_by(search_history_id: search_history.id, ).restaurants.length == 0
+            message_params = [{ message_type: "text", user: user, message: "レストランが一件も検索されませんでした。" }]
+            reply_error_messages(message_params)
+            return
+          end
+
           search_history.completed = true
           search_history.save!
         end

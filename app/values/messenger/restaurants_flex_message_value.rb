@@ -1,19 +1,17 @@
 module Messenger
   class RestaurantsFlexMessageValue
-    attr_reader :mongo_restaurants_id, :selected_mongo_restaurants, :next_page
-    def initialize(mongo_restaurants_id, current_page)
-      mongo_restaurants = Mongo::Restaurants.find(mongo_restaurants_id)
-      from, to = mongo_restaurants.create_index(current_page)
-      sorted_restaurants = mongo_restaurants.sort_restaurants_by_rating
+    attr_reader :mongo_custom_restaurants_id, :selected_restaurants, :next_page
+    def initialize(mongo_custom_restaurants_id, current_page)
+      mongo_custom_restaurants = Mongo::CustomRestaurants.find(mongo_custom_restaurants_id)
+      from, to = mongo_custom_restaurants.create_index(current_page)
 
-      # mongo::restaurantsでmax_pageをセットしておく
-      @mongo_restaurants_id = mongo_restaurants_id
-      @next_page = mongo_restaurants.next_page(current_page)
-      @selected_mongo_restaurants = sorted_restaurants[from..to]
+      @mongo_custom_restaurants_id = mongo_custom_restaurants_id
+      @next_page = mongo_custom_restaurants.next_page(current_page)
+      @selected_restaurants = mongo_custom_restaurants.restaurants[from..to]
     end
 
     def line_post_param
-      contents = selected_mongo_restaurants.map do |restaurant|
+      contents = selected_restaurants.map do |restaurant|
         struct_restaurant(restaurant)
       end
       contents.push(see_more_contents) if next_page
@@ -192,7 +190,7 @@ module Messenger
               "action": {
                 "type": "postback",
                 "label": "もっと見る",
-                "data": "mongo_restaurants_id=#{mongo_restaurants_id}&page=#{next_page}"
+                "data": "mongo_custom_restaurants_id=#{mongo_custom_restaurants_id}&page=#{next_page}"
               }
             }
           ]

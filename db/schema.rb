@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_07_11_234106) do
 
   create_table "message_postbacks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "message_id", null: false
-    t.integer "mongo_restaurants_id", null: false
+    t.integer "mongo_custom_restaurants_id", null: false
     t.integer "page", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_07_11_234106) do
 
   create_table "message_restaurants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "message_id", null: false
-    t.string "mongo_restaurants_id", null: false
+    t.string "mongo_custom_restaurants_id", null: false
     t.integer "page", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -16,8 +16,8 @@ module Api
 
       def execute(body, client)
         event = client.parse_events_from(body)[0]
-
         @user = find_or_create_user(event["source"], client)
+        return ServiceResult.new(true) unless user
         event_wrapper = ::Line::EventFactory.new(user, event).create_event
 
         result = event_wrapper.validate
@@ -37,7 +37,9 @@ module Api
 
       def find_or_create_user(source, client)
         profile_response = client.get_profile(source['userId'])
+        return nil if profile_response&.message == "Not Found"
         profile = JSON.parse(profile_response.body)
+
         user = User.find_or_create_by(line_id: source['userId'], name: profile['displayName'], profile_picture_url: profile['pictureUrl'])
 
         return user

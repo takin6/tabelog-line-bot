@@ -4,13 +4,13 @@ module Messages
     def create_associates(params)
       MessagePostback.create!(
         message: self,
-        mongo_restaurants_id: params[:mongo_restaurants_id],
+        mongo_custom_restaurants_id: params[:mongo_custom_restaurants_id],
         page: params[:page]
       )
     end
 
     def line_post_param
-      Messenger::RestaurantsFlexMessageValue.new(self.mongo_restaurants_id, self.page)
+      Messenger::RestaurantsFlexMessageValue.new(self.postback_mongo_custom_restaurants_id, self.postback_page)
     end
 
   end

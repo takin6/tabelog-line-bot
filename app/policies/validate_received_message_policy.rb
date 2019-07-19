@@ -56,8 +56,8 @@ class ValidateReceivedMessagePolicy
     error_message += "・食事タイプはランチかディナーを入力してください！\n" unless ["ランチ", "ディナー"].include?(meal_type)
     
     # budgetのvalidation
-    lower_budget, upper_budget = budget.split("~").map(&:to_i)
-    error_message += "・予算を正しく入力してください！\n" unless lower_budget <= upper_budget
+    lower_budget, upper_budget = budget.split("~")
+    error_message += "・予算を正しく入力してください！\n" unless lower_budget.to_i <= upper_budget.to_i && (lower_budget.present? || upper_budget.present?)
 
     error_message.insert(0, base_message) unless error_message == ""
 

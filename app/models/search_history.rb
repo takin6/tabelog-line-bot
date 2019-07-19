@@ -14,13 +14,13 @@ class SearchHistory < ApplicationRecord
 
   def self.create_from_message(user_id, message)
     location, meal_type, budget, meal_genre, situation, other_requests = message.split("\n")
-    lower_budget, upper_budget = budget.split("~")
+    lower_budget, upper_budget = budget.split("~").map(&:to_i)
 
     # meal_kindとかは、機械学習でどうにかできないの？よくわからないけど
     search_history = SearchHistory.create!(
       user_id: user_id,
-      lower_budget: lower_budget,
-      upper_budget: upper_budget,
+      lower_budget: lower_budget || 0,
+      upper_budget: upper_budget || 0,
       meal_type: meal_type == "ディナー" ? "dinner" : "lunch",
       meal_genre: meal_genre == "なし" ? nil : meal_genre,
       situation: situation == "なし" ? nil : situation,

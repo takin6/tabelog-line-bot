@@ -8,12 +8,6 @@ module Mongo
     field :max_page
     field :restaurants, type: Array
 
-    def sort_restaurants_by_rating
-      return self.restaurants.sort_by do |restaurant|
-        restaurant[:rating]
-      end.reverse
-    end
-
     def next_page(current_page)
       return nil if current_page + 1 > self.max_page
 
@@ -23,7 +17,7 @@ module Mongo
     def create_index(apparent_page)
       page = apparent_page - 1
       if page == 0
-        from = 0
+        from = 1
         to = 8
       else
         from = page * 9
@@ -34,3 +28,4 @@ module Mongo
     end
   end
 end
+
