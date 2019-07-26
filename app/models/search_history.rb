@@ -29,5 +29,25 @@ class SearchHistory < ApplicationRecord
 
     station = Station.find_by(name: location)
     StationSearchHistory.create!(station: station, search_history: search_history)
+
+    search_history
   end
+
+  def self.create_from_params(user_id, params)
+    search_history = SearchHistory.create!(
+      user_id: user_id,
+      lower_budget: params[:budget][:lower].to_i,
+      upper_budget: params[:budget][:upper].to_i,
+      meal_type: params[:meal_type],
+      meal_genre: params[:genre] == "なし" ? nil : params[:genre],
+      # situation: params[:situation],
+      # other_requests: params[:other_requests]
+    )
+
+    station = Station.find_by(name: params[:location])
+    StationSearchHistory.create!(station: station, search_history: search_history)
+
+    search_history
+  end
+
 end

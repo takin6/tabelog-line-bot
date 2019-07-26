@@ -145,7 +145,7 @@ module Messenger
             "contents": [
               {
                 "type": "text",
-                "text": "フレンチ",
+                "text": genre,
                 "wrap": true,
                 "size": "sm",
                 "flex": 5

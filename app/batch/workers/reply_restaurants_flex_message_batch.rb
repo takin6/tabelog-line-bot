@@ -13,7 +13,7 @@ module Workers
         message_with_text = Message.create_reply_message!({
           user: user,
           message_type: :text,
-          message: "📍検索結果 #{from+1}~#{to}/#{mongo_custom_restaurants.restaurants.length}"
+          message: "📍検索結果 #{from}~#{to}/#{mongo_custom_restaurants.restaurants.length}"
         }).cast
         messages.push(message_with_text)
 

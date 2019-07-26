@@ -62,7 +62,6 @@ module Scraper
       def fill_in_form(front_page)
         form = front_page.form('FrmSrchFreeWord')
         form.sa = search_history.station_name
-        [search_history.situation, search_history.other_requests]
         form.sk = [search_history.situation, search_history.other_requests].compact.join("、") if search_history.situation.present? || search_history.other_requests.present?
         return form.submit
       end
@@ -80,7 +79,7 @@ module Scraper
               next
             end
             
-            # もう一度検索をした方が高速化？？
+            # lunchとdinner両方のbudget入れるしかない。。
             budget_selector = search_history.dinner? ? ".cpy-dinner-budget-val" : ".cpy-lunch-budget-val"
             expected_budget_text = restaurant.search(budget_selector).text
             unless expected_budget_text == "-"

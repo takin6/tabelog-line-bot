@@ -24,11 +24,11 @@ module Mongo
     def create_index(apparent_page)
       page = apparent_page - 1
       if page == 0
-        from = 0
-        to = apparent_page == self.max_page ? self.restaurants.length : 8
+        from = 1
+        to = apparent_page == self.max_page ? self.restaurants.length : 9
       else
-        from = page * 9
-        to = apparent_page == self.max_page ? self.restaurants.length : page * 9 + 8
+        from = page * 9 + 1
+        to = apparent_page == self.max_page ? self.restaurants.length : apparent_page * 9
       end
 
       return from, to
@@ -67,15 +67,19 @@ module Mongo
           lower_budget, upper_budget = restaurant[:budget]
           lower_budget.to_i <= requested_lower_budget && upper_budget.to_i <= requested_upper_budget
         end
-      elsif requested_lower_budget == 0
-        return restaurants.select do |restaurant|
-          lower_budget, upper_budget = restaurant[:budget]
-          upper_budget.to_i <= requested_upper_budget
-        end
       else
-        return restaurants.select do |restaurant|
-          lower_budget, upper_budget = restaurant[:budget]
-          lower_budget.to_i <= requested_lower_budget
+        if requested_upper_budget != 0
+          return restaurants.select do |restaurant|
+            lower_budget, upper_budget = restaurant[:budget]
+            upper_budget.to_i <= requested_upper_budget
+          end
+        elsif requested_lower_budget != 0
+          return restaurants.select do |restaurant|
+            lower_budget, upper_budget = restaurant[:budget]
+            lower_budget.to_i <= requested_lower_budget
+          end
+        else
+          return restaurants
         end
       end
     end

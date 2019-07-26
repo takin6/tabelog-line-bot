@@ -1,0 +1,111 @@
+<div id="booking" class="section">
+  <div class="section-center">
+    <div class="container">
+      <div class="row">
+        <div class="booking-form">
+          <div class="form-header">
+            <h1>レストランを探す</h1>
+          </div>
+          <form onsubmit="return onSubmitSearchRestaurant(event)">
+            <!-- 場所（elastic search??） -->
+            <div class="col-xs-13">
+              <div class="form-group">
+                <input class="form-control" id="location" type="text" placeholder="場所" onchange="onChangeLocation()" required>
+                <span class="form-label">エリア・駅 (例: 渋谷、銀座)</span>
+              </div>
+            </div>
+            <!-- 食事タイプ -->
+            <div class="col-xs-13">
+              <div class="form-group">
+                <select class="form-control" id="meal-type" onchange="onChangeMealType()" required>
+                  <option value="" selected hidden>食事タイプ</option>
+                  <option value="lunch">ランチ</option>
+                  <option value="dinner">ディナー</option>
+                </select>
+                <span class="select-arrow"></span>
+                <span class="form-label">ランチ or ディナー</span>
+              </div>
+            </div>
+            <!-- 予算 -->
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <select class="form-control" id="lower-budget" placeholder="予算(下限)" onchange="onChangeLowerBudget()" required>
+                    <option value="" selected hidden>予算(上限)</option>
+                    <option value="0">なし</option>
+                    <% (1..10).each do |i| %>
+                      <option value=<%= "#{i}000" %>><%= "¥#{i},000"%></option>
+                    <% end %>
+                  </select>
+                  <span class="select-arrow"></span>
+                  <span class="form-label">予算(下限)</span>
+                </div>
+              </div>
+              <span id="budget-arrow"> ~ </span>
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <select class="form-control" id="upper-budget" placeholder="予算(上限)" onchange="onChangeUpperBudget()" required>
+                    <option value="" selected hidden>予算(上限)</option>
+                    <option value="0">なし</option>
+                    <% (1..15).each do |i| %>
+                      <% unless [1, 11, 13].include?(i) %>
+                        <option value=<%= "#{i}000" %>><%= "¥#{i},000" %></option>
+                      <% end %>
+                    <% end %>
+                  </select>
+                  <span class="select-arrow"></span>
+                  <span class="form-label">予算(上限)</span>
+                </div>
+              </div>
+            </div>
+            <!-- ジャンル -->
+            <div class="col-xs-13">
+              <div class="form-group">
+                <select class="form-control" id="meal-kind" onchange="onChangeMealKind()" required>
+                  <option value="" selected hidden>レストランのジャンル</option>
+                  <option value="なし">なし</option>
+                  <option value="和食">和食</option>
+                  <option value="居酒屋">居酒屋</option>
+                  <option value="イタリアン">イタリアン</option>
+                  <option value="中華">中華</option>
+                  <option value="フレンチ">フレンチ</option>
+                </select>
+                <span class="select-arrow"></span>
+                <span class="form-label">レストランのジャンル</span>
+              </div>
+            </div>
+            <!-- 用途　追加予定 -->
+
+            <!-- その他要望　追加予定 -->
+
+            <div class="form-btn" id="search-button">
+              <button class="submit-btn" type="submit">Search!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('.form-control').each(function () {
+      floatedLabel($(this));
+    });
+
+    $('.form-control').on('input', function () {
+      floatedLabel($(this));
+    });
+
+    function floatedLabel(input) {
+      var $field = input.closest('.form-group');
+      if (input.val()) {
+        $field.addClass('input-not-empty');
+      } else {
+        $field.removeClass('input-not-empty');
+      }
+    }
+  });
+</script>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
