@@ -1,24 +1,9 @@
-# README
+# Tiramis
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+Tiramis is a line-bot that searches and suggests the best restaurants to provide users with amazing food experience.
 
 * Ruby version
+2.6.3
 
 * System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Docker (https://github.com/takin6/tiramis-docker), MySQL, Redis, MongoDB
