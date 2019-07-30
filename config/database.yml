@@ -15,9 +15,11 @@ default: &default
   charset: utf8mb4
   collation: utf8mb4_bin
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: 
-  socket: /tmp/mysql.sock
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  port: <%= ENV['DB_PORT'] %>
+  host: <%= ENV['DB_HOST'] %>
+  socket: /var/run/mysqld/mysqlx.sock
 
 development:
   <<: *default
