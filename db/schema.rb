@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_19_051431) do
+ActiveRecord::Schema.define(version: 2019_07_30_105800) do
 
   create_table "line_liffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "liff_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "message_buttons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.json "actions", null: false
+    t.string "text", null: false
+    t.string "thumbnail_image_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_buttons_on_message_id"
   end
 
   create_table "message_postbacks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -99,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_07_19_051431) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "message_buttons", "messages"
   add_foreign_key "message_postbacks", "messages"
   add_foreign_key "message_restaurants", "messages"
   add_foreign_key "message_texts", "messages"

@@ -13,54 +13,25 @@ class ValidateReceivedMessagePolicy
       return message_params
     end
 
-    if message_format_error.present?
-      message_params = [{ message_type: "text", user: user, message: message_format_error }]
-      # メッセージを格納するファイル作らなくちゃなー
-      format_message = "以下のフォーマットに沿って教えてね⬇\n━━━━━━━━━━━━━━━━━\n場所\n食事タイプ（ランチ or ディナー）\n予算（ex. 下限~上限）\nレストランのジャンル（ex. 和食、フレンチ）\n用途（ex. デート、記念日、女子会）\nその他（ex. 個室あり、全席禁煙）\n━━━━━━━━━━━━━━━━━"
-      message_params.push({ message_type: "text", user: user, message: format_message })
-
-      return message_params
-    end
-
-    message_params = [{ message_type: "text", user: user, message: message_content_error }] if message_content_error.present?
+    message_params.push({ message_type: "text", user: user, message: "フォームを入力してレストランを検索しよう❗️" })
+    message_params.push({ 
+      message_type: "button",
+      user: user, 
+      thumbnail_image_url: "https://www.telegraph.co.uk/content/dam/Travel/Destinations/Asia/Japan/Tokyo/Tokyo---Restaurants---New-York-Grill.jpg?imwidth=450",
+      text: "検索フォーム",
+      actions: [{
+        type: "uri",
+        label: "レストランを検索",
+        uri: struct_liff_uri
+      }] 
+    })
     
     return message_params
   end
 
   private
 
-  def message_format_error
-    error_message = ""
-    base_message = "エラー❗️\n ━━━━━━━━━━━━━━━━\n"
-
-    if message.split("\n").count != 6
-      error_message += base_message
-      error_message += "・フォーマットに沿って入力してください！"
-    end
-
-    return error_message
-  end
-
-
-  def message_content_error
-    # ISSUE: situation, other_hopeはこちらで絞っておく？？
-    error_message = ""
-    base_message = "エラー❗️\n ━━━━━━━━━━━━━━━━\n"
-
-    location, meal_type, budget, meal_kind, situation, others = message.split("\n")
-
-    # 曖昧検索を取り入れるかどうか。もしもなかった時に登録したい
-    error_message += "・場所が見つかりませんでした！\n" if Station.find_by(name: location).nil?
-
-    # meal_typeはdinnerか昼食か
-    error_message += "・食事タイプはランチかディナーを入力してください！\n" unless ["ランチ", "ディナー"].include?(meal_type)
-    
-    # budgetのvalidation
-    lower_budget, upper_budget = budget.split("~")
-    error_message += "・予算を正しく入力してください！\n" unless lower_budget.to_i <= upper_budget.to_i && (lower_budget.present? || upper_budget.present?)
-
-    error_message.insert(0, base_message) unless error_message == ""
-
-    return error_message
+  def struct_liff_uri
+    return "https://line.me/R/app/" + LineLiff.find_by(name: "search_restaurants").liff_id
   end
 end

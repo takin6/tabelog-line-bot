@@ -8,8 +8,9 @@ class Message < ApplicationRecord
   has_one :message_text, dependent: :destroy
   has_one :message_restaurant, dependent: :destroy
   has_one :message_postback, dependent: :destroy
+  has_one :message_button, dependent: :destroy
 
-  enum message_type: %i[text error_text restaurants postback]
+  enum message_type: %i[text error_text restaurants postback button]
   enum status: %i[reply receive]
 
   def self.create_receive_message!(params)
