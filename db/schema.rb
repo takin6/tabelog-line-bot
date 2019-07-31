@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_105800) do
+ActiveRecord::Schema.define(version: 2019_07_31_133317) do
 
   create_table "line_liffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "liff_id", null: false
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2019_07_30_105800) do
     t.string "line_id", null: false
     t.string "name", null: false
     t.string "profile_picture_url", null: false
+    t.boolean "is_blocked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

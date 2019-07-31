@@ -35,6 +35,8 @@ module Api
         return ServiceResult.new(true)
       end
 
+      private
+
       def find_or_create_user(source, client)
         profile_response = client.get_profile(source['userId'])
         return nil if profile_response&.message == "Not Found"
