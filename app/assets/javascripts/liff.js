@@ -20,7 +20,7 @@ function initializeApp(data) {
       },
       success: function (res, status) {},
       error: function (res) {
-        window.alert('Cannot Validate User: ' + res.status);
+        window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus: " + res.status);
         liff.closeWindow();
       },
       complete: function(data) {
