@@ -7,6 +7,8 @@ require 'csv'
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+LineLiff.create(name: "search_restaurants", liff_id: "1594882845-n4DqaZ6z")
+
 csv = CSV.read(Rails.root.join("db", "seeds", "001_regions.csv"))
 csv.shift
 csv.each do |id, name|

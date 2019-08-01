@@ -4,8 +4,6 @@ class User < ApplicationRecord
 
   validates :line_id, presence: true
   validates :name, presence: true
-  validates :profile_picture_url, presence: true
-
 
   def messenger_wrapper
     return Messenger::LineWrapper.new

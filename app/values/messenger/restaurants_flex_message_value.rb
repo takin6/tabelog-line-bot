@@ -3,7 +3,7 @@ module Messenger
     attr_reader :mongo_custom_restaurants_id, :selected_restaurants, :next_page
     def initialize(mongo_custom_restaurants_id, current_page)
       mongo_custom_restaurants = Mongo::CustomRestaurants.find(mongo_custom_restaurants_id)
-      from, to = mongo_custom_restaurants.create_index(current_page)
+      from, to = mongo_custom_restaurants.create_mongo_index(current_page)
 
       @mongo_custom_restaurants_id = mongo_custom_restaurants_id
       @next_page = mongo_custom_restaurants.next_page(current_page)
@@ -35,7 +35,7 @@ module Messenger
           "type": "image",
           "url": restaurant[:thumbnail_image_url],
           "size": "full",
-          "aspectRatio": "20:13",
+          "aspectRatio": "20:15",
           "aspectMode": "cover"
         },
         "body": {

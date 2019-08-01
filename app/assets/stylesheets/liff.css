@@ -1,15 +1,21 @@
+.container {
+  max-width: 1024px;
+}
+
 .section {
   position: relative;
   min-height: 100vh;
 }
 
 .section .section-center {
-  position: absolute;
+  /*position: absolute;
   top: 54%;
   left: 0;
   right: 0;
   -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  transform: translateY(-50%);*/
+  position: relative;
+
 }
 
 #booking {
@@ -18,7 +24,7 @@
 
 .booking-form {
   position: relative;
-  max-width: 642px;
+  /*max-width: 642px;*/
   width: 100%;
   margin: auto;
   padding: 40px;
@@ -186,6 +192,7 @@
 
 #budget-arrow {
   left: 46%;
+  /*right: 48.5%; for pc*/
   top: 52%;
   position: absolute;
   width: 32px;
@@ -194,3 +201,4 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 30px;
 }
+

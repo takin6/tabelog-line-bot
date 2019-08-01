@@ -11,8 +11,6 @@ module Line
       case event
       when ::Line::Bot::Event::Follow
         return Messenger::Line::FollowWrapper.new(user, event)
-      when ::Line::Bot::Event::UnFollow
-        return Messenger::Line::UnFollowWrapper.new(user, event)
       when ::Line::Bot::Event::Message
         case event.type
         when ::Line::Bot::Event::MessageType::Text

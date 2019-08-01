@@ -21,7 +21,8 @@ module Mongo
       return self.collection.bulk_write(document)
     end
 
-    def create_index(apparent_page)
+    # display index for user
+    def create_apparent_index(apparent_page)
       page = apparent_page - 1
       if page == 0
         from = 1
@@ -29,6 +30,20 @@ module Mongo
       else
         from = page * 9 + 1
         to = apparent_page == self.max_page ? self.restaurants.length : apparent_page * 9
+      end
+
+      return from, to
+    end
+
+    # for selecting mongo documents
+    def create_mongo_index(apparent_page)
+      page = apparent_page - 1
+      if page == 0
+        from = 0
+        to = apparent_page == self.max_page ? self.restaurants.length-1 : 8
+      else
+        from = page * 9
+        to = apparent_page == self.max_page ? self.restaurants.length-1 : apparent_page * 9 -1
       end
 
       return from, to

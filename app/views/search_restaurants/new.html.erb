@@ -32,7 +32,7 @@
                 <div class="form-group">
                   <select class="form-control" id="lower-budget" placeholder="予算(下限)" onchange="onChangeLowerBudget()" required>
                     <option value="" selected hidden>予算(上限)</option>
-                    <option value="0">なし</option>
+                    <option value="0">指定なし</option>
                     <% (1..10).each do |i| %>
                       <option value=<%= "#{i}000" %>><%= "¥#{i},000"%></option>
                     <% end %>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                   <select class="form-control" id="upper-budget" placeholder="予算(上限)" onchange="onChangeUpperBudget()" required>
                     <option value="" selected hidden>予算(上限)</option>
-                    <option value="0">なし</option>
+                    <option value="0">指定なし</option>
                     <% (1..15).each do |i| %>
                       <% unless [1, 11, 13].include?(i) %>
                         <option value=<%= "#{i}000" %>><%= "¥#{i},000" %></option>
@@ -63,7 +63,7 @@
               <div class="form-group">
                 <select class="form-control" id="meal-kind" onchange="onChangeMealKind()" required>
                   <option value="" selected hidden>レストランのジャンル</option>
-                  <option value="なし">なし</option>
+                  <option value="なし">指定なし</option>
                   <option value="和食">和食</option>
                   <option value="居酒屋">居酒屋</option>
                   <option value="イタリアン">イタリアン</option>
