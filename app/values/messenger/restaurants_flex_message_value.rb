@@ -1,12 +1,13 @@
 module Messenger
   class RestaurantsFlexMessageValue
-    attr_reader :mongo_custom_restaurants_id, :selected_restaurants, :next_page
+    attr_reader :mongo_custom_restaurants_id, :selected_restaurants, :next_page, :meal_type
     def initialize(mongo_custom_restaurants_id, current_page)
       mongo_custom_restaurants = Mongo::CustomRestaurants.find(mongo_custom_restaurants_id)
       from, to = mongo_custom_restaurants.create_mongo_index(current_page)
 
       @mongo_custom_restaurants_id = mongo_custom_restaurants_id
       @next_page = mongo_custom_restaurants.next_page(current_page)
+      @meal_type = mongo_custom_restaurants.meal_type
       @selected_restaurants = mongo_custom_restaurants.restaurants[from..to]
     end
 
@@ -70,7 +71,8 @@ module Messenger
         "margin": "md"
       }
 
-      contents << struct_budget_block(restaurant[:budget])
+      budget = restaurant[meal_type+"_budget"]
+      contents << struct_budget_block(budget)
 
       contents << struct_genre_block(restaurant[:genre])
 

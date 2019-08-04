@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_01_093001) do
+ActiveRecord::Schema.define(version: 2019_08_04_131233) do
 
   create_table "line_liffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "liff_id", null: false
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2019_08_01_093001) do
   create_table "stations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "region_id", null: false
     t.string "name", null: false
+    t.boolean "scraping_completed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["region_id"], name: "index_stations_on_region_id"

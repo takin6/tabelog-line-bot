@@ -2,19 +2,16 @@ namespace :scraping do
   namespace :tabelog do
     desc "crawling tabelog restaurant"
     task :crawl => :environment do
-      search_history = SearchHistory.create!(
-        user_id: User.last.id,
-        lower_budget: 0,
-        upper_budget: 0,
-        meal_type: "lunch",
-      )
+      stations = []
+      stations.push(Station.find_by(name: "赤坂見附"))
+      stations.push(Station.find_by(name: "外苑前"))
 
-      station = Station.find_by(name: "赤坂見附")
-      StationSearchHistory.create!(station: station, search_history: search_history)
 
-      tabelog_scraper = Scraper::Tabelog::TabelogScraper.new(search_history)
-      restaurants = tabelog_scraper.execute
-      p restaurants
+      stations.each do |station|
+        tabelog_scraper = Scraper::Tabelog::TabelogScraper.new(station)
+        restaurants = tabelog_scraper.execute
+        p restaurants
+      end
     end
   end
 end

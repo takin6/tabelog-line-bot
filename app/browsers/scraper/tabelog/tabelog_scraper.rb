@@ -4,12 +4,12 @@ module Scraper
   module Tabelog
     class TabelogScraper < Scraper::BaseScraper
       TABELOG_URL = "https://tabelog.com/".freeze
-      attr_reader :agent, :search_history
+      attr_reader :agent, :station
 
-      def initialize(search_history)
+      def initialize(station)
         begin
           @agent = create_agent
-          @search_history = search_history
+          @station = station
         rescue => exception
           raise exception
         end
@@ -38,12 +38,12 @@ module Scraper
           restaurant_lists_page = agent.get(next_url)
         end
 
-        restaurants_document = Mongo::RestaurantsWrapper.new(search_history, restaurants.flatten).to_restaurants_document
+        restaurants_document = Mongo::RestaurantsWrapper.new(station, restaurants.flatten).to_restaurants_document
 
         Mongo::Restaurants.collection.bulk_write([{ insert_one: restaurants_document}])
 
-        search_history.completed = true
-        search_history.save!
+        station.scraping_completed = true
+        station.save!
         # return restaurants.flatten
       end
 
@@ -61,8 +61,7 @@ module Scraper
       # queryにはgenre（中華、焼肉、店名、個室などが入る）
       def fill_in_form(front_page)
         form = front_page.form('FrmSrchFreeWord')
-        form.sa = search_history.station_name
-        form.sk = [search_history.situation, search_history.other_requests].compact.join("、") if search_history.situation.present? || search_history.other_requests.present?
+        form.sa = station.name
         return form.submit
       end
 
@@ -73,23 +72,7 @@ module Scraper
 
         high_rate_restaurants = restaurant_lists.map do |restaurant|
           rating = restaurant.search(".c-rating__val.c-rating__val--strong.list-rst__rating-val").text.to_f
-          if rating > 3.49
-            if search_history.lower_budget == 0 && search_history.upper_budget == 0
-              recommendations.push(restaurant)
-              next
-            end
-            
-            # lunchとdinner両方のbudget入れるしかない。。
-            budget_selector = search_history.dinner? ? ".cpy-dinner-budget-val" : ".cpy-lunch-budget-val"
-            expected_budget_text = restaurant.search(budget_selector).text
-            unless expected_budget_text == "-"
-              expected_budget_list = expected_budget_text.remove(",").remove("￥").split("～").map(&:to_i)
-              if search_history.lower_budget <= expected_budget_list[0] || search_history.upper_budget >= expected_budget_list[1]
-                recommendations.push(restaurant)
-                next
-              end
-            end
-          end
+          recommendations.push(restaurant) if rating > 3.49
         end
 
         return recommendations
