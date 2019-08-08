@@ -4,12 +4,12 @@ module Messenger
       def post_initialize; end
 
       def receive
-        user.is_blocked = false
-        user.save!
+        chat_unit.is_blocking = false
+        chat_unit.save!
       end
 
-      def reply(_message)
-        Messenger::ReplyFollowMessageWorker.perform_async(user.id)
+      def reply
+        Messenger::ReplyFollowMessageWorker.perform_async(chat_unit.id)
       end
     end
   end

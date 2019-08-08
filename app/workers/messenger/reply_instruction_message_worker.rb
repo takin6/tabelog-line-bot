@@ -3,8 +3,8 @@ module Messenger
     include Sidekiq::Worker
     sidekiq_options retry: 0, dead: false
 
-    def perform(user_id)
-      Workers::ReplyInstructionMessageBatch.new.execute(user_id)
+    def perform(chat_unit_id, is_initial_message=false)
+      Workers::ReplyInstructionMessageBatch.new.execute(chat_unit_id, is_initial_message)
     end
   end
 end

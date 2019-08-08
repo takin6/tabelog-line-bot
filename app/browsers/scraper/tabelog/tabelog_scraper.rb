@@ -44,7 +44,6 @@ module Scraper
 
         station.scraping_completed = true
         station.save!
-        # return restaurants.flatten
       end
 
       private
@@ -64,7 +63,6 @@ module Scraper
         form.sa = station.name
         return form.submit
       end
-
 
       # meal_typeは昼食か夕食が入り、max_priceには予算上限を
       def create_recommendation_lists(restaurant_lists)

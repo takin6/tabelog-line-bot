@@ -1,5 +1,5 @@
 class Message < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :chat_unit, optional: true
 
   delegate :value, to: :message_text, prefix: :message_text
   delegate :mongo_custom_restaurants_id, :page, to: :message_restaurant, prefix: :restaurant
@@ -15,7 +15,7 @@ class Message < ApplicationRecord
 
   def self.create_receive_message!(params)
     message = self.create!(
-      user: params[:user], 
+      chat_unit: params[:chat_unit], 
       status: :receive, 
       message_type: params[:message_type]
     ).cast
@@ -27,7 +27,7 @@ class Message < ApplicationRecord
 
   def self.create_reply_message!(params)
     message = self.create!(
-      user: params[:user], 
+      chat_unit: params[:chat_unit], 
       status: :reply, 
       message_type: params[:message_type]
     ).cast

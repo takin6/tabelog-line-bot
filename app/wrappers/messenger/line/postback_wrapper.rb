@@ -8,7 +8,7 @@ module Messenger
 
       def receive
         message = Message.create_receive_message!({
-          user: user,
+          chat_unit: chat_unit,
           message_type: :postback,
           mongo_custom_restaurants_id: mongo_custom_restaurants_id,
           page: page
@@ -17,9 +17,9 @@ module Messenger
         return message
       end
 
-      def reply(message)
+      def reply
         mongo_custom_restaurants = Mongo::CustomRestaurants.find(mongo_custom_restaurants_id)
-        Messenger::ReplyRestaurantsFlexMessageWorker.perform_async(mongo_custom_restaurants.search_history_id, page)
+        Messenger::ReplyRestaurantsFlexMessageWorker.perform_async(mongo_custom_restaurants.cache_id, page)
       end
     end
   end

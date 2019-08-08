@@ -1,9 +1,9 @@
 module Messenger
   module Line
     class BaseWrapper
-      attr_reader :user, :event
-      def initialize(user, event)
-        @user = user
+      attr_reader :chat_unit, :event
+      def initialize(chat_unit, event)
+        @chat_unit = chat_unit
         @event = event
         post_initialize
       end

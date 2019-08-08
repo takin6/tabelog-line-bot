@@ -3,6 +3,7 @@ class CreateStations < ActiveRecord::Migration[5.2]
     create_table :stations do |t|
       t.belongs_to :region, null: false, foreign_key: true
       t.string :name, null: false, unique: true
+      t.boolean :scraping_completed, null: false, default: false
 
       t.timestamps
     end

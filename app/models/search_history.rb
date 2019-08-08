@@ -1,5 +1,7 @@
 class SearchHistory < ApplicationRecord
-  belongs_to :user
+  before_create :generate_cache_id
+
+  belongs_to :chat_unit
   has_one :station_search_history, dependent: :destroy
 
   has_one :station, through: :station_search_history
@@ -12,30 +14,9 @@ class SearchHistory < ApplicationRecord
   validates :upper_budget, null: false
   validates :meal_type, inclusion: { in: SearchHistory.meal_types.keys }
 
-  def self.create_from_message(user_id, message)
-    location, meal_type, budget, meal_genre, situation, other_requests = message.split("\n")
-    lower_budget, upper_budget = budget.split("~").map(&:to_i)
-
-    # meal_kindとかは、機械学習でどうにかできないの？よくわからないけど
+  def self.create_from_params(chat_unit_id, params)
     search_history = SearchHistory.create!(
-      user_id: user_id,
-      lower_budget: lower_budget || 0,
-      upper_budget: upper_budget || 0,
-      meal_type: meal_type == "ディナー" ? "dinner" : "lunch",
-      meal_genre: meal_genre == "なし" ? nil : meal_genre,
-      situation: situation == "なし" ? nil : situation,
-      other_requests: other_requests == "なし" ? nil : other_requests
-    )
-
-    station = Station.find_by(name: location)
-    StationSearchHistory.create!(station: station, search_history: search_history)
-
-    search_history
-  end
-
-  def self.create_from_params(user_id, params)
-    search_history = SearchHistory.create!(
-      user_id: user_id,
+      chat_unit_id: chat_unit_id,
       lower_budget: params[:budget][:lower].to_i,
       upper_budget: params[:budget][:upper].to_i,
       meal_type: params[:meal_type],
@@ -48,6 +29,12 @@ class SearchHistory < ApplicationRecord
     StationSearchHistory.create!(station: station, search_history: search_history)
 
     search_history
+  end
+
+  protected
+
+  def generate_cache_id
+    self.cache_id = "#{SecureRandom.hex(8)}-#{Time.zone.now.to_i}"
   end
 
 end

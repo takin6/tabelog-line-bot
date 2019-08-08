@@ -4,12 +4,16 @@ module SessionHelper
     session[:user_id] = user.id
   end
 
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+  def hold_chat_unit_to_session(chat_unit)
+    session[:chat_unit_id] = chat_unit.id
   end
 
-  def finish_session
-    session.delete(:user_id)
-    @current_user = nil
+  def current_chat_unit
+    @current_chat_unit ||= ChatUnit.find_by(id: session[:chat_unit_id])
+  end
+
+  def delete_chat_unit_from_session
+    session.delete(:chat_unit_id)
+    @current_chat_unit = nil
   end
 end

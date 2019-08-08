@@ -10,12 +10,20 @@ function initializeApp(data) {
   liff.getProfile().then(function (profile) {
     $.ajax({
       type: 'POST',
-      url: '/api/validate_user',
+      url: '/api/validate_chat_unit',
       data: {
-        user: {
-          line_id: profile.userId,
-          name: profile.displayName,
-          profile_picture_url: profile.pictureUrl
+        entity: {
+          user: {
+            line_id: profile.userId,
+            name: profile.displayName,
+            profile_picture_url: profile.pictureUrl
+          },
+          room: {
+            line_id: data.context.roomId
+          },
+          group: {
+            line_id: data.context.groupId
+          }
         }
       },
       success: function (res, status) {},

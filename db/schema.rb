@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_131233) do
+ActiveRecord::Schema.define(version: 2019_08_08_002923) do
+
+  create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "chat_unit_id", null: false
+    t.string "line_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_unit_id"], name: "index_chat_groups_on_chat_unit_id"
+  end
+
+  create_table "chat_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "chat_unit_id", null: false
+    t.string "line_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_unit_id"], name: "index_chat_rooms_on_chat_unit_id"
+  end
+
+  create_table "chat_units", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.integer "chat_type", null: false
+    t.boolean "is_blocking", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "line_liffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "liff_id", null: false
@@ -56,12 +79,12 @@ ActiveRecord::Schema.define(version: 2019_08_04_131233) do
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "chat_unit_id", null: false
     t.integer "message_type", null: false
     t.integer "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["chat_unit_id"], name: "index_messages_on_chat_unit_id"
   end
 
   create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -71,7 +94,7 @@ ActiveRecord::Schema.define(version: 2019_08_04_131233) do
   end
 
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "chat_unit_id", null: false
     t.integer "lower_budget", default: 0, null: false
     t.integer "upper_budget", default: 0, null: false
     t.integer "meal_type", default: 1, null: false
@@ -81,7 +104,8 @@ ActiveRecord::Schema.define(version: 2019_08_04_131233) do
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_search_histories_on_user_id"
+    t.string "cache_id", null: false
+    t.index ["chat_unit_id"], name: "index_search_histories_on_chat_unit_id"
   end
 
   create_table "station_search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -102,22 +126,37 @@ ActiveRecord::Schema.define(version: 2019_08_04_131233) do
     t.index ["region_id"], name: "index_stations_on_region_id"
   end
 
+  create_table "user_communities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "community_type", null: false
+    t.bigint "community_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_type", "community_id"], name: "index_user_communities_on_community_type_and_community_id"
+    t.index ["user_id"], name: "index_user_communities_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "chat_unit_id", null: false
     t.string "line_id", null: false
     t.string "name", null: false
     t.string "profile_picture_url"
-    t.boolean "is_blocked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chat_unit_id"], name: "index_users_on_chat_unit_id"
   end
 
+  add_foreign_key "chat_groups", "chat_units"
+  add_foreign_key "chat_rooms", "chat_units"
   add_foreign_key "message_buttons", "messages"
   add_foreign_key "message_postbacks", "messages"
   add_foreign_key "message_restaurants", "messages"
   add_foreign_key "message_texts", "messages"
-  add_foreign_key "messages", "users"
-  add_foreign_key "search_histories", "users"
+  add_foreign_key "messages", "chat_units"
+  add_foreign_key "search_histories", "chat_units"
   add_foreign_key "station_search_histories", "search_histories"
   add_foreign_key "station_search_histories", "stations"
   add_foreign_key "stations", "regions"
+  add_foreign_key "user_communities", "users"
+  add_foreign_key "users", "chat_units"
 end

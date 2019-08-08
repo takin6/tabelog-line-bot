@@ -3,7 +3,7 @@ module Mongo
     include Mongoid::Document
     include Mongoid::Timestamps
 
-    field :search_history_id
+    field :cache_id
     field :mongo_restaurants_id
     field :meal_type
     field :max_page
@@ -13,13 +13,14 @@ module Mongo
       restaurants = sort_with_search_history(search_history, mongo_restaurants.restaurants)
       document = [
         insert_one: {
-          search_history_id: search_history.id,
-          mongo_restaurants_id: mongo_restaurants.id,
+          cache_id: search_history.cache_id,
+          mongo_restaurants_id: mongo_restaurants.id.to_s,
           max_page: (restaurants.count / 8.0).ceil,
           meal_type: search_history.meal_type,
-          restaurants: sort_with_search_history(search_history, restaurants)
+          restaurants: restaurants
         }
       ]
+
       return self.collection.bulk_write(document)
     end
 
@@ -73,8 +74,7 @@ module Mongo
       # この冗長なコードどうにかしたい。。。
       # mongo::restaurantsに登録するときはwrapperのままにするのはどうだろう？？まあwrapperで色々と定義したい
       target_key = (meal_type+"_budget").to_sym
-      available_restaurants = available_restaurants(restaurants, target_key)
-
+      available_restaurants = select_available_restaurants(restaurants, target_key)
       if requested_lower_budget != 0 && requested_upper_budget != 0
         return available_restaurants.select do |restaurant|
           lower_budget, upper_budget = restaurant[target_key]
@@ -97,7 +97,7 @@ module Mongo
       end
     end
 
-    def self.available_restaurants(restaurants, target_key)
+    def self.select_available_restaurants(restaurants, target_key)
       # exclude restaurnats with no price range == not available
       return restaurants.select do |restaurant|
         lower_budget, upper_budget = restaurant[target_key]

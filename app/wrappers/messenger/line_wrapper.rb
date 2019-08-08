@@ -1,7 +1,18 @@
 module Messenger
   class LineWrapper
     attr_reader :client
-    delegate :validate_signature, :parse_events_from, :push_message, :get_profile, :create_rich_menu, :create_rich_menu_image, :set_default_rich_menu, to: :client
+    delegate :validate_signature,
+             :parse_events_from, 
+             :push_message, 
+             :get_profile, 
+             :create_rich_menu, 
+             :create_rich_menu_image, 
+             :set_default_rich_menu, 
+             :get_room_member_profile, 
+             :leave_room,
+             :leave_group,
+             to: :client
+
     def initialize
       @client ||= ::Line::Bot::Client.new { |config|
         config.channel_secret = ENV["LINE_CHANNEL_SECRET"]

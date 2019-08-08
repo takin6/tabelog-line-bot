@@ -10,7 +10,6 @@ module Messages
     end
 
     def line_post_param
-      search_history = self.user.search_histories.last
       Messenger::RestaurantsFlexMessageValue.new(self.restaurant_mongo_custom_restaurants_id, self.restaurant_page).line_post_param
     end
   end

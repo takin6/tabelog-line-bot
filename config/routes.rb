@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   namespace :api do
     post "/line/callback"
     post "/line/callback_liff"
-    post "validate_user", to: "validate_user#create"
+    post "validate_chat_unit", to: "validate_chat_unit#create"
   end
 end
