@@ -81,6 +81,7 @@ module Messenger
 
     def struct_budget_block(budget)
       lower_budget, upper_budget = budget
+      budget_text = lower_budget != 0 ? "#{lower_budget}円~#{upper_budget}円" : "~#{upper_budget}円"
       {
         "type": "box",
         "layout": "vertical",
@@ -108,7 +109,7 @@ module Messenger
             "contents": [
               {
                 "type": "text",
-                "text": "#{lower_budget}円~#{upper_budget}円",
+                "text": budget_text,
                 "wrap": true,
                 "size": "sm",
                 "flex": 5

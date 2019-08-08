@@ -15,7 +15,7 @@ module Mongo
         insert_one: {
           cache_id: search_history.cache_id,
           mongo_restaurants_id: mongo_restaurants.id.to_s,
-          max_page: (restaurants.count / 8.0).ceil,
+          max_page: (restaurants.count / 9.0).ceil,
           meal_type: search_history.meal_type,
           restaurants: restaurants
         }
