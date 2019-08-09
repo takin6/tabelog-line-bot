@@ -41,7 +41,7 @@ module Messenger
       private
 
       def user_wants_instruction?
-        return true if ["ティラミス", "フォーム", "検索フォーム"].include?(text)
+        return true if ["マニュアル", "ティラミス", "フォーム", "検索フォーム"].include?(text)
       end
 
       def user_wants_to_dismember?
