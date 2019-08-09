@@ -62,7 +62,7 @@ module Mongo
 
     def self.sort_with_search_history(search_history, restaurants)
       # TODO: situation, other_requestsでのソート
-      result = sort_restaurants_by_budget(restaurants, search_history.meal_type, search_history.lower_budget, search_history.upper_budget)
+      result = sort_restaurants_by_budget(restaurants, search_history.meal_type, search_history.lower_budget_cents, search_history.upper_budget_cents)
       result = sort_restaurants_by_rating(result)
       meal_genre = search_history.meal_genre
       result = sort_restaurants_by_meal_genre(result, meal_genre) if meal_genre

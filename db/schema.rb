@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_002923) do
+ActiveRecord::Schema.define(version: 2019_08_09_134808) do
 
   create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
@@ -95,8 +95,6 @@ ActiveRecord::Schema.define(version: 2019_08_08_002923) do
 
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
-    t.integer "lower_budget", default: 0, null: false
-    t.integer "upper_budget", default: 0, null: false
     t.integer "meal_type", default: 1, null: false
     t.string "meal_genre"
     t.string "situation"
@@ -105,6 +103,10 @@ ActiveRecord::Schema.define(version: 2019_08_08_002923) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cache_id", null: false
+    t.integer "lower_budget_cents", default: 0, null: false
+    t.string "lower_budget_currency", default: "JPY", null: false
+    t.integer "upper_budget_cents", default: 0, null: false
+    t.string "upper_budget_currency", default: "JPY", null: false
     t.index ["chat_unit_id"], name: "index_search_histories_on_chat_unit_id"
   end
 

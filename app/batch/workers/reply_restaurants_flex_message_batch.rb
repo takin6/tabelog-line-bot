@@ -8,15 +8,11 @@ module Workers
       messages = []
 
       ActiveRecord::Base.transaction do
-        from, to = mongo_custom_restaurants.create_apparent_index(page)
-        Rails.logger.info "page: #{page}, #{from}, #{to}"
 
-        base_message = "📍検索結果 #{from}"
-        base_message += " ~ #{to}" if from != to
         message_with_text = Message.create_reply_message!({
           chat_unit: chat_unit,
           message_type: :text,
-          message: base_message + " / #{mongo_custom_restaurants.restaurants.length}"
+          message: search_history.search_result_message(page)
         }).cast
         messages.push(message_with_text)
 
