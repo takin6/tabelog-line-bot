@@ -7,7 +7,7 @@ module Api
 
       hold_chat_unit_to_session(chat_unit)
       unless current_chat_unit&.is_blocking
-        head :ok
+        render json: { search_history: current_chat_unit.search_histories.last.to_json}, status: :ok
       else
         message = current_chat_unit ? "ブロックを解除してから検索してください" : "無効なセッションです"
         render json: { errors: message }, status: :bad_request

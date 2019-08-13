@@ -2,12 +2,12 @@ window.onload = function (e) {
   liff.init(function (data) {
     initializeApp(data);
   });
-  // initializeApp({});
+  // initializeApp({}); // for debugging in browser
 };
 
 function initializeApp(data) {
   // userのvalidationを行う。悪意のあるユーザーを排除
-  var $section = $(".section");
+  // $(".section").removeClass("is-hide"); // for debugging in browser
 
   liff.getProfile().then(function (profile) {
     $.ajax({
@@ -29,14 +29,22 @@ function initializeApp(data) {
         }
       },
       success: function (res, status) {
-        $section.removeClass("is-hide");
+        var returnedSearchHistory = res.search_history;
+        if (returnedSearchHistory != null) {
+          $(".form-group").addClass("input-not-empty");
+          var formElements = ["location", "meal-type", "lower-budget", "upper-budget", "meal-genre"]
+          formElements.map(function( element ) {
+            $("#"+element)[0].value = res.search_history[element.replace("-", "_")]
+          });
+        }
+
+        $(".section").removeClass("is-hide");
       },
       error: function (res) {
         window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus: " + res.status);
         liff.closeWindow();
       },
-      complete: function(data) {
-      }
+      complete: function(data) {}
     });
   }).catch(function (error) {
     window.alert("Error getting profile: " + error);
@@ -45,7 +53,7 @@ function initializeApp(data) {
 }
 
 var lowerBudget = document.getElementById('lower-budget'); var upperBudget = document.getElementById('upper-budget');
-var inputLocation, inputMealType, inputLowerBudget, inputUpperBudget, inputMealKind;
+var inputLocation, inputMealType, inputLowerBudget, inputUpperBudget, inputMealGenre;
 function onChangeLocation() { inputLocation = document.getElementById("location").value; }
 function onChangeMealType() { inputMealType = document.getElementById("meal-type").value }
 function onChangeLowerBudget() { 
@@ -56,7 +64,12 @@ function onChangeUpperBudget() {
   inputUpperBudget = document.getElementById("upper-budget").value;
   validateBudget();
 }
-function onChangeMealKind() { inputMealKind = document.getElementById("meal-kind").value }
+function onChangeMealKind() { inputMealGenre = document.getElementById("meal-genre").value }
+
+function onResetSearchRestaurant() {
+  $(".form-group").removeClass("input-not-empty")
+  $(".search-restaurant-form")[0].reset()
+}
 
 function onSubmitSearchRestaurant(event) {
   event.preventDefault(); 
@@ -68,7 +81,7 @@ function onSubmitSearchRestaurant(event) {
       line_liff: {
         location: inputLocation,
         meal_type: inputMealType,
-        genre: inputMealKind,
+        genre: inputMealGenre,
         budget: {
           lower: inputLowerBudget,
           upper: inputUpperBudget

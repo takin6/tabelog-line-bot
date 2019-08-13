@@ -170,6 +170,7 @@
 }
 
 .booking-form .submit-btn {
+  margin-bottom: 15px;
   color: #fff;
   background-color: #e35e0a;
   font-weight: 700;
@@ -190,10 +191,34 @@
   opacity: 0.9;
 }
 
+/*reset button*/
+.booking-form .reset-btn {
+  /*margin-top: 16px;*/
+  color: #fff;
+  background-color: #ff9142;
+  font-weight: 700;
+  height: 60px;
+  padding: 10px 30px;
+  width: 100%;
+  border-radius: 40px;
+  border: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1.3px;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.booking-form .reset-btn:hover,
+.booking-form .reset-btn:focus {
+  opacity: 0.9;
+}
+
+/*budget arrow : NOT RESPONSIVE!! Has to be fixed*/
 #budget-arrow {
   left: 46%;
   /*right: 48.5%; for pc*/
-  top: 52%;
+  top: 45%;
   position: absolute;
   width: 32px;
   height: 32px;

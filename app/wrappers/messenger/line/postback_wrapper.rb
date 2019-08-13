@@ -19,6 +19,9 @@ module Messenger
 
       def reply
         mongo_custom_restaurants = Mongo::CustomRestaurants.find(mongo_custom_restaurants_id)
+        search_history = SerachHistory.find_by(cache_id: mongo_custom_restaurants.cache_id)
+        return if search_history.is_outdated_cache_id
+        
         Messenger::ReplyRestaurantsFlexMessageWorker.perform_async(mongo_custom_restaurants.cache_id, page)
       end
     end

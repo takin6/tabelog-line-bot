@@ -9,7 +9,7 @@
           <div class="form-header">
             <h1>レストランを探す</h1>
           </div>
-          <form onsubmit="return onSubmitSearchRestaurant(event)">
+          <form class="search-restaurant-form" onsubmit="return onSubmitSearchRestaurant(event)">
             <!-- 場所（elastic search??） -->
             <div class="col-xs-13">
               <div class="form-group">
@@ -64,7 +64,7 @@
             <!-- ジャンル -->
             <div class="col-xs-13">
               <div class="form-group">
-                <select class="form-control" id="meal-kind" onchange="onChangeMealKind()" required>
+                <select class="form-control" id="meal-genre" onchange="onChangeMealKind()" required>
                   <option value="" selected hidden>レストランのジャンル</option>
                   <option value="なし">指定なし</option>
                   <option value="和食">和食</option>
@@ -83,6 +83,10 @@
 
             <div class="form-btn" id="search-button">
               <button class="submit-btn" type="submit">Search!</button>
+            </div>
+
+            <div class="form-btn" id="reset-form" onclick="onResetSearchRestaurant()">
+              <button class="reset-btn">Reset</button>
             </div>
           </form>
         </div>

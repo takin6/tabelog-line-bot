@@ -16,6 +16,13 @@ class SearchHistory < ApplicationRecord
   monetize :lower_budget_cents, allow_nil: true
   monetize :upper_budget_cents, allow_nil: true
 
+  def is_outdated_cache_id
+    # 暫定：24時間より以前のsearch_historyだったら、アクション起こさない
+    return true if created_at > Time.zone.now.ago(24.hours.ago)
+
+    false
+  end
+
   def self.create_from_params(chat_unit_id, params)
     search_history = SearchHistory.create!(
       chat_unit_id: chat_unit_id,
@@ -44,6 +51,19 @@ class SearchHistory < ApplicationRecord
     result += "場所: #{self.station.name}\n食事タイプ: #{self.lunch? ? "ランチ" : "ディナー"}\n予算: #{self.lower_budget.zero? ? "指定なし" : self.lower_budget.format} ~ #{self.upper_budget.zero? ? "指定なし" : self.upper_budget.format}\nジャンル: #{self.meal_genre.nil? ? "指定なし" : self.meal_genre}"
 
     return result
+  end
+
+  def to_json
+    # 暫定：t - 6時間以内に検索アクションがあった時のみ、キャッシュ情報を表示
+    if self.created_at > Time.zone.now.ago(6.hours)
+      return {
+        location: self.station.name,
+        meal_type: self.meal_type,
+        lower_budget: self.lower_budget_cents,
+        upper_budget: self.lower_budget_cents,
+        meal_genre: self.meal_genre.nil? ? "指定なし" : self.meal_genre
+      }
+    end
   end
 
   protected
