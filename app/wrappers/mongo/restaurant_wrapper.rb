@@ -18,7 +18,7 @@ module Mongo
         lunch_budget: restaurant.search(".cpy-lunch-budget-val").text.remove(",").remove("￥").split("～").map(&:to_i),
         dinner_budget: restaurant.search(".cpy-dinner-budget-val").text.remove(",").remove("￥").split("～").map(&:to_i),
         redirect_url: redirect_url,
-        thumbnail_image_url: restaurant.search(".js-thumbnail-img")[0].values.select { |element| UrlUtil.valid_url?(element) }[0].delete("150x150_square_"),
+        thumbnail_image_url: restaurant.search(".js-thumbnail-img")[0].values.select { |element| UrlUtil.valid_url?(element) }[0].sub(/150x150_square_/, ''),
       }
 
       Rails.logger.info "#{restaurant_hash}\n\n\n\n"

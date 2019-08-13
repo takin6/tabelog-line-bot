@@ -9,7 +9,7 @@ module Api
       unless current_chat_unit&.is_blocking
         head :ok
       else
-        message = current_user ? "ブロックを解除してから検索してください" : "無効なセッションです"
+        message = current_chat_unit ? "ブロックを解除してから検索してください" : "無効なセッションです"
         render json: { errors: message }, status: :bad_request
       end
     end

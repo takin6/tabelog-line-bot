@@ -1,12 +1,14 @@
 window.onload = function (e) {
-  // liff.init(function (data) {});
   liff.init(function (data) {
     initializeApp(data);
   });
+  // initializeApp({});
 };
 
 function initializeApp(data) {
   // userのvalidationを行う。悪意のあるユーザーを排除
+  var $section = $(".section");
+
   liff.getProfile().then(function (profile) {
     $.ajax({
       type: 'POST',
@@ -26,7 +28,9 @@ function initializeApp(data) {
           }
         }
       },
-      success: function (res, status) {},
+      success: function (res, status) {
+        $section.removeClass("is-hide");
+      },
       error: function (res) {
         window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus: " + res.status);
         liff.closeWindow();

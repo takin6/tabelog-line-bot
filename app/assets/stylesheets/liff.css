@@ -202,3 +202,38 @@
   font-size: 30px;
 }
 
+/*for loading*/
+.is-hide{
+  /*visibility:hiddenは名前の通り、要素はあるけど見えない状態。
+  display:noneは、要素も取得されず、完全にその場にない扱い。*/
+  visibility:hidden; 
+}
+.loading{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background:rgba(0,0,0,.5);
+}
+.loading::after{
+  content:"";
+  display:block;
+  position:fixed;
+  left:45%;
+  top:30%;
+  width:50px;
+  height:50px;
+  border-radius:50px;
+  margin-top:-10px;
+  margin-left:-10px;
+  border:6px solid lightgray;
+  border-right:6px solid white;
+  animation: rotate 1s infinite linear;
+}
+@keyframes rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
+
+

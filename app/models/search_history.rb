@@ -41,7 +41,7 @@ class SearchHistory < ApplicationRecord
     result += " ~ #{to}" if from != to
     result += " / #{mongo_custom_restaurants.restaurants.length}\n\n"
 
-    result += "場所: #{self.station.name}\n食事タイプ: #{self.lunch? ? "ランチ" : "ディナー"}\n予算: #{self.lower_budget.format} ~ #{self.upper_budget.format}\nジャンル: #{self.meal_genre}"
+    result += "場所: #{self.station.name}\n食事タイプ: #{self.lunch? ? "ランチ" : "ディナー"}\n予算: #{self.lower_budget.zero? ? "指定なし" : self.lower_budget.format} ~ #{self.upper_budget.zero? ? "指定なし" : self.upper_budget.format}\nジャンル: #{self.meal_genre.nil? ? "指定なし" : self.meal_genre}"
 
     return result
   end

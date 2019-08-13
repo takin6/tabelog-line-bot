@@ -3,8 +3,9 @@ namespace :scraping do
     desc "crawling tabelog restaurant"
     task :crawl => :environment do
       stations = []
-      stations.push(Station.find_by(name: "赤坂見附"))
-      stations.push(Station.find_by(name: "外苑前"))
+      # stations.push(Station.find_by(name: "赤坂見附"))
+      # stations.push(Station.find_by(name: "外苑前"))
+      stations.push(Station.find_by(name: "御徒町"))
 
 
       stations.each do |station|
