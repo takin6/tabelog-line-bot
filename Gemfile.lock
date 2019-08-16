@@ -1,3 +1,27 @@
+GIT
+  remote: git://github.com/elasticsearch/elasticsearch-rails.git
+  revision: 3d995093af90e16eebb45b9a2ec3ed6a88264e9e
+  specs:
+    elasticsearch-model (7.0.0.pre)
+      activesupport (> 3)
+      elasticsearch (> 1)
+      hashie
+    elasticsearch-rails (7.0.0.pre)
+
+GIT
+  remote: git://github.com/elasticsearch/elasticsearch-ruby.git
+  revision: 5a808dfd2255955531c05c3f04622b1a16571929
+  specs:
+    elasticsearch (7.0.0)
+      elasticsearch-api (= 7.0.0)
+      elasticsearch-transport (= 7.0.0)
+    elasticsearch-api (7.0.0)
+      multi_json
+    elasticsearch-dsl (0.1.8)
+    elasticsearch-transport (7.0.0)
+      faraday
+      multi_json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,9 +91,12 @@ GEM
       railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     execjs (2.7.0)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashie (3.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.6.0)
@@ -124,6 +151,8 @@ GEM
       activemodel (>= 5.1, < 6.0.0)
       mongo (>= 2.5.1, < 3.0.0)
     msgpack (1.3.0)
+    multi_json (1.13.1)
+    multipart-post (2.1.1)
     mysql2 (0.5.2)
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.1.0)
@@ -231,6 +260,10 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   dotenv-rails
+  elasticsearch!
+  elasticsearch-dsl!
+  elasticsearch-model!
+  elasticsearch-rails!
   jbuilder (~> 2.5)
   jquery-rails
   line-bot-api

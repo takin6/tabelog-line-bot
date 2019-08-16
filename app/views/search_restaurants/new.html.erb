@@ -13,14 +13,15 @@
             <!-- 場所（elastic search??） -->
             <div class="col-xs-13">
               <div class="form-group">
-                <input class="form-control" id="location" type="text" placeholder="場所" onchange="onChangeLocation()" required>
+                <input class="form-control" id="location" type="text" placeholder="場所" onclick="onClickLocation(event)" onchange="onChangeLocation(event)" required>
                 <span class="form-label">エリア・駅 (例: 渋谷、銀座)</span>
+                <div id="location-choices" class="dropdown-content" />
               </div>
             </div>
             <!-- 食事タイプ -->
             <div class="col-xs-13">
               <div class="form-group">
-                <select class="form-control" id="meal-type" onchange="onChangeMealType()" required>
+                <select class="form-control" id="meal-type" oninput="onChangeMealType()" required>
                   <option value="" selected hidden>食事タイプ</option>
                   <option value="lunch">ランチ</option>
                   <option value="dinner">ディナー</option>
@@ -64,9 +65,9 @@
             <!-- ジャンル -->
             <div class="col-xs-13">
               <div class="form-group">
-                <select class="form-control" id="meal-genre" onchange="onChangeMealKind()" required>
+                <select class="form-control" id="meal-genre" onchange="onChangeMealGenre()" required>
                   <option value="" selected hidden>レストランのジャンル</option>
-                  <option value="なし">指定なし</option>
+                  <option value="指定なし">指定なし</option>
                   <option value="和食">和食</option>
                   <option value="居酒屋">居酒屋</option>
                   <option value="イタリアン">イタリアン</option>

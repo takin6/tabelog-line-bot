@@ -29,7 +29,7 @@ class SearchHistory < ApplicationRecord
       lower_budget_cents: params[:budget][:lower].to_i,
       upper_budget_cents: params[:budget][:upper].to_i,
       meal_type: params[:meal_type],
-      meal_genre: params[:genre] == "なし" ? nil : params[:genre],
+      meal_genre: params[:genre] == "指定なし" ? nil : params[:genre],
       # situation: params[:situation],
       # other_requests: params[:other_requests]
     )
@@ -60,7 +60,7 @@ class SearchHistory < ApplicationRecord
         location: self.station.name,
         meal_type: self.meal_type,
         lower_budget: self.lower_budget_cents,
-        upper_budget: self.lower_budget_cents,
+        upper_budget: self.upper_budget_cents,
         meal_genre: self.meal_genre.nil? ? "指定なし" : self.meal_genre
       }
     end

@@ -33,6 +33,7 @@ module Api
           name: validate_chat_unit_param[:user][:name],
           profile_picture_url: validate_chat_unit_param[:user][:profile_picture_url]
         )
+
         chat_unit = user.chat_unit
       when "room"
         chat_unit = ChatRoom.create_or_find_all_entities!(validate_chat_unit_param[:room][:line_id], validate_chat_unit_param[:user])

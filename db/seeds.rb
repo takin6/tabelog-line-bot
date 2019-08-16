@@ -62,3 +62,8 @@ if Mongo::Restaurants.count == 0
   end
 end
 
+["elasticsearch:create_search_index", "elasticsearch:create_suggest_keyword"].each do |task_name|
+  Rake::Task[task_name].invoke
+end
+
+
