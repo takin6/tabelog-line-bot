@@ -13,7 +13,7 @@
             <!-- 場所（elastic search??） -->
             <div class="col-xs-13">
               <div class="form-group">
-                <input class="form-control" id="location" type="text" placeholder="場所" onclick="onClickLocation(event)" onchange="onChangeLocation(event)" required>
+                <input class="form-control" id="location" type="text" placeholder="場所" oninput="onInputLocation(event)" required>
                 <span class="form-label">エリア・駅 (例: 渋谷、銀座)</span>
                 <div id="location-choices" class="dropdown-content" />
               </div>
@@ -64,20 +64,23 @@
             </div>
             <!-- ジャンル -->
             <div class="col-xs-13">
-              <div class="form-group">
-                <select class="form-control" id="meal-genre" onchange="onChangeMealGenre()" required>
-                  <option value="" selected hidden>レストランのジャンル</option>
-                  <option value="指定なし">指定なし</option>
-                  <option value="和食">和食</option>
-                  <option value="居酒屋">居酒屋</option>
-                  <option value="イタリアン">イタリアン</option>
-                  <option value="中華">中華</option>
-                  <option value="フレンチ">フレンチ</option>
-                </select>
-                <span class="select-arrow"></span>
-                <span class="form-label">レストランのジャンル</span>
+              <div class="form-group meal-genre-form-group">
+                <input class="form-control meal-genre" id="meal-genre" type="text" placeholder="ジャンル" onclick="onClickMealGenre()" onchange="onChangeMealGenre(event)">
+                <span class="form-label">ジャンルを記入(例: もつ鍋、居酒屋) or 選択</span>
+                <div class="genre-bar">
+                  <a href="javascript:void(0);" class="icon" onclick="onClickGenreBar()">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </div>
+                <div id="genres">
+                  <div id="genre-selection-text">0 個選択</div>
+                  <!-- <span class="form-label">5つまで選択できます</span> -->
+                  <% genres = ["指定なし", "和食店・和食レストラン", "天ぷら・揚げ物", "丼もの", "居酒屋・飲み屋", "焼き鳥", "そば・うどん", "ラーメン屋・つけ麺・油そば", "海鮮・寿司", "鍋料理店", "焼肉屋・ホルモン焼き", "イタリアン", "フレンチ", "スペイン料理", "カレー", "中華料理店", "洋食屋", "アジア・エスニック料理店", "バー・バル","カフェ・スイーツの店"] %>
+                  <% genres.each do |genre| %>
+                    <button class="genre-button" id="<%= genre %>" onclick="onClickMealGenreElement(event)" onkeyup="onKeyDownMealGenreElement(event)"><%= genre %></button>
+                  <% end %>
+                </div>
               </div>
-            </div>
             <!-- 用途　追加予定 -->
 
             <!-- その他要望　追加予定 -->

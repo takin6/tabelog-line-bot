@@ -325,3 +325,60 @@ ul {
   background-color: lightgray;
 }
 
+/*genre bar*/
+.form-control.meal-genre {
+  width: 100%;
+  /*margin-right: 5%;*/
+}
+
+.genre-bar a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.genre-bar a.icon {
+  /*background: black;*/
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#genres {
+  display: none;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-top: 1px solid;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+
+.genre-button {
+  background-color: gray;
+  color: white;
+  text-align:center;
+  line-height:30px;
+  border-radius: 30px;
+  margin: 2px;
+}
+
+#genre-selection-text {
+  padding: 5px;
+  color: chocolate;
+  font-weight: bold;
+  font-size: large;
+}
+
+.genre-button.selected {
+  background-color: chocolate;
+  text-decoration: line-through;;
+}
+
