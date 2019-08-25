@@ -74,7 +74,7 @@ module Messenger
       budget = restaurant[meal_type+"_budget"]
       contents << struct_budget_block(budget)
 
-      contents << struct_genre_block(restaurant[:genre])
+      contents << struct_genre_block(restaurant[:area_genre])
 
       return contents
     end

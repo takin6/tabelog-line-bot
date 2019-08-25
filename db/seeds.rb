@@ -32,20 +32,21 @@ if Mongo::Restaurants.count == 0
   restaurant_csvs = Dir.glob(Rails.root.join('db/seeds/*.csv')).select.each do |file_name|
     file_name.match(/.+restaurants.csv/).present?
   end
-  restaurant_keys = ["id", "name", "rating", "genre", "lunch_budget", "dinner_budget", "redirect_url", "thumbnail_image_url"]
+  restaurant_keys = ["id", "name", "rating", "area_genre", "master_genres", "lunch_budget", "dinner_budget", "redirect_url", "thumbnail_image_url"]
   restaurant_csvs.each do |file_name|
     csv_file = CSV.read(file_name)
     csv_file.shift
 
     restaurants = []
     csv_file.each do |row|
-      id, name, rating, genre, lunch_budget, dinner_budget, redirect_url, thumbnail_image_url = row
+      id, name, rating, area_genre, master_genres, lunch_budget, dinner_budget, redirect_url, thumbnail_image_url = row
 
       restaurant_hash = {
         id: id,
         name: name,
         rating: rating,
-        genre: genre,
+        area_genre: area_genre,
+        master_genres: master_genres
         lunch_budget: lunch_budget.is_a?(String) ? lunch_budget.split('[')[1].split("]")[0].split(",").map(&:to_i) : lunch_budget,
         dinner_budget: dinner_budget ? dinner_budget.split('[')[1].split("]")[0].split(",").map(&:to_i) : dinner_budget,
         redirect_url: redirect_url,

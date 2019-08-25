@@ -46,7 +46,7 @@ module Searchable
       def create_index!
         client = __elasticsearch__.client
         client.indices.delete index: self.index_name rescue nil
-        byebug
+
         client.indices.create(
           index: self.index_name,
           body: {

@@ -29,7 +29,11 @@ module Api
     def callback_liff_params
       params.require(:line_liff)
             .permit(
-              :location, :meal_type, :genre,
+              :location, :meal_type,
+              genre: [
+                :custom_input,
+                master_genres: []
+              ],
               budget: %i[lower upper]
             )
     end

@@ -35,7 +35,7 @@ module Messenger
       )
 
       unless api_response.is_a?(Net::HTTPSuccess)
-        File.open(Rails.root.join('log', 'failed_flex_message.json'),"w") do |file| 
+        File.open(Rails.root.join('spec', 'fixtures', 'failed_flex_message.json'),"w") do |file| 
           flex_mesasage = messages.select {|message| message.restaurants? }[0]
           file.puts JSON.pretty_generate(flex_mesasage.line_post_param)
         end

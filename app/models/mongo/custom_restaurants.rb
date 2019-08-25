@@ -64,8 +64,7 @@ module Mongo
       # TODO: situation, other_requestsでのソート
       result = sort_restaurants_by_budget(restaurants, search_history.meal_type, search_history.lower_budget_cents, search_history.upper_budget_cents)
       result = sort_restaurants_by_rating(result)
-      meal_genre = search_history.meal_genre
-      result = sort_restaurants_by_meal_genre(result, meal_genre) if meal_genre
+      result = sort_restaurants_by_meal_genre(result, search_history.custom_meal_genres, search_history.master_genres)
 
       return result
     end
@@ -112,9 +111,33 @@ module Mongo
       end.reverse
     end
 
-    def self.sort_restaurants_by_meal_genre(restaurants, requested_meal_genre)
-      return restaurants.select do |restaurant|
-        restaurant[:genre].include?(requested_meal_genre)
+    def self.sort_restaurants_by_meal_genre(restaurants, requested_custom_genres, requested_master_genres)
+      requested_master_genres = JSON.parse(requested_master_genres)
+
+      if requested_custom_genres
+        return restaurants.select do |restaurant|
+          if requested_custom_genres.map {|custom_genre| restaurant[:area_genre].include?(requested_custom_genre)}.any?
+            if requested_master_genres != ["指定なし"] && restaurant[:master_genres].present?
+              restaurant[:master_genres].map do |master_genre|
+                requested_master_genres.include?(master_genre)
+              end.any?
+            else
+              true
+            end
+          end
+        end
+      else
+        if requested_master_genres == ["指定なし"]
+          return restaurants
+        else
+          return restaurants.select do |restaurant|
+            if restaurant[:master_genres]
+              restaurant[:master_genres].map do |master_genre|
+                requested_master_genres.include?(master_genre)
+              end.any?
+            end
+          end
+        end
       end
     end
 

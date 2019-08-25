@@ -5,6 +5,7 @@ module Mongo
 
     field :station_id
     field :max_page
+    field :meal_genres
     field :restaurants, type: Array
   end
 end
