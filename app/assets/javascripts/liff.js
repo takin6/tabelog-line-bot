@@ -3,12 +3,20 @@ window.onload = function (e) {
   liff.init(function (data) {
     initializeApp(data);
   });
+  // initializeApp();
 };
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  $("#location-choices").toggle(false)
+  $("#location-choices").toggle(false);
 }
+
+document.addEventListener('keydown', function (event) {
+  if (event.which == 13) {
+    event.preventDefault();
+  }
+}, false);
+
 
 function initializeApp(data) {
   // userのvalidationを行う。悪意のあるユーザーを排除
@@ -33,12 +41,8 @@ function initializeApp(data) {
       },
       success: function (res, status) {
         var returnedSearchHistory = res.search_history;
-        if (returnedSearchHistory != "null") {
-          $(".form-group").addClass("input-not-empty");
-          var formElements = ["location", "meal-type", "lower-budget", "upper-budget", "meal-genre"]
-          formElements.map(function( element ) {
-            $("#"+element)[0].value = res.search_history[element.replace("-", "_")]
-          });
+        if (returnedSearchHistory != null) {
+          fillCacheToForm(returnedSearchHistory)
         }
 
         $(".section").removeClass("is-hide");
@@ -55,24 +59,58 @@ function initializeApp(data) {
   });
 }
 
+function fillCacheToForm(returnedSearchHistory) {
+  $(".form-group").addClass("input-not-empty");
+
+  var formElements = ["location", "meal-type", "lower-budget", "upper-budget"]
+  formElements.map(function( element ) {
+    $("#"+element)[0].value = returnedSearchHistory[element.replace("-", "_")]
+  });
+
+  decidedLocation = returnedSearchHistory["location"]
+
+  $("meal-genre").value = returnedSearchHistory["custom_meal_genre"];
+
+  var returned_master_genres = returnedSearchHistory["master_genres"]
+
+  if (returned_master_genres == null) {
+    if (returnedSearchHistory["custom_meal_genre"] != null) {
+      genreButtons.addClass("selected");
+      genreSelectCount = 22;
+      disableInputMealGenre();
+      openGenreBar();
+    }
+  } else {
+    returned_master_genres.forEach(function(master_genre) {
+      $("#"+master_genre["id"]).addClass("selected");
+      genreSelectCount += 1;
+    });
+    openGenreBar();
+  }
+
+  $(".meal-genre-form-group").addClass("input-not-empty");
+  $("#genre-selection-text").text(genreSelectCount + " 個選択");
+}
+
 var lowerBudget = document.getElementById('lower-budget'); var upperBudget = document.getElementById('upper-budget');
 var inputLocation = document.getElementById('location'); 
-var decidedLocation, inputMealType, inputLowerBudget, inputUpperBudget, inputMealGenre;
+var inputMealGenre = document.getElementById('meal-genre'); 
+var inputMealType = document.getElementById("meal-type");
+var inputLowerBudget = document.getElementById("lower-budget");
+var inputUpperBudget = document.getElementById("upper-budget");
+var decidedLocation;
 
-function onChangeLocation(e) {
-  window.alert("reached");
+function onInputLocation(e) {
   decidedLocation = "";
   inputLocation.setCustomValidity("場所を正しく入力してください");
-  inputLocation.value = e.currentTarget.value
   getSuggetWords();
-}
-
-function onClickLocation(e) {
-  // e.stopPropagation();
   if (e.currentTarget.value.length > 1 && $(".location-choice-list").length > 0 && decidedLocation == "") {
     $("#location-choices").toggle(true)
+  } else {
+    $("#location-choices").toggle(false)
   }
 }
+
 function onClickLocationChoice(e) {
   // idにする
   var userChoice = e.currentTarget.innerText
@@ -80,17 +118,25 @@ function onClickLocationChoice(e) {
   inputLocation.value = userChoice;
   inputLocation.setCustomValidity("");
 }
-function onChangeMealType() { 
-  inputMealType = document.getElementById("meal-type").value }
-function onChangeLowerBudget() {
-  inputLowerBudget = document.getElementById("lower-budget").value;
+
+function onChangeBudget() {
   validateBudget();
 }
-function onChangeUpperBudget() {
-  inputUpperBudget = document.getElementById("upper-budget").value;
-  validateBudget();
+
+function onInputMealGenre() {
+  var genres = document.getElementById("genres");
+  var budgetArrow = document.getElementById("budget-arrow");
+  genres.style.display = "none";
+  budgetArrow.style.top = "45%";
 }
-function onChangeMealGenre() { inputMealGenre = document.getElementById("meal-genre").value }
+
+function onClickMealGenre() {
+  $(".meal-genre-form-group").addClass("input-not-empty");
+}
+
+function onChangeMealGenre(event) {
+  $(".meal-genre-form-group").addClass("input-not-empty");
+}
 
 function onResetSearchRestaurant() {
   $(".form-group").removeClass("input-not-empty")
@@ -106,11 +152,14 @@ function onSubmitSearchRestaurant(event) {
     data: {
       line_liff: {
         location: decidedLocation.trim(),
-        meal_type: inputMealType,
-        genre: inputMealGenre,
+        meal_type: inputMealType.value,
+        genre: {
+          custom_input: ["指定なし", ""].includes(inputMealGenre.value) ? undefined : inputMealGenre.value,
+          master_genres: transformMasterGenresToParam()
+        },
         budget: {
-          lower: inputLowerBudget,
-          upper: inputUpperBudget
+          lower: inputLowerBudget.value,
+          upper: inputUpperBudget.value
         }
       }
     },
@@ -131,23 +180,44 @@ function onSubmitSearchRestaurant(event) {
   });
 }
 
-function validateBudget() {
-  var lowerBudgetValue = parseInt(inputLowerBudget); var upperBudgetValue = parseInt(inputUpperBudget)
+function transformMasterGenresToParam() {
+  result = [];
 
-  if (inputLowerBudget == 0 || upperBudgetValue == 0) {
-    lowerBudget.setCustomValidity("");
-    upperBudget.setCustomValidity("");
+  selectedGenreButtons = $(".genre-button.selected");
+  if (selectedGenreButtons.length > 22) {
+    result.push("指定なし")
+  } else {
+    for (var i=0; i<selectedGenreButtons.length; i++) {
+      result.push(selectedGenreButtons[i].textContent);
+    }
+  }
+
+  if (result.length == 0 && inputMealGenre.value == "") {
+    result.push("指定なし");
+  }
+
+  return result;
+}
+
+function validateBudget() {
+  var inputLowerBudgetValue = inputLowerBudget.value;
+  var inputUpperBudgetValue = inputUpperBudget.value;
+  var lowerBudgetValue = parseInt(inputLowerBudgetValue); var upperBudgetValue = parseInt(inputUpperBudgetValue)
+
+  if (lowerBudgetValue == 0 || upperBudgetValue == 0) {
+    inputLowerBudget.setCustomValidity("");
+    inputUpperBudget.setCustomValidity("");
     return;
   };
 
   if (lowerBudgetValue >= upperBudgetValue) {
-    lowerBudget.setCustomValidity("予算を正しく入力してください");
-    upperBudget.setCustomValidity("予算を正しく入力してください");
+    inputLowerBudget.setCustomValidity("予算を正しく入力してください");
+    inputUpperBudget.setCustomValidity("予算を正しく入力してください");
     return;
   };
 
-  lowerBudget.setCustomValidity("");
-  upperBudget.setCustomValidity("");
+  inputLowerBudget.setCustomValidity("");
+  inputUpperBudget.setCustomValidity("");
 }
 
 var timeout = null
@@ -196,4 +266,71 @@ function displaySuggestList() {
   $("#location-choices").toggle(true)
 }
 
+function onClickGenreBar() {
+  var genres = document.getElementById("genres");
+  var budgetArrow = document.getElementById("budget-arrow");
+  genres.style.display === "block" ? closeGenreBar() : openGenreBar();
+}
 
+var genres = document.getElementById("genres");
+var budgetArrow = document.getElementById("budget-arrow");
+function openGenreBar() {
+  genres.style.display = "block";
+  budgetArrow.style.top = "24.7%";
+}
+
+function closeGenreBar() {
+  genres.style.display = "none";
+  budgetArrow.style.top = "45%"
+}
+
+var genreSelectCount = 0;
+var genreButtons = $(".genre-button");
+
+function onClickMealGenreElement(e) {
+  e.preventDefault();
+
+  var genreSelectionText = $("#genre-selection-text");
+  var genreButton = $("#"+e.currentTarget.id);
+
+  if (e.currentTarget.id == "指定なし") {
+    if (genreButton.hasClass("selected")) {
+      genreButtons.removeClass("selected");
+      enableInputMealGenre();
+      genreSelectCount = 0;
+    } else {
+      genreButtons.addClass("selected");
+      genreSelectCount = genreButtons.length - 1;
+      disableInputMealGenre();
+    }
+  } else {
+    if (genreButton.hasClass("selected")) {
+      genreButton.removeClass("selected");
+      genreSelectCount -= 1;
+      if ($("#指定なし").hasClass("selected")) {
+        $("#指定なし").removeClass("selected");
+        enableInputMealGenre();
+      }
+    } else {
+      genreButton.addClass("selected");
+      genreSelectCount += 1;
+      if (genreSelectCount == 22) {
+        $("#指定なし").addClass("selected");
+        disableInputMealGenre();
+      }
+    }
+  }
+
+  $(".meal-genre-form-group").addClass("input-not-empty");
+  genreSelectionText.text(genreSelectCount + " 個選択");
+}
+
+function disableInputMealGenre() {
+  inputMealGenre.value = "指定なし";
+  inputMealGenre.disabled = true
+}
+
+function enableInputMealGenre() {
+  inputMealGenre.value = "";
+  inputMealGenre.disabled = false
+}

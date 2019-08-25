@@ -29,7 +29,8 @@ class SearchHistory < ApplicationRecord
       lower_budget_cents: params[:budget][:lower].to_i,
       upper_budget_cents: params[:budget][:upper].to_i,
       meal_type: params[:meal_type],
-      meal_genre: params[:genre] == "指定なし" ? nil : params[:genre],
+      custom_meal_genres: params[:genre][:custom_input],
+      master_genres: params[:genre][:master_genres].present? ? params[:genre][:master_genres].to_json : ["指定なし"]
       # situation: params[:situation],
       # other_requests: params[:other_requests]
     )
@@ -48,9 +49,24 @@ class SearchHistory < ApplicationRecord
     result += " ~ #{to}" if from != to
     result += " / #{mongo_custom_restaurants.restaurants.length}\n\n"
 
-    result += "場所: #{self.station.name}\n食事タイプ: #{self.lunch? ? "ランチ" : "ディナー"}\n予算: #{self.lower_budget.zero? ? "指定なし" : self.lower_budget.format} ~ #{self.upper_budget.zero? ? "指定なし" : self.upper_budget.format}\nジャンル: #{self.meal_genre.nil? ? "指定なし" : self.meal_genre}"
+    result += "場所: #{self.station.name}\n食事タイプ: #{self.lunch? ? "ランチ" : "ディナー"}\n予算: #{self.lower_budget.zero? ? "指定なし" : self.lower_budget.format} ~ #{self.upper_budget.zero? ? "指定なし" : self.upper_budget.format}\nジャンル: #{self.genre_to_str}"
 
     return result
+  end
+
+  def genre_to_str
+    result = []
+    if custom_meal_genres
+      custom_meal_genres.split("、").map do |custom_genre|
+        result.push(custom_genre)
+      end
+    end
+
+    JSON.parse(master_genres).map do |master_genre|
+      result.push(master_genre)
+    end
+
+    return result.join("、")
   end
 
   def to_json
@@ -61,7 +77,16 @@ class SearchHistory < ApplicationRecord
         meal_type: self.meal_type,
         lower_budget: self.lower_budget_cents,
         upper_budget: self.upper_budget_cents,
-        meal_genre: self.meal_genre.nil? ? "指定なし" : self.meal_genre
+        custom_meal_genre: self.custom_meal_genres.nil? ? "指定なし" : self.custom_meal_genres,
+        master_genres: unless self.master_genres.include?("指定なし")
+                         master_genres_to_a = JSON.parse(self.master_genres)
+                         master_genres_to_a.map do |master_genre|
+                           {
+                             id: MasterRestaurantGenre.find_by(parent_genre: master_genre).id,
+                             parent_genre: master_genre
+                           }
+                          end
+                       end
       }
     end
   end
