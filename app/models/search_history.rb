@@ -18,7 +18,7 @@ class SearchHistory < ApplicationRecord
 
   def is_outdated_cache_id
     # 暫定：24時間より以前のsearch_historyだったら、アクション起こさない
-    return true if created_at > Time.zone.now.ago(24.hours.ago)
+    return true if created_at > Time.zone.now.ago(24.hours)
 
     false
   end
