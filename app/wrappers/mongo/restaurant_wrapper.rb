@@ -8,7 +8,7 @@ module Mongo
 
     def to_restaurant_document
       redirect_url =  restaurant.search(".list-rst__rst-name-target.cpy-rst-name")[0].values.select { |element| UrlUtil.valid_url?(element) }[0]
-      area_genre_text = restaurant.search(".cpy-area-genre").text
+      area_genre_text = restaurant.search(".cpy-area-genre").text.strip!
       # thumbnail_image, url, name, rating, 予算, genre
       restaurant_hash = {
         id: struct_restaurant_id(redirect_url),
@@ -22,12 +22,11 @@ module Mongo
         thumbnail_image_url: restaurant.search(".js-thumbnail-img")[0].values.select { |element| UrlUtil.valid_url?(element) }[0].sub(/150x150_square_/, ''),
       }
 
-      Rails.logger.info "#{restaurant_hash}\n\n\n\n"
       return restaurant_hash
     end
 
     def struct_master_genres(area_genre_text)
-      genres_arr = restaurant["genre"].split("/")[1].split("、").map(&:strip)
+      genres_arr = area_genre_text.split("/")[1].split("、").map(&:strip)
       result = []
       master_genres = MasterRestaurantGenre.all.map(&:to_h)
 

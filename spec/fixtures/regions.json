@@ -1,0 +1,2266 @@
+{
+  "large_area_name": "東京",
+  "large_area_code": "Z011",
+  "areas": [
+    {
+      "name": "銀座・有楽町・新橋・築地・月島",
+      "code": "Y005",
+      "regions": [
+        {
+          "name": "銀座",
+          "code": "X005"
+        },
+        {
+          "name": "東銀座",
+          "code": "X010"
+        },
+        {
+          "name": "有楽町",
+          "code": "X015"
+        },
+        {
+          "name": "新橋",
+          "code": "X020"
+        },
+        {
+          "name": "汐留",
+          "code": "X021"
+        },
+        {
+          "name": "虎ノ門",
+          "code": "X022"
+        },
+        {
+          "name": "築地",
+          "code": "X025"
+        },
+        {
+          "name": "月島",
+          "code": "X026"
+        },
+        {
+          "name": "日比谷",
+          "code": "XA32"
+        },
+        {
+          "name": "新富町",
+          "code": "XA33"
+        },
+        {
+          "name": "勝どき",
+          "code": "XA34"
+        },
+        {
+          "name": "晴海",
+          "code": "XA35"
+        },
+        {
+          "name": "豊洲",
+          "code": "XA36"
+        },
+        {
+          "name": "霞が関",
+          "code": "XA37"
+        },
+        {
+          "name": "神谷町",
+          "code": "XA38"
+        },
+        {
+          "name": "御成門",
+          "code": "XA39"
+        },
+        {
+          "name": "内幸町",
+          "code": "XA3A"
+        }
+      ]
+    },
+    {
+      "name": "水道橋・飯田橋・神楽坂",
+      "code": "Y006",
+      "regions": [
+        {
+          "name": "神楽坂",
+          "code": "X068"
+        },
+        {
+          "name": "飯田橋",
+          "code": "X069"
+        },
+        {
+          "name": "水道橋",
+          "code": "X071"
+        },
+        {
+          "name": "後楽園",
+          "code": "XA1E"
+        },
+        {
+          "name": "春日",
+          "code": "XA1F"
+        },
+        {
+          "name": "千駄木",
+          "code": "XA1H"
+        },
+        {
+          "name": "白山",
+          "code": "XA1I"
+        },
+        {
+          "name": "本郷三丁目",
+          "code": "XA1J"
+        },
+        {
+          "name": "茗荷谷",
+          "code": "XA1K"
+        },
+        {
+          "name": "小石川",
+          "code": "XA1L"
+        },
+        {
+          "name": "江戸川橋",
+          "code": "XA1M"
+        },
+        {
+          "name": "護国寺",
+          "code": "XA1N"
+        }
+      ]
+    },
+    {
+      "name": "お台場",
+      "code": "Y007",
+      "regions": [
+        {
+          "name": "有明",
+          "code": "X073"
+        },
+        {
+          "name": "台場",
+          "code": "X077"
+        },
+        {
+          "name": "青海",
+          "code": "X078"
+        },
+        {
+          "name": "お台場海浜公園",
+          "code": "XA3B"
+        },
+        {
+          "name": "船の科学館",
+          "code": "XA3C"
+        },
+        {
+          "name": "国際展示場",
+          "code": "XA3D"
+        }
+      ]
+    },
+    {
+      "name": "東京・大手町・日本橋・人形町",
+      "code": "Y010",
+      "regions": [
+        {
+          "name": "丸の内",
+          "code": "X030"
+        },
+        {
+          "name": "日本橋",
+          "code": "X035"
+        },
+        {
+          "name": "八重洲",
+          "code": "X040"
+        },
+        {
+          "name": "大手町",
+          "code": "XA2P"
+        },
+        {
+          "name": "三越前",
+          "code": "XA2Q"
+        },
+        {
+          "name": "新日本橋",
+          "code": "XA2R"
+        },
+        {
+          "name": "人形町",
+          "code": "XA2S"
+        },
+        {
+          "name": "水天宮前",
+          "code": "XA2T"
+        },
+        {
+          "name": "京橋・宝町",
+          "code": "XA2U"
+        },
+        {
+          "name": "八丁堀",
+          "code": "XA2V"
+        },
+        {
+          "name": "茅場町",
+          "code": "XA2W"
+        },
+        {
+          "name": "小伝馬町",
+          "code": "XA2X"
+        },
+        {
+          "name": "馬喰町",
+          "code": "XA2Y"
+        },
+        {
+          "name": "浜町",
+          "code": "XA2Z"
+        },
+        {
+          "name": "東日本橋",
+          "code": "XA30"
+        },
+        {
+          "name": "馬喰横山",
+          "code": "XA31"
+        }
+      ]
+    },
+    {
+      "name": "四ツ谷・麹町・市ヶ谷・九段下",
+      "code": "Y013",
+      "regions": [
+        {
+          "name": "四谷三丁目",
+          "code": "X067"
+        },
+        {
+          "name": "麹町",
+          "code": "X072"
+        },
+        {
+          "name": "市ヶ谷",
+          "code": "X074"
+        },
+        {
+          "name": "九段下",
+          "code": "X079"
+        },
+        {
+          "name": "四ツ谷",
+          "code": "XA18"
+        },
+        {
+          "name": "半蔵門",
+          "code": "XA19"
+        },
+        {
+          "name": "信濃町",
+          "code": "XA1A"
+        },
+        {
+          "name": "曙橋",
+          "code": "XA1B"
+        },
+        {
+          "name": "牛込柳町",
+          "code": "XA1C"
+        },
+        {
+          "name": "若松河田",
+          "code": "XA1D"
+        }
+      ]
+    },
+    {
+      "name": "上野・御徒町・浅草",
+      "code": "Y015",
+      "regions": [
+        {
+          "name": "上野",
+          "code": "X045"
+        },
+        {
+          "name": "鶯谷",
+          "code": "X050"
+        },
+        {
+          "name": "浅草",
+          "code": "X051"
+        },
+        {
+          "name": "上野広小路",
+          "code": "XA1S"
+        },
+        {
+          "name": "御徒町",
+          "code": "XA1T"
+        },
+        {
+          "name": "湯島",
+          "code": "XA1U"
+        },
+        {
+          "name": "末広町",
+          "code": "XA1V"
+        },
+        {
+          "name": "蔵前",
+          "code": "XA1W"
+        },
+        {
+          "name": "田原町",
+          "code": "XA1X"
+        },
+        {
+          "name": "入谷",
+          "code": "XA1Y"
+        },
+        {
+          "name": "三ノ輪",
+          "code": "XA1Z"
+        },
+        {
+          "name": "本所吾妻橋",
+          "code": "XA20"
+        }
+      ]
+    },
+    {
+      "name": "北千住・日暮里・葛飾・荒川",
+      "code": "Y016",
+      "regions": [
+        {
+          "name": "日暮里",
+          "code": "X185"
+        },
+        {
+          "name": "葛飾区その他",
+          "code": "X186"
+        },
+        {
+          "name": "北千住",
+          "code": "X192"
+        },
+        {
+          "name": "綾瀬",
+          "code": "XA44"
+        },
+        {
+          "name": "北綾瀬",
+          "code": "XA45"
+        },
+        {
+          "name": "亀有",
+          "code": "XA46"
+        },
+        {
+          "name": "金町",
+          "code": "XA47"
+        },
+        {
+          "name": "西日暮里",
+          "code": "XA48"
+        },
+        {
+          "name": "谷中",
+          "code": "XA49"
+        },
+        {
+          "name": "町屋",
+          "code": "XA4A"
+        },
+        {
+          "name": "三河島",
+          "code": "XA4B"
+        },
+        {
+          "name": "南千住",
+          "code": "XA4C"
+        },
+        {
+          "name": "青砥",
+          "code": "XA4D"
+        },
+        {
+          "name": "高砂",
+          "code": "XA4E"
+        },
+        {
+          "name": "柴又",
+          "code": "XA4F"
+        },
+        {
+          "name": "立石",
+          "code": "XA4G"
+        },
+        {
+          "name": "お花茶屋",
+          "code": "XA4H"
+        },
+        {
+          "name": "堀切菖蒲園",
+          "code": "XA4I"
+        },
+        {
+          "name": "西新井",
+          "code": "XA4J"
+        },
+        {
+          "name": "竹ノ塚",
+          "code": "XA4K"
+        },
+        {
+          "name": "五反野",
+          "code": "XA4L"
+        },
+        {
+          "name": "梅島",
+          "code": "XA4M"
+        },
+        {
+          "name": "西新井大師",
+          "code": "XA4N"
+        },
+        {
+          "name": "高野",
+          "code": "XA4O"
+        },
+        {
+          "name": "舎人公園",
+          "code": "XA4P"
+        },
+        {
+          "name": "荒川区その他",
+          "code": "XA4Q"
+        },
+        {
+          "name": "足立区その他",
+          "code": "XA4R"
+        },
+        {
+          "name": "田端",
+          "code": "XA81"
+        }
+      ]
+    },
+    {
+      "name": "錦糸町・浅草橋・両国・亀戸",
+      "code": "Y017",
+      "regions": [
+        {
+          "name": "錦糸町",
+          "code": "X193"
+        },
+        {
+          "name": "浅草橋",
+          "code": "X194"
+        },
+        {
+          "name": "小岩",
+          "code": "X196"
+        },
+        {
+          "name": "亀戸",
+          "code": "X198"
+        },
+        {
+          "name": "両国",
+          "code": "XA3P"
+        },
+        {
+          "name": "新小岩",
+          "code": "XA3Q"
+        },
+        {
+          "name": "菊川",
+          "code": "XA3R"
+        },
+        {
+          "name": "平井",
+          "code": "XA3S"
+        },
+        {
+          "name": "瑞江",
+          "code": "XA3T"
+        },
+        {
+          "name": "篠崎",
+          "code": "XA3U"
+        },
+        {
+          "name": "一之江",
+          "code": "XA3V"
+        },
+        {
+          "name": "船堀",
+          "code": "XA3W"
+        },
+        {
+          "name": "押上",
+          "code": "XA3X"
+        },
+        {
+          "name": "東京スカイツリー",
+          "code": "XA3Y"
+        },
+        {
+          "name": "曳舟",
+          "code": "XA3Z"
+        },
+        {
+          "name": "向島",
+          "code": "XA40"
+        },
+        {
+          "name": "東向島",
+          "code": "XA41"
+        },
+        {
+          "name": "墨田区その他",
+          "code": "XA42"
+        },
+        {
+          "name": "江戸川区その他",
+          "code": "XA43"
+        }
+      ]
+    },
+    {
+      "name": "門前仲町・東陽町・木場・葛西",
+      "code": "Y018",
+      "regions": [
+        {
+          "name": "西葛西",
+          "code": "X195"
+        },
+        {
+          "name": "門前仲町",
+          "code": "X197"
+        },
+        {
+          "name": "東陽町",
+          "code": "X199"
+        },
+        {
+          "name": "木場",
+          "code": "XA3E"
+        },
+        {
+          "name": "南砂町",
+          "code": "XA3F"
+        },
+        {
+          "name": "葛西",
+          "code": "XA3G"
+        },
+        {
+          "name": "新木場",
+          "code": "XA3H"
+        },
+        {
+          "name": "葛西臨海公園",
+          "code": "XA3I"
+        },
+        {
+          "name": "清澄白河",
+          "code": "XA3J"
+        },
+        {
+          "name": "森下",
+          "code": "XA3K"
+        },
+        {
+          "name": "住吉・猿江",
+          "code": "XA3L"
+        },
+        {
+          "name": "西大島",
+          "code": "XA3M"
+        },
+        {
+          "name": "大島",
+          "code": "XA3N"
+        },
+        {
+          "name": "江東区その他",
+          "code": "XA3O"
+        }
+      ]
+    },
+    {
+      "name": "神田・神保町・秋葉原・御茶ノ水",
+      "code": "Y020",
+      "regions": [
+        {
+          "name": "神田",
+          "code": "X055"
+        },
+        {
+          "name": "秋葉原",
+          "code": "X060"
+        },
+        {
+          "name": "御茶ノ水",
+          "code": "X065"
+        },
+        {
+          "name": "神保町",
+          "code": "X070"
+        },
+        {
+          "name": "根津",
+          "code": "XA1G"
+        },
+        {
+          "name": "竹橋",
+          "code": "XA1O"
+        },
+        {
+          "name": "淡路町",
+          "code": "XA1P"
+        },
+        {
+          "name": "小川町",
+          "code": "XA1Q"
+        },
+        {
+          "name": "岩本町",
+          "code": "XA1R"
+        }
+      ]
+    },
+    {
+      "name": "品川･目黒･田町･浜松町･五反田",
+      "code": "Y025",
+      "regions": [
+        {
+          "name": "品川",
+          "code": "X075"
+        },
+        {
+          "name": "田町",
+          "code": "X080"
+        },
+        {
+          "name": "浜松町",
+          "code": "X085"
+        },
+        {
+          "name": "五反田",
+          "code": "X086"
+        },
+        {
+          "name": "目黒",
+          "code": "X122"
+        },
+        {
+          "name": "三田",
+          "code": "XA21"
+        },
+        {
+          "name": "芝浦",
+          "code": "XA22"
+        },
+        {
+          "name": "大門",
+          "code": "XA23"
+        },
+        {
+          "name": "芝公園",
+          "code": "XA24"
+        },
+        {
+          "name": "東京タワー",
+          "code": "XA25"
+        },
+        {
+          "name": "大崎",
+          "code": "XA26"
+        },
+        {
+          "name": "白金高輪",
+          "code": "XA27"
+        },
+        {
+          "name": "高輪台",
+          "code": "XA28"
+        },
+        {
+          "name": "白金",
+          "code": "XA29"
+        },
+        {
+          "name": "白金台",
+          "code": "XA2A"
+        },
+        {
+          "name": "泉岳寺",
+          "code": "XA2B"
+        },
+        {
+          "name": "竹芝",
+          "code": "XA2F"
+        },
+        {
+          "name": "日の出",
+          "code": "XA2G"
+        },
+        {
+          "name": "天王洲アイル",
+          "code": "XA2H"
+        },
+        {
+          "name": "品川シーサイド",
+          "code": "XA2I"
+        },
+        {
+          "name": "北品川",
+          "code": "XA2J"
+        },
+        {
+          "name": "新馬場",
+          "code": "XA2K"
+        },
+        {
+          "name": "青物横丁",
+          "code": "XA2L"
+        },
+        {
+          "name": "品川区その他",
+          "code": "XA2N"
+        },
+        {
+          "name": "港区その他",
+          "code": "XA2O"
+        }
+      ]
+    },
+    {
+      "name": "蒲田・大森・大田区",
+      "code": "Y026",
+      "regions": [
+        {
+          "name": "矢口渡",
+          "code": "X225"
+        },
+        {
+          "name": "下丸子",
+          "code": "X226"
+        },
+        {
+          "name": "蒲田",
+          "code": "X281"
+        },
+        {
+          "name": "大森",
+          "code": "X283"
+        },
+        {
+          "name": "大田区その他",
+          "code": "X284"
+        },
+        {
+          "name": "大森海岸",
+          "code": "XA4S"
+        },
+        {
+          "name": "平和島",
+          "code": "XA4T"
+        },
+        {
+          "name": "蓮沼",
+          "code": "XA4U"
+        },
+        {
+          "name": "武蔵新田",
+          "code": "XA4V"
+        },
+        {
+          "name": "鵜の木",
+          "code": "XA4W"
+        },
+        {
+          "name": "沼部",
+          "code": "XA4X"
+        },
+        {
+          "name": "羽田空港",
+          "code": "XA4Y"
+        },
+        {
+          "name": "羽田",
+          "code": "XA4Z"
+        },
+        {
+          "name": "大鳥居",
+          "code": "XA50"
+        },
+        {
+          "name": "糀谷",
+          "code": "XA51"
+        },
+        {
+          "name": "雑色",
+          "code": "XA52"
+        }
+      ]
+    },
+    {
+      "name": "渋谷",
+      "code": "Y030",
+      "regions": [
+        {
+          "name": "道玄坂",
+          "code": "X090"
+        },
+        {
+          "name": "宮益坂",
+          "code": "X095"
+        },
+        {
+          "name": "渋谷センター街",
+          "code": "X097"
+        },
+        {
+          "name": "渋谷マークシティ",
+          "code": "XA0S"
+        },
+        {
+          "name": "渋谷公園通り",
+          "code": "XA0T"
+        },
+        {
+          "name": "渋谷東口",
+          "code": "XA0U"
+        },
+        {
+          "name": "桜丘",
+          "code": "XA0V"
+        },
+        {
+          "name": "神泉",
+          "code": "XA0W"
+        },
+        {
+          "name": "宇田川町",
+          "code": "XA9C"
+        },
+        {
+          "name": "渋谷文化村通り",
+          "code": "XA9F"
+        },
+        {
+          "name": "渋谷新南口",
+          "code": "XA9G"
+        }
+      ]
+    },
+    {
+      "name": "原宿・青山・表参道",
+      "code": "Y035",
+      "regions": [
+        {
+          "name": "原宿",
+          "code": "X100"
+        },
+        {
+          "name": "青山",
+          "code": "X105"
+        },
+        {
+          "name": "表参道",
+          "code": "X110"
+        },
+        {
+          "name": "外苑前",
+          "code": "XA0Z"
+        }
+      ]
+    },
+    {
+      "name": "恵比寿・中目黒・代官山・広尾",
+      "code": "Y040",
+      "regions": [
+        {
+          "name": "恵比寿",
+          "code": "X115"
+        },
+        {
+          "name": "広尾",
+          "code": "X120"
+        },
+        {
+          "name": "中目黒",
+          "code": "X121"
+        },
+        {
+          "name": "恵比寿ガーデンプレイス",
+          "code": "XA0X"
+        },
+        {
+          "name": "代官山",
+          "code": "XA0Y"
+        }
+      ]
+    },
+    {
+      "name": "赤坂・六本木・麻布十番・西麻布",
+      "code": "Y045",
+      "regions": [
+        {
+          "name": "赤坂・赤坂見附",
+          "code": "X125"
+        },
+        {
+          "name": "六本木",
+          "code": "X130"
+        },
+        {
+          "name": "西麻布",
+          "code": "X135"
+        },
+        {
+          "name": "六本木一丁目",
+          "code": "XA11"
+        },
+        {
+          "name": "乃木坂",
+          "code": "XA12"
+        },
+        {
+          "name": "溜池山王",
+          "code": "XA13"
+        },
+        {
+          "name": "永田町",
+          "code": "XA14"
+        },
+        {
+          "name": "麻布十番",
+          "code": "XA15"
+        },
+        {
+          "name": "南麻布",
+          "code": "XA16"
+        },
+        {
+          "name": "赤羽橋",
+          "code": "XA17"
+        },
+        {
+          "name": "ミッドタウン",
+          "code": "XA9D"
+        },
+        {
+          "name": "六本木ヒルズ",
+          "code": "XA9E"
+        }
+      ]
+    },
+    {
+      "name": "自由が丘・田園調布",
+      "code": "Y046",
+      "regions": [
+        {
+          "name": "自由が丘",
+          "code": "X136"
+        },
+        {
+          "name": "田園調布",
+          "code": "X153"
+        },
+        {
+          "name": "尾山台",
+          "code": "X207"
+        },
+        {
+          "name": "大岡山",
+          "code": "X208"
+        },
+        {
+          "name": "多摩川",
+          "code": "XA5H"
+        },
+        {
+          "name": "緑が丘",
+          "code": "XA5I"
+        },
+        {
+          "name": "奥沢",
+          "code": "XA5J"
+        },
+        {
+          "name": "九品仏",
+          "code": "XA5K"
+        }
+      ]
+    },
+    {
+      "name": "池袋",
+      "code": "Y050",
+      "regions": [
+        {
+          "name": "東池袋",
+          "code": "X140"
+        },
+        {
+          "name": "池袋東口",
+          "code": "X145"
+        },
+        {
+          "name": "南池袋",
+          "code": "XA0I"
+        },
+        {
+          "name": "目白",
+          "code": "XA0J"
+        },
+        {
+          "name": "雑司が谷",
+          "code": "XA0K"
+        },
+        {
+          "name": "池袋西口",
+          "code": "XA9B"
+        }
+      ]
+    },
+    {
+      "name": "赤羽・王子・十条",
+      "code": "Y051",
+      "regions": [
+        {
+          "name": "赤羽",
+          "code": "X141"
+        },
+        {
+          "name": "王子",
+          "code": "X143"
+        },
+        {
+          "name": "十条",
+          "code": "XA7Z"
+        },
+        {
+          "name": "東十条",
+          "code": "XA80"
+        },
+        {
+          "name": "北区他",
+          "code": "XA89"
+        }
+      ]
+    },
+    {
+      "name": "新宿",
+      "code": "Y055",
+      "regions": [
+        {
+          "name": "歌舞伎町",
+          "code": "X150"
+        },
+        {
+          "name": "代々木",
+          "code": "X155"
+        },
+        {
+          "name": "新宿西口",
+          "code": "X160"
+        },
+        {
+          "name": "新宿東口",
+          "code": "XA00"
+        },
+        {
+          "name": "新宿南口",
+          "code": "XA01"
+        },
+        {
+          "name": "西新宿",
+          "code": "XA02"
+        },
+        {
+          "name": "都庁",
+          "code": "XA03"
+        },
+        {
+          "name": "西武新宿",
+          "code": "XA04"
+        },
+        {
+          "name": "新宿三丁目",
+          "code": "XA06"
+        },
+        {
+          "name": "新宿御苑",
+          "code": "XA07"
+        },
+        {
+          "name": "千駄ヶ谷",
+          "code": "XA08"
+        },
+        {
+          "name": "北参道",
+          "code": "XA09"
+        },
+        {
+          "name": "参宮橋",
+          "code": "XA0A"
+        },
+        {
+          "name": "代々木公園",
+          "code": "XA0B"
+        },
+        {
+          "name": "代々木八幡",
+          "code": "XA0C"
+        }
+      ]
+    },
+    {
+      "name": "新大久保・大久保",
+      "code": "Y056",
+      "regions": [
+        {
+          "name": "大久保",
+          "code": "X170"
+        },
+        {
+          "name": "東新宿",
+          "code": "XA05"
+        },
+        {
+          "name": "新大久保",
+          "code": "XA0D"
+        }
+      ]
+    },
+    {
+      "name": "巣鴨・大塚・駒込",
+      "code": "Y057",
+      "regions": [
+        {
+          "name": "巣鴨",
+          "code": "X139"
+        },
+        {
+          "name": "大塚",
+          "code": "X142"
+        },
+        {
+          "name": "西巣鴨",
+          "code": "XA0L"
+        },
+        {
+          "name": "駒込",
+          "code": "XA0M"
+        },
+        {
+          "name": "新大塚",
+          "code": "XA0N"
+        },
+        {
+          "name": "千石",
+          "code": "XA0O"
+        },
+        {
+          "name": "要町",
+          "code": "XA0P"
+        },
+        {
+          "name": "椎名町",
+          "code": "XA0Q"
+        },
+        {
+          "name": "千川",
+          "code": "XA0R"
+        }
+      ]
+    },
+    {
+      "name": "中野・高円寺・阿佐ヶ谷・方南町",
+      "code": "Y060",
+      "regions": [
+        {
+          "name": "中野",
+          "code": "X175"
+        },
+        {
+          "name": "高円寺",
+          "code": "X180"
+        },
+        {
+          "name": "阿佐ヶ谷",
+          "code": "X181"
+        },
+        {
+          "name": "新中野",
+          "code": "X255"
+        },
+        {
+          "name": "中野坂上",
+          "code": "X256"
+        },
+        {
+          "name": "方南町",
+          "code": "X257"
+        },
+        {
+          "name": "南阿佐ヶ谷",
+          "code": "XA6P"
+        },
+        {
+          "name": "東中野",
+          "code": "XA6Q"
+        },
+        {
+          "name": "東高円寺",
+          "code": "XA6R"
+        },
+        {
+          "name": "新高円寺",
+          "code": "XA6S"
+        },
+        {
+          "name": "中野新橋",
+          "code": "XA6T"
+        },
+        {
+          "name": "中野富士見町",
+          "code": "XA6U"
+        }
+      ]
+    },
+    {
+      "name": "下北沢・代々木上原",
+      "code": "Y070",
+      "regions": [
+        {
+          "name": "下北沢",
+          "code": "X171"
+        },
+        {
+          "name": "代々木上原",
+          "code": "X172"
+        },
+        {
+          "name": "駒場東大前",
+          "code": "X252"
+        },
+        {
+          "name": "東北沢",
+          "code": "XA6G"
+        },
+        {
+          "name": "池ノ上",
+          "code": "XA6H"
+        },
+        {
+          "name": "新代田",
+          "code": "XA6I"
+        },
+        {
+          "name": "世田谷代田",
+          "code": "XA6J"
+        }
+      ]
+    },
+    {
+      "name": "高田馬場",
+      "code": "Y072",
+      "regions": [
+        {
+          "name": "高田馬場駅",
+          "code": "X165"
+        },
+        {
+          "name": "早稲田",
+          "code": "XA0E"
+        },
+        {
+          "name": "西早稲田",
+          "code": "XA0F"
+        },
+        {
+          "name": "落合",
+          "code": "XA0G"
+        },
+        {
+          "name": "下落合",
+          "code": "XA0H"
+        }
+      ]
+    },
+    {
+      "name": "池尻大橋・三軒茶屋・駒沢大学",
+      "code": "Y073",
+      "regions": [
+        {
+          "name": "三軒茶屋",
+          "code": "X137"
+        },
+        {
+          "name": "池尻大橋",
+          "code": "X146"
+        },
+        {
+          "name": "駒沢大学",
+          "code": "X147"
+        },
+        {
+          "name": "世田谷",
+          "code": "X203"
+        },
+        {
+          "name": "豪徳寺",
+          "code": "X204"
+        },
+        {
+          "name": "松陰神社前",
+          "code": "X205"
+        },
+        {
+          "name": "三宿",
+          "code": "XA5N"
+        },
+        {
+          "name": "若林",
+          "code": "XA5O"
+        },
+        {
+          "name": "上町",
+          "code": "XA5P"
+        },
+        {
+          "name": "宮の坂",
+          "code": "XA5Q"
+        },
+        {
+          "name": "松原",
+          "code": "XA5R"
+        }
+      ]
+    },
+    {
+      "name": "桜新町・用賀・二子玉川",
+      "code": "Y074",
+      "regions": [
+        {
+          "name": "二子玉川",
+          "code": "X138"
+        },
+        {
+          "name": "用賀",
+          "code": "X148"
+        },
+        {
+          "name": "等々力",
+          "code": "X206"
+        },
+        {
+          "name": "上野毛",
+          "code": "XA5L"
+        },
+        {
+          "name": "桜新町",
+          "code": "XA5M"
+        }
+      ]
+    },
+    {
+      "name": "祐天寺・学芸大学・都立大学",
+      "code": "Y075",
+      "regions": [
+        {
+          "name": "祐天寺",
+          "code": "X149"
+        },
+        {
+          "name": "学芸大学",
+          "code": "X151"
+        },
+        {
+          "name": "都立大学",
+          "code": "X152"
+        }
+      ]
+    },
+    {
+      "name": "幡ヶ谷・笹塚・明大前・下高井戸",
+      "code": "Y076",
+      "regions": [
+        {
+          "name": "笹塚",
+          "code": "X176"
+        },
+        {
+          "name": "明大前",
+          "code": "X177"
+        },
+        {
+          "name": "浜田山",
+          "code": "X234"
+        },
+        {
+          "name": "久我山",
+          "code": "X235"
+        },
+        {
+          "name": "永福町",
+          "code": "X236"
+        },
+        {
+          "name": "初台",
+          "code": "XA5S"
+        },
+        {
+          "name": "幡ヶ谷",
+          "code": "XA5T"
+        },
+        {
+          "name": "代田橋",
+          "code": "XA5U"
+        },
+        {
+          "name": "下高井戸",
+          "code": "XA5V"
+        },
+        {
+          "name": "西永福",
+          "code": "XA5W"
+        },
+        {
+          "name": "高井戸",
+          "code": "XA5X"
+        },
+        {
+          "name": "富士見ヶ丘",
+          "code": "XA5Y"
+        },
+        {
+          "name": "東松原",
+          "code": "XA5Z"
+        }
+      ]
+    },
+    {
+      "name": "調布・府中・千歳烏山・仙川",
+      "code": "Y077",
+      "regions": [
+        {
+          "name": "調布",
+          "code": "X178"
+        },
+        {
+          "name": "仙川",
+          "code": "X179"
+        },
+        {
+          "name": "府中",
+          "code": "X182"
+        },
+        {
+          "name": "よみうりランド",
+          "code": "X239"
+        },
+        {
+          "name": "府中本町",
+          "code": "XA60"
+        },
+        {
+          "name": "東府中",
+          "code": "XA61"
+        },
+        {
+          "name": "飛田給",
+          "code": "XA62"
+        },
+        {
+          "name": "千歳烏山",
+          "code": "XA65"
+        },
+        {
+          "name": "芦花公園",
+          "code": "XA66"
+        },
+        {
+          "name": "桜上水",
+          "code": "XA67"
+        },
+        {
+          "name": "上北沢",
+          "code": "XA68"
+        },
+        {
+          "name": "八幡山",
+          "code": "XA69"
+        },
+        {
+          "name": "柴崎",
+          "code": "XA6A"
+        },
+        {
+          "name": "国領",
+          "code": "XA6B"
+        },
+        {
+          "name": "布田",
+          "code": "XA6C"
+        },
+        {
+          "name": "つつじヶ丘",
+          "code": "XA9H"
+        }
+      ]
+    },
+    {
+      "name": "経堂・千歳船橋",
+      "code": "Y078",
+      "regions": [
+        {
+          "name": "経堂",
+          "code": "X173"
+        },
+        {
+          "name": "千歳船橋",
+          "code": "XA6K"
+        },
+        {
+          "name": "梅ヶ丘",
+          "code": "XA6L"
+        }
+      ]
+    },
+    {
+      "name": "祖師ヶ谷大蔵・成城学園前",
+      "code": "Y079",
+      "regions": [
+        {
+          "name": "成城学園前",
+          "code": "X174"
+        },
+        {
+          "name": "狛江",
+          "code": "X253"
+        },
+        {
+          "name": "祖師ヶ谷大蔵",
+          "code": "XA6M"
+        },
+        {
+          "name": "喜多見",
+          "code": "XA6N"
+        },
+        {
+          "name": "和泉多摩川",
+          "code": "XA6O"
+        }
+      ]
+    },
+    {
+      "name": "大井町･中延･旗の台･戸越･馬込",
+      "code": "Y080",
+      "regions": [
+        {
+          "name": "戸越銀座",
+          "code": "X209"
+        },
+        {
+          "name": "大井町",
+          "code": "X216"
+        },
+        {
+          "name": "旗の台",
+          "code": "X224"
+        },
+        {
+          "name": "荏原中延",
+          "code": "X229"
+        },
+        {
+          "name": "戸越",
+          "code": "XA2C"
+        },
+        {
+          "name": "馬込",
+          "code": "XA2D"
+        },
+        {
+          "name": "西馬込",
+          "code": "XA2E"
+        },
+        {
+          "name": "西大井",
+          "code": "XA2M"
+        },
+        {
+          "name": "下神明",
+          "code": "XA53"
+        },
+        {
+          "name": "戸越公園",
+          "code": "XA54"
+        },
+        {
+          "name": "中延",
+          "code": "XA55"
+        },
+        {
+          "name": "荏原町",
+          "code": "XA56"
+        },
+        {
+          "name": "北千束",
+          "code": "XA57"
+        }
+      ]
+    },
+    {
+      "name": "不動前・武蔵小山",
+      "code": "Y081",
+      "regions": [
+        {
+          "name": "武蔵小山",
+          "code": "X227"
+        },
+        {
+          "name": "不動前",
+          "code": "XA5E"
+        },
+        {
+          "name": "西小山",
+          "code": "XA5F"
+        },
+        {
+          "name": "洗足",
+          "code": "XA5G"
+        }
+      ]
+    },
+    {
+      "name": "雪が谷大塚・池上",
+      "code": "Y082",
+      "regions": [
+        {
+          "name": "洗足池",
+          "code": "X228"
+        },
+        {
+          "name": "池上",
+          "code": "X233"
+        },
+        {
+          "name": "千鳥町",
+          "code": "XA58"
+        },
+        {
+          "name": "久が原",
+          "code": "XA59"
+        },
+        {
+          "name": "御嶽山",
+          "code": "XA5A"
+        },
+        {
+          "name": "雪が谷大塚",
+          "code": "XA5B"
+        },
+        {
+          "name": "石川台",
+          "code": "XA5C"
+        },
+        {
+          "name": "長原",
+          "code": "XA5D"
+        }
+      ]
+    },
+    {
+      "name": "武蔵小金井",
+      "code": "Y083",
+      "regions": [
+        {
+          "name": "武蔵境",
+          "code": "X259"
+        },
+        {
+          "name": "東小金井",
+          "code": "XA6X"
+        },
+        {
+          "name": "武蔵小金井駅",
+          "code": "XA6Y"
+        }
+      ]
+    },
+    {
+      "name": "国立・国分寺",
+      "code": "Y088",
+      "regions": [
+        {
+          "name": "国分寺",
+          "code": "X223"
+        },
+        {
+          "name": "国立",
+          "code": "XA6Z"
+        },
+        {
+          "name": "西国分寺",
+          "code": "XA70"
+        },
+        {
+          "name": "国分寺市その他",
+          "code": "XA7C"
+        },
+        {
+          "name": "一橋学園",
+          "code": "XA7S"
+        },
+        {
+          "name": "小平市その他",
+          "code": "XA7T"
+        }
+      ]
+    },
+    {
+      "name": "青梅・昭島・小作・青梅線沿線",
+      "code": "Y089",
+      "regions": [
+        {
+          "name": "玉川上水",
+          "code": "XA7G"
+        },
+        {
+          "name": "昭島",
+          "code": "XA7H"
+        },
+        {
+          "name": "拝島",
+          "code": "XA7I"
+        },
+        {
+          "name": "福生",
+          "code": "XA7J"
+        },
+        {
+          "name": "羽村",
+          "code": "XA7K"
+        },
+        {
+          "name": "小作",
+          "code": "XA7L"
+        },
+        {
+          "name": "秋川",
+          "code": "XA7M"
+        },
+        {
+          "name": "羽村市その他",
+          "code": "XA7O"
+        },
+        {
+          "name": "あきる野市その他",
+          "code": "XA7P"
+        },
+        {
+          "name": "東大和",
+          "code": "XA7Q"
+        },
+        {
+          "name": "小川",
+          "code": "XA7R"
+        },
+        {
+          "name": "青梅",
+          "code": "XA98"
+        },
+        {
+          "name": "河辺",
+          "code": "XA99"
+        },
+        {
+          "name": "奥多摩",
+          "code": "XA9A"
+        }
+      ]
+    },
+    {
+      "name": "多摩センター・南大沢",
+      "code": "Y090",
+      "regions": [
+        {
+          "name": "若葉台",
+          "code": "X237"
+        },
+        {
+          "name": "多摩センター",
+          "code": "X264"
+        },
+        {
+          "name": "京王堀之内",
+          "code": "X265"
+        },
+        {
+          "name": "稲城",
+          "code": "XA63"
+        },
+        {
+          "name": "京王多摩川",
+          "code": "XA64"
+        },
+        {
+          "name": "京王永山",
+          "code": "XA71"
+        },
+        {
+          "name": "唐木田",
+          "code": "XA72"
+        },
+        {
+          "name": "南大沢",
+          "code": "XA77"
+        },
+        {
+          "name": "多摩市その他",
+          "code": "XA7D"
+        }
+      ]
+    },
+    {
+      "name": "吉祥寺・荻窪・三鷹",
+      "code": "Y100",
+      "regions": [
+        {
+          "name": "吉祥寺",
+          "code": "X200"
+        },
+        {
+          "name": "荻窪",
+          "code": "X201"
+        },
+        {
+          "name": "三鷹",
+          "code": "X202"
+        },
+        {
+          "name": "井の頭公園",
+          "code": "X258"
+        },
+        {
+          "name": "西荻窪",
+          "code": "XA6V"
+        },
+        {
+          "name": "三鷹台",
+          "code": "XA6W"
+        }
+      ]
+    },
+    {
+      "name": "町田",
+      "code": "Y105",
+      "regions": [
+        {
+          "name": "町田駅",
+          "code": "X210"
+        },
+        {
+          "name": "鶴川",
+          "code": "X266"
+        },
+        {
+          "name": "玉川学園前",
+          "code": "XA7U"
+        },
+        {
+          "name": "成瀬",
+          "code": "XA7V"
+        },
+        {
+          "name": "多摩境",
+          "code": "XA7W"
+        },
+        {
+          "name": "町田市その他",
+          "code": "XA7X"
+        },
+        {
+          "name": "川崎市麻生区その他",
+          "code": "XA7Y"
+        }
+      ]
+    },
+    {
+      "name": "八王子・立川",
+      "code": "Y110",
+      "regions": [
+        {
+          "name": "八王子",
+          "code": "X220"
+        },
+        {
+          "name": "日野",
+          "code": "X221"
+        },
+        {
+          "name": "立川",
+          "code": "X222"
+        },
+        {
+          "name": "豊田",
+          "code": "XA73"
+        },
+        {
+          "name": "高尾山",
+          "code": "XA78"
+        },
+        {
+          "name": "西八王子",
+          "code": "XA79"
+        },
+        {
+          "name": "山田",
+          "code": "XA7A"
+        },
+        {
+          "name": "八王子みなみ野",
+          "code": "XA7B"
+        },
+        {
+          "name": "日野市その他",
+          "code": "XA7E"
+        },
+        {
+          "name": "八王子市その他",
+          "code": "XA7F"
+        },
+        {
+          "name": "立川市その他",
+          "code": "XA7N"
+        }
+      ]
+    },
+    {
+      "name": "西武池袋線（石神井公園～秋津）",
+      "code": "Y111",
+      "regions": [
+        {
+          "name": "石神井公園",
+          "code": "X632"
+        },
+        {
+          "name": "大泉学園",
+          "code": "X633"
+        },
+        {
+          "name": "清瀬",
+          "code": "X634"
+        },
+        {
+          "name": "保谷",
+          "code": "XA8S"
+        },
+        {
+          "name": "ひばりヶ丘",
+          "code": "XA8T"
+        },
+        {
+          "name": "東久留米",
+          "code": "XA8U"
+        },
+        {
+          "name": "秋津",
+          "code": "XA8V"
+        }
+      ]
+    },
+    {
+      "name": "西武新宿線(中井～田無～東村山)",
+      "code": "Y112",
+      "regions": [
+        {
+          "name": "中井",
+          "code": "X635"
+        },
+        {
+          "name": "野方",
+          "code": "X636"
+        },
+        {
+          "name": "下井草",
+          "code": "X637"
+        },
+        {
+          "name": "上石神井",
+          "code": "X638"
+        },
+        {
+          "name": "田無",
+          "code": "X639"
+        },
+        {
+          "name": "東村山",
+          "code": "X640"
+        },
+        {
+          "name": "久米川",
+          "code": "XA8W"
+        },
+        {
+          "name": "小平",
+          "code": "XA8X"
+        },
+        {
+          "name": "花小金井",
+          "code": "XA8Y"
+        },
+        {
+          "name": "西武柳沢",
+          "code": "XA8Z"
+        },
+        {
+          "name": "東伏見",
+          "code": "XA90"
+        },
+        {
+          "name": "武蔵関",
+          "code": "XA91"
+        },
+        {
+          "name": "上井草",
+          "code": "XA92"
+        },
+        {
+          "name": "井荻",
+          "code": "XA93"
+        },
+        {
+          "name": "鷺ノ宮",
+          "code": "XA94"
+        },
+        {
+          "name": "都立家政",
+          "code": "XA95"
+        },
+        {
+          "name": "沼袋",
+          "code": "XA96"
+        },
+        {
+          "name": "新井薬師前",
+          "code": "XA97"
+        }
+      ]
+    },
+    {
+      "name": "練馬・板橋・成増・江古田",
+      "code": "Y113",
+      "regions": [
+        {
+          "name": "板橋",
+          "code": "X144"
+        },
+        {
+          "name": "江古田",
+          "code": "X630"
+        },
+        {
+          "name": "練馬",
+          "code": "X631"
+        },
+        {
+          "name": "大山",
+          "code": "X641"
+        },
+        {
+          "name": "上板橋",
+          "code": "X642"
+        },
+        {
+          "name": "成増",
+          "code": "X643"
+        },
+        {
+          "name": "光が丘",
+          "code": "XA82"
+        },
+        {
+          "name": "練馬春日町",
+          "code": "XA83"
+        },
+        {
+          "name": "豊島園",
+          "code": "XA84"
+        },
+        {
+          "name": "板橋区その他",
+          "code": "XA85"
+        },
+        {
+          "name": "小竹向原",
+          "code": "XA86"
+        },
+        {
+          "name": "氷川台",
+          "code": "XA87"
+        },
+        {
+          "name": "平和台",
+          "code": "XA88"
+        },
+        {
+          "name": "練馬区その他",
+          "code": "XA8A"
+        },
+        {
+          "name": "下赤塚",
+          "code": "XA8B"
+        },
+        {
+          "name": "東武練馬",
+          "code": "XA8C"
+        },
+        {
+          "name": "ときわ台",
+          "code": "XA8D"
+        },
+        {
+          "name": "中板橋",
+          "code": "XA8E"
+        },
+        {
+          "name": "下板橋",
+          "code": "XA8F"
+        },
+        {
+          "name": "東長崎",
+          "code": "XA8N"
+        },
+        {
+          "name": "桜台",
+          "code": "XA8O"
+        },
+        {
+          "name": "中村橋",
+          "code": "XA8P"
+        },
+        {
+          "name": "富士見台",
+          "code": "XA8Q"
+        },
+        {
+          "name": "練馬高野台",
+          "code": "XA8R"
+        }
+      ]
+    },
+    {
+      "name": "都営三田線（新板橋～西高島平）",
+      "code": "Y114",
+      "regions": [
+        {
+          "name": "板橋本町",
+          "code": "X644"
+        },
+        {
+          "name": "志村坂上",
+          "code": "X645"
+        },
+        {
+          "name": "高島平",
+          "code": "X646"
+        },
+        {
+          "name": "西高島平",
+          "code": "X647"
+        },
+        {
+          "name": "新高島平",
+          "code": "XA8G"
+        },
+        {
+          "name": "西台",
+          "code": "XA8H"
+        },
+        {
+          "name": "蓮根",
+          "code": "XA8I"
+        },
+        {
+          "name": "志村三丁目",
+          "code": "XA8J"
+        },
+        {
+          "name": "本蓮沼",
+          "code": "XA8K"
+        },
+        {
+          "name": "板橋区役所前",
+          "code": "XA8L"
+        },
+        {
+          "name": "新板橋",
+          "code": "XA8M"
+        }
+      ]
+    },
+    {
+      "name": "聖蹟桜ヶ丘・高幡不動・分倍河原",
+      "code": "Y119",
+      "regions": [
+        {
+          "name": "北野駅",
+          "code": "X263"
+        },
+        {
+          "name": "高幡不動",
+          "code": "X712"
+        },
+        {
+          "name": "聖蹟桜ヶ丘",
+          "code": "X713"
+        },
+        {
+          "name": "百草園",
+          "code": "XA6D"
+        },
+        {
+          "name": "中河原",
+          "code": "XA6E"
+        },
+        {
+          "name": "分倍河原",
+          "code": "XA6F"
+        },
+        {
+          "name": "南平",
+          "code": "XA74"
+        },
+        {
+          "name": "平山城址公園",
+          "code": "XA75"
+        },
+        {
+          "name": "長沼駅",
+          "code": "XA76"
+        }
+      ]
+    },
+    {
+      "name": "東京都その他",
+      "code": "Y852",
+      "regions": [
+        {
+          "name": "その他東京都",
+          "code": "X874"
+        }
+      ]
+    }
+  ]
+}

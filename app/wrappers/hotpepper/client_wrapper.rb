@@ -8,18 +8,16 @@ module Hotpepper
       @logger = logger
     end
 
-    def get_middle_areas
-      result = client.get_middle_areas
-
-      File.open(Rails.root.join("spec", "fixtures", "middle_areas.json"), "w") do |file|
-        file << JSON.pretty_generate(result.values)
-      end
-
-      return result
+    def get_small_areas(middle_area_code)
+      client.get_small_areas({middle_area: middle_area_code })
     end
 
-    def search_restaurants(station_name)
-      client.search_restaurants({station_name: station_name})
+    def get_middle_areas(large_area_code)
+      client.get_middle_areas({large_area: large_area_code})
+    end
+
+    def search_restaurants_by_region(region_code)
+      client.search_restaurants({small_area: region_code, count: 100})
     end
   end
 end

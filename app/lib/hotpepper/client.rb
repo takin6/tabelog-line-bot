@@ -10,12 +10,16 @@ module Hotpepper
       @request = Request.new(ip, user_agent, test_header)
     end
 
+    def get_small_areas(args={})
+      @request.send_request("/small_area/v1/", "get", args)
+    end
+
     def get_middle_areas(args={})
       @request.send_request("/middle_area/v1/", "get", args)
     end
 
     def search_restaurants(args)
-      @request.send_request("/gourmet/v1/", "post", args)
+      @request.send_request("/gourmet/v1/", "get", args)
     end
   end
 end
