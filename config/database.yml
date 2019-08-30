@@ -15,15 +15,15 @@ default: &default
   charset: utf8mb4
   collation: utf8mb4_bin
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: tabelog-line-bot_development
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   port: <%= ENV['DB_PORT'] %>
   host: <%= ENV['DB_HOST'] %>
   socket: /var/run/mysqld/mysqlx.sock
-
-development:
-  <<: *default
-  database: tabelog-line-bot_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -54,5 +54,7 @@ test:
 production:
   <<: *default
   database: tabelog-line-bot_production
-  username: tabelog-line-bot
-  password: <%= ENV['TABELOG-LINE-BOT_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DB_USER_PRODUCTION'] %>
+  password: <%= ENV['DB_PASSWORD_PRODUCTION'] %>
+  host: <%= ENV['DB_HOST_PRODUCTION'] %>
+  port: <%= ENV['DB_PORT_PRODUCTION'] %> 
