@@ -45,6 +45,7 @@ module Scraper
           break unless recommendation_lists.count == restaurant_lists.count
           # get next url and scrape
           next_url = rank_page.search(".c-pagination__arrow.c-pagination__arrow--next")[0].values.select {|value| UrlUtil.valid_url?(value)}[0]
+          sleep(2)
           rank_page = agent.get(next_url)
         end
 
