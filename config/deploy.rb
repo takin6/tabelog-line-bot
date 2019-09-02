@@ -23,7 +23,7 @@ set :deploy_to, "/projects/tiramis"
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml"
-set :linked_dirs, fetch(:linked_files, []).push('config/settings.yml')
+set :linked_files, fetch(:linked_files, []).push('config/settings.yml')
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -45,7 +45,7 @@ set :rbenv_ruby, '2.6.3'
 
 set :log_level, :debug
 
-namespace deploy do
+namespace :deploy do
   desc 'Restart application'
   task :restart do
     invoke 'unicorn:restart'
@@ -67,13 +67,14 @@ namespace deploy do
     on roles(:app) do
       with rails_env: fetch(:rails_env) do
         within current_path do
-     	  execute :bundle, :exec, :rake, 'db_seed'
-	end
-      end
+     	    execute :bundle, :exec, :rake, 'db_seed'
+        end
+	   end
     end
   end
 
   after :publishing, :restart
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
     end

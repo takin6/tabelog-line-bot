@@ -60,5 +60,5 @@
 #     # password: "please use keys"
 #   }
 
-server ENV['AWS_IP_ADDRESS'], user: 'takayuki', roles %w{app, db web}
-set :ssh_options, keys: '~/.ssh/tiramis_key_rsa'
+server ENV['AWS_IP_ADDRESS'], user: 'takayuki', roles: %w{app db web}
+set :ssh_options, keys: '/home/takayuki/.ssh/tiramis_key_rsa'
