@@ -4,6 +4,8 @@ lock "~> 3.11.1"
 set :application, "tiramis"
 set :repo_url, "git@github.com:takin6/tiramis.git"
 
+set :rails_env, "production"
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :branch, 'master'
