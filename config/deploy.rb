@@ -23,7 +23,7 @@ set :deploy_to, "/projects/tiramis"
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml"
-set :linked_files, fetch(:linked_files, []).push('config/credentials.yml.etc')
+set :linked_files, fetch(:linked_files, []).push('config/master.key')
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
