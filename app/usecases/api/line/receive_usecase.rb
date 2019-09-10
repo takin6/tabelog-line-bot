@@ -6,7 +6,7 @@ module Api
       def receive(request)
         signature = request.env['HTTP_X_LINE_SIGNATURE']
         body = request.body.read
-        client = Messenger::LineWrapper.new
+        client = ::Messenger::LineWrapper.new
         return ServiceResult.new(false, "validation signature failed") unless client.validate_signature(body, signature)
 
         execute(body, client)
