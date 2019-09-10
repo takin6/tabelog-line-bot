@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_131807) do
+ActiveRecord::Schema.define(version: 2019_09_10_211857) do
 
   create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_131807) do
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
     t.integer "meal_type", default: 1, null: false
-    t.json "master_genres", null: false
+    t.json "master_genres"
     t.string "custom_meal_genres"
     t.string "situation"
     t.string "other_requests"

@@ -41,7 +41,7 @@ function initializeApp(data) {
       },
       success: function (res, status) {
         var returnedSearchHistory = res.search_history;
-        if (returnedSearchHistory != null) {
+        if (returnedSearchHistory != "null") {
           fillCacheToForm(returnedSearchHistory)
         }
 
@@ -69,12 +69,12 @@ function fillCacheToForm(returnedSearchHistory) {
 
   decidedLocation = returnedSearchHistory["location"]
 
-  $("meal-genre").value = returnedSearchHistory["custom_meal_genre"];
+  $("#meal-genre")[0].value = returnedSearchHistory["custom_meal_genre"];
 
   var returned_master_genres = returnedSearchHistory["master_genres"]
 
   if (returned_master_genres == null) {
-    if (returnedSearchHistory["custom_meal_genre"] != null) {
+    if (returnedSearchHistory["custom_meal_genre"] == null) {
       genreButtons.addClass("selected");
       genreSelectCount = 22;
       disableInputMealGenre();
