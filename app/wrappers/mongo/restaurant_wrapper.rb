@@ -25,6 +25,22 @@ module Mongo
       return restaurant_hash
     end
 
+    # csvから、restaurant_hashを作るメソッド
+    def to_restaurant_document_from_csv
+      id, name, rating, area_genre, master_genres, lunch_budget, dinner_budget, redirect_url, thumbnail_image_url = restaurant
+      {
+        id: id,
+        name: name,
+        rating: rating,
+        area_genre: area_genre,
+        master_genres: JSON.parse(master_genres),
+        lunch_budget: lunch_budget.is_a?(String) ? lunch_budget.split('[')[1].split("]")[0].split(",").map(&:to_i) : lunch_budget,
+        dinner_budget: dinner_budget ? dinner_budget.split('[')[1].split("]")[0].split(",").map(&:to_i) : dinner_budget,
+        redirect_url: redirect_url,
+        thumbnail_image_url: thumbnail_image_url
+      }
+    end
+
     def struct_master_genres(area_genre_text)
       genres_arr = area_genre_text.split("/")[1].split("、").map(&:strip)
       result = []

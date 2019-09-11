@@ -34,9 +34,9 @@ class ChatGroup < ApplicationRecord
           name: user_params[:name],
           profile_picture_url: user_params[:profile_picture_url]
         )
-        ChatCommunity.create!(community: chat_group, user: user)
+        UserCommunity.create!(community: chat_group, user: user)
       else
-        ChatCommunity.create!(community: chat_group, user: user) if user.chat_groups.include?(chat_group)
+        UserCommunity.create!(community: chat_group, user: user) if user.chat_groups.include?(chat_group)
       end
     end
 

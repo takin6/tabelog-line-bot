@@ -16,8 +16,8 @@ namespace :adhoc do
       end
     end
 
-    desc "recreate_mongo_restaurants"
-    task :recreate_mongo_restaurants => :environment do
+    desc "add master_genres to mongo_restaurants"
+    task :add_master_genres_to_mongo_restaurants => :environment do
       master_restaurant_genres_to_a = MasterRestaurantGenre.all.map(&:to_h)
 
       Mongo::Restaurants.all.map do |mongo_restaurants|
@@ -90,27 +90,30 @@ namespace :adhoc do
 
     desc "output to master data"
     task :output_to_master_data => :environment do 
-      restaurant_keys = ["id", "name", "rating", "area_genre", "master_genres", "lunch_budget", "dinner_budget", "redirect_url", "thumbnail_image_url"]
+      restaurant_keys = ["station_id", "id", "name", "rating", "area_genre", "master_genres", "lunch_budget", "dinner_budget", "redirect_url", "thumbnail_image_url"]
       pager_index = 0
 
-      Mongo::Restaurants.all.map do |mongo_restaurant|
-        station_name = Station.find(mongo_restaurant.station_id).name
-        p station_name
+      CSV.open(Rails.root.join("db", "seeds", "300_master_restaurants.csv"), 'w') do |csv|
+        csv << restaurant_keys
 
-        CSV.open(Rails.root.join("db", "seeds", "00#{3+pager_index}_#{station_name}_restaurants.csv"), 'w') do |csv|
-          csv << restaurant_keys
+        Mongo::Restaurants.all.map do |mongo_restaurant|
+          station_id = mongo_restaurant.station_id
+          p station_id
+
           mongo_restaurant.restaurants.each do |restaurant|
-            row_result = []
-            restaurant_keys.each do |key|
+            row_result = [station_id]
+            restaurant_keys[1..].each do |key|
               row_result.push(restaurant[key])
             end
 
             csv << row_result
           end
         end
-
-        pager_index += 1
       end
     end
   end
 end
+
+
+
+

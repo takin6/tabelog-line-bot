@@ -9,4 +9,3 @@ module Mongo
     field :restaurants, type: Array
   end
 end
-

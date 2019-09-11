@@ -11,9 +11,21 @@ module Mongo
       # search_historiesをリスト見たいのにして、誰が検索したのかわかったら面白いかも？
       return {
         station_id: station.id,
+        # station_name: station.name,
         max_page: max_page,
         restaurants: restaurant_wrappers.map do |restaurant|
           restaurant.to_restaurant_document
+        end
+      }
+    end
+
+    def to_restaurant_document_from_csv
+      return {
+        station_id: station.id,
+        # station_name: station.name,
+        max_page: max_page,
+        restaurants: restaurant_wrappers.map do |restaurant|
+          restaurant.to_restaurant_document_from_csv
         end
       }
     end

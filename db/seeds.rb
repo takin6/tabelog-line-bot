@@ -28,40 +28,38 @@ csv.each do |id, region_id, name|
   Station.create(id: id, region_id: region_id, name: name)
 end
 
+csv = CSV.read(Rails.root.join("db", "seeds", "100_genre.csv"))
+csv.shift
+csv.each.with_index(1) do |row, index|
+  MasterRestaurantGenre.create!(parent_genre: row[0], child_genres: row[1])
+end
+
 if Mongo::Restaurants.count == 0
-  restaurant_csvs = Dir.glob(Rails.root.join('db/seeds/*.csv')).select.each do |file_name|
-    file_name.match(/.+restaurants.csv/).present?
-  end
-  restaurant_keys = ["id", "name", "rating", "area_genre", "master_genres", "lunch_budget", "dinner_budget", "redirect_url", "thumbnail_image_url"]
-  restaurant_csvs.each do |file_name|
-    csv_file = CSV.read(file_name)
-    csv_file.shift
-
-    restaurants = []
-    csv_file.each do |row|
-      id, name, rating, area_genre, master_genres, lunch_budget, dinner_budget, redirect_url, thumbnail_image_url = row
-
-      restaurant_hash = {
-        id: id,
-        name: name,
-        rating: rating,
-        area_genre: area_genre,
-        master_genres: master_genres
-        lunch_budget: lunch_budget.is_a?(String) ? lunch_budget.split('[')[1].split("]")[0].split(",").map(&:to_i) : lunch_budget,
-        dinner_budget: dinner_budget ? dinner_budget.split('[')[1].split("]")[0].split(",").map(&:to_i) : dinner_budget,
-        redirect_url: redirect_url,
-        thumbnail_image_url: thumbnail_image_url
-      }
-
-      restaurants.push(restaurant_hash)
+  csv_file = CSV.read(Rails.root.join("db", "seeds", "200_master_restaurants.csv"))
+  csv_file.shift
+  
+  station_id_restaurants_hash = {}
+  csv_file.each do |row|
+    if station_id_restaurants_hash[row[0]]
+      station_id_restaurants_hash[row[0]].push row[1..]
+    else
+      station_id_restaurants_hash[row[0]] = [row[1..]]
     end
-    
-    station_name = file_name.split("_")[1]
-    station = Station.find_by(name: station_name)
-    station.save!
-    Mongo::Restaurants.create!(station_id: station.id, max_page: (restaurants.count / 8.0).ceil, restaurants: restaurants)
+  end
+
+  station_id_restaurants_hash.each do |station_id, restaurants|
+    restaurant_wrappers = restaurants.map { |restaurant_row| Mongo::RestaurantWrapper.new(restaurant_row) }
+    station = Station.find_by(id: station_id)
+
+    restaurants_hash = Mongo::RestaurantsWrapper.new(station, restaurant_wrappers).to_restaurant_document_from_csv
+
+    Mongo::Restaurants.collection.bulk_write([{ insert_one: restaurants_hash}])
   end
 end
+
+# restaurant_csvs = Dir.glob(Rails.root.join('db/seeds/*.csv')).select.each do |file_name|
+#   file_name.match(/.+restaurants.csv/).present?
+# end
 
 ["elasticsearch:create_search_index", "elasticsearch:create_suggest_keyword"].each do |task_name|
   Rake::Task[task_name].invoke

@@ -112,12 +112,13 @@ module Mongo
     end
 
     def self.sort_restaurants_by_meal_genre(restaurants, requested_custom_genres, requested_master_genres)
-      requested_master_genres = JSON.parse(requested_master_genres)
+      requested_master_genres = requested_master_genres.is_a?(String) ? JSON.parse(requested_master_genres) : requested_master_genres
+      requested_custom_genres = requested_custom_genres&.split("、")
 
       if requested_custom_genres
         return restaurants.select do |restaurant|
-          if requested_custom_genres.map {|custom_genre| restaurant[:area_genre].include?(requested_custom_genre)}.any?
-            if requested_master_genres != ["指定なし"] && restaurant[:master_genres].present?
+          if requested_custom_genres.map {|custom_genre| restaurant[:area_genre].include?(custom_genre)}.any?
+            if ![["指定なし"], nil].include?(requested_master_genres) && restaurant[:master_genres].present?
               restaurant[:master_genres].map do |master_genre|
                 requested_master_genres.include?(master_genre)
               end.any?

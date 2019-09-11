@@ -7,7 +7,6 @@ namespace :elasticsearch do
   desc "input elasticsearch documents"
   task :create_suggest_keyword => :environment do
     Station.__elasticsearch__.import
-    MasterRestaurantGenre.__elasticsearch__.import
   end
 
   desc "sample search"

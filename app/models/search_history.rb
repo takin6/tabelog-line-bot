@@ -30,7 +30,7 @@ class SearchHistory < ApplicationRecord
       upper_budget_cents: params[:budget][:upper].to_i,
       meal_type: params[:meal_type],
       custom_meal_genres: params[:genre][:custom_input],
-      master_genres: params[:genre][:master_genres].present? ? params[:genre][:master_genres].to_json : ["指定なし"]
+      master_genres: params[:genre][:master_genres].present? ? params[:genre][:master_genres].to_json : nil
       # situation: params[:situation],
       # other_requests: params[:other_requests]
     )
@@ -62,8 +62,11 @@ class SearchHistory < ApplicationRecord
       end
     end
 
-    JSON.parse(master_genres).map do |master_genre|
-      result.push(master_genre)
+    parsed_mater_genres = master_genres.is_a?(String) ? JSON.parse(master_genres) : master_genres
+    if parsed_mater_genres
+      parsed_mater_genres.map do |master_genre|
+        result.push(master_genre)
+      end
     end
 
     return result.join("、")
@@ -77,15 +80,17 @@ class SearchHistory < ApplicationRecord
         meal_type: self.meal_type,
         lower_budget: self.lower_budget_cents,
         upper_budget: self.upper_budget_cents,
-        custom_meal_genre: self.custom_meal_genres.nil? ? "指定なし" : self.custom_meal_genres,
-        master_genres: unless self.master_genres.include?("指定なし")
-                         master_genres_to_a = JSON.parse(self.master_genres)
-                         master_genres_to_a.map do |master_genre|
-                           {
-                             id: MasterRestaurantGenre.find_by(parent_genre: master_genre).id,
-                             parent_genre: master_genre
-                           }
-                          end
+        custom_meal_genre: self.custom_meal_genres.nil? ? "" : self.custom_meal_genres,
+        master_genres: if self.master_genres.present?
+                         unless self.master_genres.include?("指定なし")
+                           master_genres_to_a = JSON.parse(self.master_genres)
+                           master_genres_to_a.map do |master_genre|
+                             {
+                               id: MasterRestaurantGenre.find_by(parent_genre: master_genre).id,
+                               parent_genre: master_genre
+                             }
+                            end
+                         end
                        end
       }
     end
