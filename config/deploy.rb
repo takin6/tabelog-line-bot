@@ -53,6 +53,10 @@ set :rbenv_ruby, '2.6.3'
 
 set :log_level, :debug
 
+set :sidekiq_role, :app
+set :sidekiq_config, "config/sidekiq.yml"
+set :sidekiq_env, 'production'
+
 namespace :deploy do
   desc 'Restart application'
   task :restart do
