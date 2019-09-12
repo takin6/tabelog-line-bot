@@ -41,7 +41,8 @@ function initializeApp(data) {
       },
       success: function (res, status) {
         var returnedSearchHistory = res.search_history;
-        if (returnedSearchHistory != "null") {
+
+        if (returnedSearchHistory != null) {
           fillCacheToForm(returnedSearchHistory)
         }
 
