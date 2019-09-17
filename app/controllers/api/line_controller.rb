@@ -13,7 +13,7 @@ module Api
     end
 
     def callback_liff
-      head :bad_request unless current_chat_unit
+      # head :bad_request unless current_chat_unit
       result = Api::Line::Liff::ReceiveUsecase.new(current_chat_unit, callback_liff_params).execute
 
       if result.success

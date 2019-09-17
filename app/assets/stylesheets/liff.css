@@ -18,6 +18,11 @@
 
 }
 
+input {
+  /*change the color of cusor to white*/
+  caret-color: white;
+}
+
 #booking {
   font-family: 'Raleway', sans-serif;
 }

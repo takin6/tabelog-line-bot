@@ -26,18 +26,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <%= stylesheet_link_tag    'liff', media: 'all' %>
+    <%= stylesheet_link_tag    'restaurants', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
     <%= yield %>
 
-    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+    <!-- <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script> -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <%= javascript_include_tag 'liff' %>
+    <%= javascript_include_tag 'restaurants' %>
   </body>
 </html>
-
-
 

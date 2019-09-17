@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :search_restaurants, only: [:new]
+  resources :restaurants, only: [:index]
 
   namespace :api do
     namespace :stations do
@@ -9,5 +10,6 @@ Rails.application.routes.draw do
     post "/line/callback"
     post "/line/callback_liff"
     post "validate_chat_unit", to: "validate_chat_unit#create"
+    resources :restaurants, only: [:create]
   end
 end
