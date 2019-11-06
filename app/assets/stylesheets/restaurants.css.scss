@@ -1,0 +1,663 @@
+/*for loading*/
+.is-hide{
+  /*visibility:hiddenは名前の通り、要素はあるけど見えない状態。
+  display:noneは、要素も取得されず、完全にその場にない扱い。*/
+  visibility:hidden; 
+}
+.loading{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background:rgba(0,0,0,.5);
+  &:after {
+    content:"";
+    display:block;
+    position:fixed;
+    left:45%;
+    top:30%;
+    width:50px;
+    height:50px;
+    border-radius:50px;
+    margin-top:-10px;
+    margin-left:-10px;
+    border:6px solid lightgray;
+    border-right:6px solid white;
+    animation: rotate 1s infinite linear;
+    @keyframes rotate {
+      0%    { transform: rotate(0deg); }
+      100%  { transform: rotate(360deg); }
+    }
+
+  }
+}
+
+// constant
+$color_white: #fff;
+$color_prime: #5ad67d;
+$color_grey: #e2e2e2;
+$color_grey_dark: #a2a2a2;
+
+/* Style the header */
+.header {
+  padding: 10px 0;
+  background: white;
+  font-size: x-small;
+  border-bottom: 1px solid orange;
+  text-align: center;
+  // display: flex;
+  // justify-content: space-evenly;
+  .app-title {
+    font-size: 24px;
+    color: orange;
+    font-weight: bold;
+  }
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky-header {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky-header + .restaurants {
+  padding-top: 102px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f1f1f1;
+  // margin: 2rem;
+}
+
+// .restaurants {
+//   margin-bottom: 50px;
+// }
+.restaurant  {
+  display: block;
+  // display: none;
+  flex-direction: column;
+  margin: 1rem auto;
+  // remove button default style
+  text-align: unset;
+  border: none;
+  // margin: 18px 0;
+  box-shadow: 0 3px 7px -1px rgba(#000, .1);
+  margin-bottom: 1.6%;
+  background: $color_white;
+  line-height: 1.4;
+  font-family: sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+  a {
+    color: inherit;
+    &:hover {
+      color: $color_prime;
+    }
+  }
+  &:hover {
+    .photo {
+      transform: scale(1.3) rotate(3deg);
+    }
+  }
+  .contents {
+    margin: 20px;
+    .restaurant-header {
+      position: relative;
+      // font-awesomeをposition: absolute;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      .select-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 4rem;
+        height: 4rem;
+        font-size: 4rem;
+        color: gray;
+      }
+      .shop-name {
+        // separator
+        font-size: 1.6rem;
+        font-weight: bold;
+        .shop-name-decorator {
+          border-left: 2px solid orange;
+          margin-right: 1rem;
+        }
+      }
+      .sub-header {
+        // display: flex;
+        margin-top: 0.5rem;
+        .category {
+          margin: auto;
+          // margin-left: 20px;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
+    .restaurant-pics {
+      display: flex;
+      overflow: auto;
+      // restaurant-picはResponsiveに
+      .restaurant-pic {
+        margin-right: 0.3rem;
+      }
+    }
+    .sub-contents {
+      margin-top: 0.5rem;
+      .reputation {
+        display: flex;
+        .star-rating {
+          position: relative;
+          width: 5em;
+          font-size: 1.6rem;
+        }
+        .star-rating-front {
+          position: absolute;
+          top: 0;
+          left: 0;
+          overflow: hidden;
+          color: #ffcc33;
+        }
+        .star-rating-back {
+          color: #ccc;
+        }
+        .rating-text {
+          margin-left: 10px;
+          font-size: 1.6rem;
+          font-weight: bold;
+        }
+        .comment-count {
+          margin: auto;
+          margin-left: 5rem;
+        }
+      }
+      .budget {
+        display: flex;
+        .lunch-budget {
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .evening-budget {
+          margin-left: 5rem;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  .meta {
+    position: relative;
+    z-index: 0;
+    height: 200px;
+  }
+  .photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform .2s;
+  }
+  .details,
+  .details ul {
+    margin: auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .details {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    margin: auto;
+    transition: left .2s;
+    background: rgba(#000, .6);
+    color: $color_white;
+    padding: 10px;
+    width: 100%;
+    font-size: .9rem;
+    a {
+      text-decoration: dotted underline
+    }
+    ul li {
+      display: inline-block;
+    }
+    .author:before {
+      font-family: FontAwesome;
+      margin-right: 10px;
+      content: "\f007";
+    }
+
+    .date:before {
+      font-family: FontAwesome;
+      margin-right: 10px;
+      content: "\f133";
+    }
+
+    .tags {
+      ul:before {
+        font-family: FontAwesome;
+        content: "\f02b";
+        margin-right: 10px;
+      }
+      li {
+        margin-right: 2px;
+        &:first-child {
+          margin-left: -4px;
+        }
+      }
+    }
+  }
+  .description {
+    padding: 1rem;
+    background: $color_white;
+    position: relative;
+    z-index: 1;
+    h1,
+    h2 {
+      font-family: Poppins, sans-serif;
+    }
+    h1 {
+      line-height: 1;
+      margin: 0;
+      font-size: 1.7rem;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      color: $color_grey_dark;
+      margin-top: 5px;
+    }
+    .read-more {
+      text-align: right;
+      a {
+        color: $color_prime;
+        display: inline-block;
+        position: relative;
+        &:after {
+          content: "\f061";
+          font-family: FontAwesome;
+          margin-left: -10px;
+          opacity: 0;
+          vertical-align: middle;
+          transition: margin .3s, opacity .3s;
+        }
+
+        &:hover:after {
+          margin-left: 5px;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  p {
+    position: relative;
+    margin: 1rem 0 0;
+    &:first-of-type {
+      margin-top: 1.25rem;
+      &:before {
+        content: "";
+        position: absolute;
+        height: 5px;
+        background: $color_prime;
+        width: 35px;
+        top: -0.75rem;
+        border-radius: 3px;
+      }
+    }
+  }
+  &:hover {
+    .details {
+      left: 0%;
+    }
+  }
+
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    max-width: 600px;
+    min-height: 300px;
+    .meta {
+      flex-basis: 40%;
+      height: auto;
+    }
+    .description {
+      flex-basis: 60%;
+      &:before {
+        transform: skewX(-3deg);
+        content: "";
+        background: #fff;
+        width: 30px;
+        position: absolute;
+        left: -10px;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+      }
+    }
+    .restaurant-pic {
+      width: 150px;
+      // margin-right: 10px;
+      height: 150px;
+    }
+    &.alt {
+      flex-direction: row-reverse;
+      .description {
+        &:before {
+          left: inherit;
+          right: -10px;
+          transform: skew(3deg)
+        }
+      }
+      .details {
+        padding-left: 25px;
+      }
+    }
+  }
+  @media screen and (max-width: 480px) {
+  /* 480pxまでの幅の場合に適応される */
+    .restaurant-pic {
+      width: 100px;
+      // margin-right: 10px;
+      height: 100px;
+    }
+  }
+}
+
+#loadMore {
+  width: 200px;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  color: orange;
+  transition: .3s;
+}
+#loadAll {
+  width: 200px;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  color: orange;
+  transition: .3s;
+}
+
+.noContent {
+  color: #000 !important;
+  // background-color: transparent !important;
+  pointer-events: none;
+}
+
+.navbar-inverse {
+  text-align: center;
+  background-color: white;
+  border-color: orange;
+  .make-fav-list {
+    width: 400px;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid orange;
+    color: white;
+    background-color: orange;
+    border: 1px solid orange;
+    // background-color: blue;
+    transition: .3s;
+    .selected-restaurants-count {
+      font-size: 20px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+/* 480pxまでの幅の場合に適応される */
+    .make-fav-list {
+      width: 300px;
+    }
+  }
+}
+
+.modal {
+  top: 20%;
+}
+.modal-header {
+  display: flex;
+  background-color: orange;
+  color: white;
+  align-items: flex-start;
+  justify-content: space-between;
+  .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+  }
+}
+.modal-title {
+  width: 100%!important;
+}
+.modal-notify .modal-header {
+    border-radius: 3px 3px 0 0;
+}
+.modal-notify .modal-content {
+    border-radius: 3px;
+}
+.modal-footer {
+  justify-content: center!important;
+  text-align: center;
+  button {
+    border: 1px solid orange;
+    color: orange;
+    &:hover {
+      color: orange;
+    }
+  }
+}
+
+
+
+// .blog-card {
+//   display: flex;
+//   flex-direction: column;
+//   margin: 1rem auto;
+//   box-shadow: 0 3px 7px -1px rgba(#000, .1);
+//   margin-bottom: 1.6%;
+//   background: $color_white;
+//   line-height: 1.4;
+//   font-family: sans-serif;
+//   border-radius: 5px;
+//   overflow: hidden;
+//   z-index: 0;
+//   a {
+//     color: inherit;
+//     &:hover {
+//       color: $color_prime;
+//     }
+//   }
+//   &:hover {
+//     .photo {
+//       transform: scale(1.3) rotate(3deg);
+//     }
+//   }
+//   .meta {
+//     position: relative;
+//     z-index: 0;
+//     height: 200px;
+//   }
+//   .photo {
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     background-size: cover;
+//     background-position: center;
+//     transition: transform .2s;
+//   }
+//   .details,
+//   .details ul {
+//     margin: auto;
+//     padding: 0;
+//     list-style: none;
+//   }
+
+//   .details {
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: -100%;
+//     margin: auto;
+//     transition: left .2s;
+//     background: rgba(#000, .6);
+//     color: $color_white;
+//     padding: 10px;
+//     width: 100%;
+//     font-size: .9rem;
+//     a {
+//       text-decoration: dotted underline
+//     }
+//     ul li {
+//       display: inline-block;
+//     }
+//     .author:before {
+//       font-family: FontAwesome;
+//       margin-right: 10px;
+//       content: "\f007";
+//     }
+
+//     .date:before {
+//       font-family: FontAwesome;
+//       margin-right: 10px;
+//       content: "\f133";
+//     }
+
+//     .tags {
+//       ul:before {
+//         font-family: FontAwesome;
+//         content: "\f02b";
+//         margin-right: 10px;
+//       }
+//       li {
+//         margin-right: 2px;
+//         &:first-child {
+//           margin-left: -4px;
+//         }
+//       }
+//     }
+//   }
+//   .description {
+//     padding: 1rem;
+//     background: $color_white;
+//     position: relative;
+//     z-index: 1;
+//     h1,
+//     h2 {
+//       font-family: Poppins, sans-serif;
+//     }
+//     h1 {
+//       line-height: 1;
+//       margin: 0;
+//       font-size: 1.7rem;
+//     }
+//     h2 {
+//       font-size: 1rem;
+//       font-weight: 300;
+//       text-transform: uppercase;
+//       color: $color_grey_dark;
+//       margin-top: 5px;
+//     }
+//     .read-more {
+//       text-align: right;
+//       a {
+//         color: $color_prime;
+//         display: inline-block;
+//         position: relative;
+//         &:after {
+//           content: "\f061";
+//           font-family: FontAwesome;
+//           margin-left: -10px;
+//           opacity: 0;
+//           vertical-align: middle;
+//           transition: margin .3s, opacity .3s;
+//         }
+
+//         &:hover:after {
+//           margin-left: 5px;
+//           opacity: 1;
+//         }
+//       }
+//     }
+//   }
+//   p {
+//     position: relative;
+//     margin: 1rem 0 0;
+//     &:first-of-type {
+//       margin-top: 1.25rem;
+//       &:before {
+//         content: "";
+//         position: absolute;
+//         height: 5px;
+//         background: $color_prime;
+//         width: 35px;
+//         top: -0.75rem;
+//         border-radius: 3px;
+//       }
+//     }
+//   }
+//   &:hover {
+//     .details {
+//       left: 0%;
+//     }
+//   }
+
+
+//   @media (min-width: 640px) {
+//     flex-direction: row;
+//     max-width: 700px;
+//     min-height: 300px;
+//     .meta {
+//       flex-basis: 40%;
+//       height: auto;
+//     }
+//     .description {
+//       flex-basis: 60%;
+//       &:before {
+//         transform: skewX(-3deg);
+//         content: "";
+//         background: #fff;
+//         width: 30px;
+//         position: absolute;
+//         left: -10px;
+//         top: 0;
+//         bottom: 0;
+//         z-index: -1;
+//       }
+//     }
+//     &.alt {
+//       flex-direction: row-reverse;
+//       .description {
+//         &:before {
+//           left: inherit;
+//           right: -10px;
+//           transform: skew(3deg)
+//         }
+//       }
+//       .details {
+//         padding-left: 25px;
+//       }
+//     }
+//   }
+// }
