@@ -1,0 +1,72 @@
+/*ページネーション自体のデザイン*/
+.pagination-wrapper {
+  text-align: center;
+  margin: 1rem auto;
+
+  display: block;
+  flex-direction: column;
+  // margin: 18px 0;
+  box-shadow: 0 3px 7px -1px rgba(#000, .1);
+  margin-bottom: 1.6%;
+  background: white;
+  line-height: 1.4;
+  font-family: sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+  @media (min-width: 640px) {
+    max-width: 600px;
+  }
+  // @media screen and (max-width: 480px) {
+  // /* 480pxまでの幅の場合に適応される */
+  //   .restaurant-pic {
+  //     width: 100px;
+  //     // margin-right: 10px;
+  //     height: 100px;
+  //   }
+  // }
+  .pagination {
+    font-size: 1rem;
+  }
+}
+
+.pagination {
+  display: inline-block;
+  a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    .active {
+      background-color: #4CAF50;
+      color: white;
+      border: 1px solid #4CAF50;
+    }
+    &:hover:not(.active) {background-color: #ddd;}
+  }
+
+  .current {
+    background: orange;
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+
+  .gap {
+    color: black;
+    float: left;
+    padding: 8px 3px;
+    text-decoration: none;
+    transition: background-color .3s;
+    // border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+}
+
