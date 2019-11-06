@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :search_histories, dependent: :destroy
   has_many :messages, dependent: :destroy
 
+  has_many :restaurant_data_sets, dependent: :destroy
+
   validates :line_id, presence: true
   validates :name, presence: true
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_004153) do
+ActiveRecord::Schema.define(version: 2019_11_06_045123) do
 
   create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
@@ -100,6 +100,16 @@ ActiveRecord::Schema.define(version: 2019_11_06_004153) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "restaurant_data_sets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "cache_id", null: false
+    t.string "mongo_custom_restaurants_id", null: false
+    t.json "selected_restaurant_ids", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_restaurant_data_sets_on_user_id"
+  end
+
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
     t.integer "meal_type", default: 1, null: false
@@ -175,6 +185,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_004153) do
   add_foreign_key "message_restaurants", "messages"
   add_foreign_key "message_texts", "messages"
   add_foreign_key "messages", "chat_units"
+  add_foreign_key "restaurant_data_sets", "users"
   add_foreign_key "search_histories", "chat_units"
   add_foreign_key "station_search_histories", "search_histories"
   add_foreign_key "station_search_histories", "stations"

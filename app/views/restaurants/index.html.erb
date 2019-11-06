@@ -7,8 +7,6 @@
       <div class="app-title">Uzu Meshi</div>
     <% end %>
     <span class="total-count">検索結果：<%= @restaurants.count %>件</span>
-
-    <%= link_to "LINE Login", user_line_omniauth_authorize_path %>
   </div>
   <div class="restaurants">
     <% @restaurants.each do |restaurant|%>
@@ -58,14 +56,22 @@
     <a href="#" id="loadMore">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
   </div>
 
-  <nav class="navbar navbar-inverse navbar-fixed-bottom">
-    <button class="make-fav-list" type="button" data-toggle="modal" data-target="#orangeModalSubscription">
-      <span class="selected-restaurants-count">1</span> 個のリストを作成する
-    </button>
-  </nav>
+  <% if current_chat_unit %>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+      <button class="make-fav-list" type="button" data-toggle="modal" data-target="#createFavoriteListModal">
+        <span class="selected-restaurants-count">1</span> 個のリストを作成する
+      </button>
+    </nav>
+  <% else %>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+      <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
+        <span class="selected-restaurants-count">1</span> 個のリストを作成する
+      </button>
+    </nav>
+  <% end %>
 </div>
 
-<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="createFavoriteListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-notify modal-warning" role="document">
     <!--Content-->

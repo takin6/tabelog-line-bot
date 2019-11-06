@@ -1,6 +1,6 @@
 class RestaurantsController  < ApplicationController
-  before_action :authenticate_user!, only: :index
-  before_action :get_mongo_custom_restaurants, :get_page
+  include SessionHelper
+  before_action :get_mongo_custom_restaurants, :get_page, :embed_redirect_path_after_login
   layout 'restaurants'
 
   def index

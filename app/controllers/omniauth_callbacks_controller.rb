@@ -1,4 +1,5 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  include SessionHelper
   include Devise::Controllers::Rememberable
 
   def line
@@ -12,6 +13,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     usecase = OmniauthCallbacks::LineUsecase.new(@omniauth)
     user = usecase.execute
 
+    hold_chat_unit_to_session(user.chat_unit)
     sign_in user
 
     redirect_to session[:redirect_path_after_login] || root_path

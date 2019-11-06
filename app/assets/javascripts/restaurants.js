@@ -82,19 +82,20 @@ function changeTotalHeight(showingRestaurantsLengh) {
 
 function onSubmitRestaurantDataSet(event) {
   event.preventDefault(); 
-
+  debugger;
   $.ajax({
     type: 'POST',
     url: '/api/restaurant_data_sets',
     data: {
       restaurant_data_sets: {
+        mongo_custom_restaurants_id: window.location.href.split("cache_id=")[1],
         selected_restaurant_ids: getValuesFromSession('selectedRestaurantIds')
       }
     },
     success: function (res, status) {
       // sessionStorage.setItem("mongo_custom_restaurants", JSON.stringify(res.mongo_custom_restaurants))
       clearCache();
-      window.location.href = `/restaurants/complete`;
+      window.location.href = `/restaurants/${JSON.parse(res.responseText)['restaurant_data_set_id']}/complete`;
       // window.alert('メッセージが送られました！ご確認下さい。');
       // liff.closeWindow();
     },
