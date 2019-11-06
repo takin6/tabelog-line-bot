@@ -13,4 +13,7 @@
 //= require jquery
 //= require rails-ujs
 //= require activestorage
-//= require_tree .
+
+// JavascriptをControllerごとに変える方法
+// require treeをなくして、Controllerごとのlayoutでloadするjsを指定している
+//https://qiita.com/maggam/items/5c361558559f1c3488bf#jsファイルの振り分けを行う
