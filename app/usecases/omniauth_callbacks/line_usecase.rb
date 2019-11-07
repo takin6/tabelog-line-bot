@@ -15,7 +15,7 @@ module OmniauthCallbacks
 
     private
 
-    def find_or_create_user(line_id, display_name, profile_picture_url)
+    def find_or_create_user(line_id, profile_picture_url,  display_name)
       user = nil
 
       ActiveRecord::Base.transaction do

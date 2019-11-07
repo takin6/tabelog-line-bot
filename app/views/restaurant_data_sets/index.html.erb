@@ -1,75 +1,64 @@
-<div class="loading">
-  <div class="loading_icon"></div>
-</div>
-<div class="main is-hide">
-  <div class="header" id="header">
-    <%= link_to new_search_restaurant_path, onclick: "onClickClearCache()" do %>
-      <div class="app-title">Uzu Meshi</div>
-    <% end %>
-    <span class="total-count">検索結果：<%= @restaurants.count %>件</span>
-  </div>
-  <div class="restaurants">
-    <% @restaurants.each do |restaurant|%>
-      <!-- <div class="restaurant"> -->
-      <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event)" >
-        <div class="contents">
-          <div class="restaurant-header">
-            <div class="select-icon">
-              <i class="far fa-check-circle"></i>
-            </div>
-            <div class="shop-name"><span class="shop-name-decorator"></span><%= restaurant[:name] %></div>
-            <div class="sub-header">
-              <div class="location">
-                <i class="fas fa-map-marker-alt" style="width: 2rem; padding: 1px; color: #E06650"></i><%= restaurant[:area_genre].split(" / ")[0]%>
-              </div>
-              <div class="category">
-                <i class="fa fa-list-ul" aria-hidden="true" style="width: 2rem; padding: 1px; color: dimgray"></i><%= restaurant[:area_genre].split(" / ")[1] %>
-              </div>
-            </div>
+<div class="restaurants">
+  <% @restaurants.each do |restaurant|%>
+    <!-- <div class="restaurant"> -->
+    <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event)" >
+      <div class="contents">
+        <div class="restaurant-header">
+          <div class="select-icon">
+            <i class="far fa-check-circle"></i>
           </div>
-          <div class="restaurant-pics">
-            <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/114238/114238841.jpg" />
-            <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/42357/42357890.jpg" />
-            <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/40538/40538937.jpg" />
-          </div>
-          <div class="sub-contents">
-            <div class="reputation">
-              <div class="star-rating">
-                <div class="star-rating-front" style="width: 50%">★★★★★</div>
-                <div class="star-rating-back">★★★★★</div>
-              </div>
-              <div class="rating-text"><%= restaurant[:rating] %></div>
+          <div class="shop-name"><span class="shop-name-decorator"></span><%= restaurant[:name] %></div>
+          <div class="sub-header">
+            <div class="location">
+              <i class="fas fa-map-marker-alt" style="width: 2rem; padding: 1px; color: #E06650"></i><%= restaurant[:area_genre].split(" / ")[0]%>
             </div>
-            <div class="budget">
-              <div class="lunch-budget">
-                <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; background-color: #CB8131; color: white"></i> <%= Money.new(restaurant[:lunch_budget][0]).format %> ~ <%= Money.new(restaurant[:lunch_budget][1]).format %></div>
-              <div class="evening-budget">
-                <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= Money.new(restaurant[:dinner_budget][0]).format %> ~ <%= Money.new(restaurant[:dinner_budget][1]).format %>
-              </div>
+            <div class="category">
+              <i class="fa fa-list-ul" aria-hidden="true" style="width: 2rem; padding: 1px; color: dimgray"></i><%= restaurant[:area_genre].split(" / ")[1] %>
             </div>
           </div>
         </div>
-      <!-- </div> -->
-      </button>
-    <% end %>
-
-    <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
-  </div>
-
-  <% if current_chat_unit %>
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-      <button class="make-fav-list" type="button" data-toggle="modal" data-target="#createFavoriteListModal">
-        <span class="selected-restaurants-count">1</span> 個のリストを作成する
-      </button>
-    </nav>
-  <% else %>
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-      <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
-        <span class="selected-restaurants-count">1</span> 個のリストを作成する
-      </button>
-    </nav>
+        <div class="restaurant-pics">
+          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/114238/114238841.jpg" />
+          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/42357/42357890.jpg" />
+          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/40538/40538937.jpg" />
+        </div>
+        <div class="sub-contents">
+          <div class="reputation">
+            <div class="star-rating">
+              <div class="star-rating-front" style="width: 50%">★★★★★</div>
+              <div class="star-rating-back">★★★★★</div>
+            </div>
+            <div class="rating-text"><%= restaurant[:rating] %></div>
+          </div>
+          <div class="budget">
+            <div class="lunch-budget">
+              <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; background-color: #CB8131; color: white"></i> <%= Money.new(restaurant[:lunch_budget][0]).format %> ~ <%= Money.new(restaurant[:lunch_budget][1]).format %></div>
+            <div class="evening-budget">
+              <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= Money.new(restaurant[:dinner_budget][0]).format %> ~ <%= Money.new(restaurant[:dinner_budget][1]).format %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    </button>
   <% end %>
+
+  <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
 </div>
+
+<% if current_chat_unit %>
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <button class="make-fav-list" type="button" data-toggle="modal" data-target="#createFavoriteListModal">
+      <span class="selected-restaurants-count">1</span> 個のリストを作成する
+    </button>
+  </nav>
+<% else %>
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
+      <span class="selected-restaurants-count">1</span> 個のリストを作成する
+    </button>
+  </nav>
+<% end %>
 
 <div class="modal fade" id="createFavoriteListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -103,69 +92,3 @@
     <!--/.Content-->
   </div>
 </div>
-
-
-
-
-<!-- <div class="pagination-wrapper">
-      %= paginate @restaurants, params: {controller: 'restaurants', action: 'index'}, window: 1 %>
-      <div>%= page_entries_info @restaurants %></div>
-</div>
-
-<!-- <div id="footer"> -->
-<!--   <h3 class="selected-restaurants-count">1 Selected</h3>
-  %= link_to new_search_restaurant_path do %>
-    <button class="make-fav-list" type="button"> Create Favorite List</button>
-  % end %>
-</div>
- -->
-
-
-    <!-- <div class="meta">
-      <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
-      <ul class="details">
-        <li class="author"><a href="#">John Doe</a></li>
-        <li class="date">Aug. 24, 2015</li>
-        <li class="tags">
-          <ul>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">Code</a></li>
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div class="description">
-      <h1>Learning to Code</h1>
-      <h2>Opening a door to the future</h2>
-      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-      <p class="read-more">
-        <a href="#">Read More</a>
-      </p>
-    </div> -->
-  <!-- </div> -->
-  <!-- <div class="blog-card alt">
-    <div class="meta">
-      <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)"></div>
-      <ul class="details">
-        <li class="author"><a href="#">Jane Doe</a></li>
-        <li class="date">July. 15, 2015</li>
-        <li class="tags">
-          <ul>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">Code</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div class="description">
-      <h1>Mastering the Language</h1>
-      <h2>Java is not the same as JavaScript</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-      <p class="read-more">
-        <a href="#">Read More</a>
-      </p>
-    </div>
-  </div> -->
