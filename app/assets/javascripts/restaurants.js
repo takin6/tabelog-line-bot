@@ -1,45 +1,15 @@
 // sticky header: https://www.w3schools.com/howto/howto_js_sticky_header.asp
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() { addOrRemoveSticky() };
-// Get the header
-var header = document.getElementById("header");
-// Get the offset position of the navbar
-var stickyHeader = header.offsetTop;
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function addOrRemoveSticky() {
-  if (window.pageYOffset > stickyHeader) {
-    header.classList.add("sticky-header");
-  } else {
-    header.classList.remove("sticky-header");
-  }
-}
-
-$(document).ready(function(){
-  $(".restaurant").hide();
-  $(".restaurant").slice(0, 10).show();
-  changeTotalHeight(0);
-  $("#display-count").text(10)
-
-  $("#loadMore").on("click", function(e){
-    e.preventDefault();
-
-    showingRestaurants = $(".restaurant:hidden").slice(0, 10);
-    showingRestaurants.slideDown();
-
-    if($(".restaurant:hidden").length == 0) {
-      $("#loadMore").text("No Content").addClass("noContent");
-      // $("#display-count").text($(".restaurant:visible").length);
-    }
-
-    changeTotalHeight(showingRestaurants.length);
-    $("#display-count").text($(".restaurant:visible").length);
-  });
-  
-})
 
 window.onload = function() {
   initializeSession();
   changeSelectedRestaurantsCountText();
+
+  $(".restaurant").hide();
+  $(".restaurant").slice(0, 10).show();
+  changeTotalHeight(0);
+  $("#display-count").text(10)
 
   // color already selected restarrants
   getValuesFromSession("selectedRestaurantIds").forEach(function(restaurantId) {
@@ -53,6 +23,22 @@ window.onload = function() {
   $(".main").removeClass("is-hide");
   $(".loading").remove();
 }
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+// ----------------- onclick event --------------------------------- //
 
 function onClickRestaurant(e) {
   var sessionItemName = "selectedRestaurantIds";
@@ -68,18 +54,30 @@ function onClickRestaurant(e) {
   changeSelectedRestaurantsCountText();
 }
 
-function onClickClearCache() { clearCache(); }
+function onClickLoadMore(e) {
+  e.preventDefault();
 
-function changeTotalHeight(showingRestaurantsLengh) {
-  var restaurantsHeight = $(".restaurant").outerHeight(true) * showingRestaurantsLengh;
+  showingRestaurants = $(".restaurant:hidden").slice(0, 10);
+  showingRestaurants.slideDown();
 
-  if (restaurantsHeight == 0) {
-    $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight + $("#loadMore").outerHeight(true) + 50 );
-  } else {
-    $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight - 50);
+  if($(".restaurant:hidden").length == 0) {
+    $("#loadMore").text("No Content").addClass("noContent");
+    // $("#display-count").text($(".restaurant:visible").length);
   }
+
+  changeTotalHeight(showingRestaurants.length);
+  $("#display-count").text($(".restaurant:visible").length);
 }
 
+function onClickClearCache() { clearCache(); }
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function onClickUserMenu() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// ----------------- ajax event --------------------------------- //
 function onSubmitRestaurantDataSet(event) {
   event.preventDefault(); 
   $.ajax({
@@ -129,6 +127,29 @@ function changeSelectedRestaurantsCountText() {
 
 function addColorToRatingStars(element) {
   element.css("width", parseFloat(element.text()) / 5 * 100)
+}
+
+function changeTotalHeight(showingRestaurantsLengh) {
+  var restaurantsHeight = $(".restaurant").outerHeight(true) * showingRestaurantsLengh;
+
+  if (restaurantsHeight == 0) {
+    $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight + $("#loadMore").outerHeight(true) + 50 );
+  } else {
+    $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight - 50);
+  }
+}
+
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function addOrRemoveSticky() {
+  // Get the header
+  var header = document.getElementById("header");
+  // Get the offset position of the navbar
+  var stickyHeader = header.offsetTop;
+  if (window.pageYOffset > stickyHeader) {
+    header.classList.add("sticky-header");
+  } else {
+    header.classList.remove("sticky-header");
+  }
 }
 
 // ----------------- functions for session ---------------------   //

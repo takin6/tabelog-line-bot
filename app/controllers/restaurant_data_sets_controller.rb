@@ -19,7 +19,7 @@ class RestaurantDataSetsController  < ApplicationController
     unless current_chat_unit
       redirect_to root_path
     else
-      render 'complete'
+      render 'show'
     end
   end
 

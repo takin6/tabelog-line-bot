@@ -53,7 +53,7 @@
       </button>
     <% end %>
 
-    <a href="#" id="loadMore">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
+    <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
   </div>
 
   <% if current_chat_unit %>
