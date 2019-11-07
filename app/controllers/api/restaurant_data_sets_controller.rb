@@ -8,9 +8,8 @@ module Api
         # navigate to login page
         render json: { errors: "navigate to login page" }, status: :bad_request
       else
-        Api::RestaurantDataSets::CreateUsecase.new(create_params, current_chat_unit).execute
-
-        head :ok
+        result = Api::RestaurantDataSets::CreateUsecase.new(create_params, current_chat_unit).execute
+        render json: { restaurant_data_set_id: result }, status: :created
       end
     end
 
@@ -18,7 +17,10 @@ module Api
 
     def create_params
       params.require(:restaurant_data_sets)
-            .permit(:mongo_custom_restaurants_id, :selected_restaurant_ids)
+            .permit(
+              :mongo_custom_restaurants_id,
+              selected_restaurant_ids: []
+            )
     end
 
   end

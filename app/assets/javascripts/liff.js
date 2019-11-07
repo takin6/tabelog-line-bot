@@ -162,7 +162,7 @@ function onSubmitSearchRestaurant(event) {
 
   $.ajax({
     type: 'POST',
-    url: '/api/restaurants',
+    url: '/api/custom_restaurants',
     data: {
       line_liff: {
         location: decidedLocation.trim(),
@@ -179,7 +179,7 @@ function onSubmitSearchRestaurant(event) {
     },
     success: function (res, status) {
       // sessionStorage.setItem("mongo_custom_restaurants", JSON.stringify(res.mongo_custom_restaurants))
-      window.location.href = `/restaurants/?cache_id=${res.mongo_custom_restaurants.cache_id}`;
+      window.location.href = `/restaurant_data_sets/?cache_id=${res.mongo_custom_restaurants.cache_id}`;
       // window.alert('メッセージが送られました！ご確認下さい。');
       // liff.closeWindow();
     },

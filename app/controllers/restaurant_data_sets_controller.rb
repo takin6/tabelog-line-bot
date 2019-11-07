@@ -1,6 +1,6 @@
-class RestaurantsController  < ApplicationController
+class RestaurantDataSetsController  < ApplicationController
   include SessionHelper
-  before_action :get_mongo_custom_restaurants, :get_page, :embed_redirect_path_after_login
+  before_action :get_mongo_custom_restaurants, :get_page, :embed_redirect_path_after_login, only: [:index]
   layout 'restaurants'
 
   def index
@@ -15,7 +15,13 @@ class RestaurantsController  < ApplicationController
     end
   end
 
-  def complete; end
+  def show
+    unless current_chat_unit
+      redirect_to root_path
+    else
+      render 'complete'
+    end
+  end
 
   private
 

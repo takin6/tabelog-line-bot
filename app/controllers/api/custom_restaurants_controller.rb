@@ -1,5 +1,5 @@
 module Api
-  class RestaurantsController < ActionController::API
+  class CustomRestaurantsController < ActionController::API
 
     def create
       # とりあえずchat_unitはあるものとする

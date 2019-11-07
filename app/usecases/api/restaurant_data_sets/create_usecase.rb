@@ -16,7 +16,7 @@ module Api
           user_id: user.id
         )
 
-        return restaurant_data_set.id
+        return restaurant_data_set.cache_id
       end
     end
   end

@@ -74,7 +74,7 @@ function changeTotalHeight(showingRestaurantsLengh) {
   var restaurantsHeight = $(".restaurant").outerHeight(true) * showingRestaurantsLengh;
 
   if (restaurantsHeight == 0) {
-    $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight + $("#loadMore").outerHeight(true) );
+    $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight + $("#loadMore").outerHeight(true) + 50 );
   } else {
     $(".restaurants").css("height", $(".main").outerHeight(true) + restaurantsHeight - 50);
   }
@@ -82,7 +82,6 @@ function changeTotalHeight(showingRestaurantsLengh) {
 
 function onSubmitRestaurantDataSet(event) {
   event.preventDefault(); 
-  debugger;
   $.ajax({
     type: 'POST',
     url: '/api/restaurant_data_sets',
@@ -95,7 +94,7 @@ function onSubmitRestaurantDataSet(event) {
     success: function (res, status) {
       // sessionStorage.setItem("mongo_custom_restaurants", JSON.stringify(res.mongo_custom_restaurants))
       clearCache();
-      window.location.href = `/restaurants/${JSON.parse(res.responseText)['restaurant_data_set_id']}/complete`;
+      window.location.href = `/restaurant_data_sets/${res.restaurant_data_set_id}/complete`;
       // window.alert('メッセージが送られました！ご確認下さい。');
       // liff.closeWindow();
     },
