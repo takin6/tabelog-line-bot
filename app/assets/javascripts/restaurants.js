@@ -93,7 +93,8 @@ function onSubmitRestaurantDataSet(event) {
     data: {
       restaurant_data_sets: {
         mongo_custom_restaurants_id: window.location.href.split("cache_id=")[1],
-        selected_restaurant_ids: getValuesFromSession('selectedRestaurantIds')
+        selected_restaurant_ids: getValuesFromSession('selectedRestaurantIds'),
+        // title: 
       }
     },
     success: function (res, status) {

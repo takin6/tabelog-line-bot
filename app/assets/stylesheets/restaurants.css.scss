@@ -537,24 +537,40 @@ body { background: #f1f1f1; }
   }
 }
 
+.my-lists {
+  .my-list-header {
+    height: 5rem;
+    background-color: #e6e6e6;
+    .my-list-title {
+      padding: 15px 20px 0;
+      font-weight: bold;
+      font-size: 20px
+    }
+  }
+  .pg-count {
+    display: flex;
+    background-color: white;
+    height: 6rem;
+    border-bottom: solid 1px #e6e6e6;
+    .pg-count-text {
+      padding-top: 3rem;
+      padding-left: 20px;
+      color: gray;
+      font-weight: bold;
+    }
+  }
 
-.restaurant-data-sets {
-  display: block;
-  // display: none;
-  flex-direction: column;
-  margin: 1rem auto;
-  // remove button default style
-  text-align: unset;
-  border: none;
-  // margin: 18px 0;
-  box-shadow: 0 3px 7px -1px rgba(#000, .1);
-  margin-bottom: 1.6%;
-  background: $color_white;
-  line-height: 1.4;
-  font-family: sans-serif;
-  border-radius: 5px;
-  overflow: hidden;
-  z-index: 0;
+  .restaurant-data-sets {
+    .restaurant-data-set {
+      height: 150px;
+      background-color: #f5ddc4;
+      border-bottom: solid 1px white;
+      restaurant
+      &:last-child {
+        border-bottom: none !important;
+      }
+    }
+  }
 }
 
 

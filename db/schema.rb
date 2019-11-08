@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_045123) do
+ActiveRecord::Schema.define(version: 2019_11_07_205518) do
 
   create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_045123) do
     t.string "cache_id", null: false
     t.string "mongo_custom_restaurants_id", null: false
     t.json "selected_restaurant_ids", null: false
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_restaurant_data_sets_on_user_id"

@@ -1,3 +1,18 @@
-<div class="restaurant-data-sets">
-  
+<div class="my-lists">
+  <div class="my-list-header">
+    <div class="my-list-title"><%= current_user.name %>さんのマイリスト</div>
+  </div>
+
+  <div class="pg-count">
+    <div class="pg-count-text">
+      <%= @restaurant_data_sets.count %>件 を表示(<span style="color: orange">全<%= @restaurant_data_sets.count%>件</span>)</span>中
+    </div>
+  </div>
+
+  <div class="restaurant-data-sets">
+    <% @restaurant_data_sets.each do |restaurant_data_set| %>
+      <div class="restaurant-data-set">
+      </div>
+    <% end %>
+  </div>
 </div>
