@@ -1,9 +1,17 @@
 class RestaurantDataSetsController  < ApplicationController
   include SessionHelper
-  before_action :get_mongo_custom_restaurants, :get_page, :embed_redirect_path_after_login, only: [:index]
+  before_action :get_mongo_custom_restaurants, :get_page, :embed_redirect_path_after_login, only: [:new]
   layout 'restaurants'
 
   def index
+    unless current_user
+      head :bad_request
+    else
+      @restaurant_data_sets = current_user.restaurant_data_sets
+    end
+  end
+
+  def new
     if @mongo_custom_restaurants.present?
       @restaurants = @mongo_custom_restaurants.restaurants
       station_name = @mongo_custom_restaurants.station_name

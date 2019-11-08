@@ -30,7 +30,6 @@ document.addEventListener('keydown', function (event) {
   }
 }, false);
 
-
 function initializeApp(data) {
   // userのvalidationを行う。悪意のあるユーザーを排除
   liff.getProfile().then(function (profile) {
@@ -179,7 +178,7 @@ function onSubmitSearchRestaurant(event) {
     },
     success: function (res, status) {
       // sessionStorage.setItem("mongo_custom_restaurants", JSON.stringify(res.mongo_custom_restaurants))
-      window.location.href = `/restaurant_data_sets/?cache_id=${res.mongo_custom_restaurants.cache_id}`;
+      window.location.href = `/restaurant_data_sets/new?cache_id=${res.mongo_custom_restaurants.cache_id}`;
       // window.alert('メッセージが送られました！ご確認下さい。');
       // liff.closeWindow();
     },
@@ -325,7 +324,11 @@ var genres = document.getElementById("genres");
 var budgetArrow = document.getElementById("budget-arrow");
 function openGenreBar() {
   genres.style.display = "block";
-  budgetArrow.style.top = "24.7%";
+  if (window.matchMedia('(min-width:640px)').matches) {
+    budgetArrow.style.top = "35%"
+  } else {
+    budgetArrow.style.top = "26%";
+  }
 }
 
 function closeGenreBar() {

@@ -38,6 +38,13 @@ window.onclick = function(event) {
   }
 }
 
+$(window).on('load resize', function() { 
+  // change right position of user menu content
+  if (window.matchMedia('(min-width:640px)').matches) {
+    $(".user-menu-content").css("right", $(document).width() - ($('.user-menu').offset().left + $('.user-menu').width()));
+  }
+});
+
 // ----------------- onclick event --------------------------------- //
 
 function onClickRestaurant(e) {
@@ -74,7 +81,7 @@ function onClickClearCache() { clearCache(); }
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function onClickUserMenu() {
-  $("#user-menu").toggle();
+  $(".user-menu-content").toggle();
 }
 
 // ----------------- ajax event --------------------------------- //

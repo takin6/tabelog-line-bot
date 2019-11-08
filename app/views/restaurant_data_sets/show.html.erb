@@ -1,36 +1,11 @@
-<div class="loading">
-  <div class="loading_icon"></div>
-</div>
-<div class="main is-hide">
-  <div class="header" id="header">
-    <!-- %= link_to new_search_restaurant_path, onclick: "onClickClearCache()" do %>
-      <div class="app-title">Uzu Meshi</div>
-    % end %> -->
-
-    <div class="app-title">
-      <%= link_to "Uzu Meshi", new_search_restaurant_path, class: "app-title", onclick: "onClickClearCache()" %>
-    </div>
-
-    <div class="dropdown">
-      <button onclick="onClickUserMenu()" class="dropbtn"><i class="fas fa-user"></i></button>
-      <div id="myDropdown" class="dropdown-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-      </div>
-    </div>
+<div class="created">
+  <div class="created-icon">
+    <i class="far fa-check-circle"></i>
   </div>
 
-  <div class="created">
-    <div class="created-icon">
-      <i class="far fa-check-circle"></i>
-    </div>
+  <div class="created-message">
+    <div>MyListが作成されました</div>
 
-    <div class="created-message">
-      <div>MyListが作成されました</div>
-
-      <button type="button" class="btn btn-outline-warning waves-effect">MyListを確認する<i class="fas fa-paper-plane-o ml-1"></i></button>
-    </div>
-
+    <%= link_to "マイリスト", restaurant_data_sets_path, class: "btn btn-outline-warning waves-effect" %>
   </div>
 </div>

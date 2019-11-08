@@ -55,7 +55,7 @@ $color_grey_dark: #a2a2a2;
     display: flex;
     flex-direction: column;
     @media (min-width: 640px) {
-      width: 600px;
+      width: 500px;
     }
     @media screen and (max-width: 480px) {
       width: 300px;
@@ -75,7 +75,7 @@ $color_grey_dark: #a2a2a2;
       border-radius: 50px;
       border: 1px solid orange;
       background-color: white;
-      padding: 16px;
+      // padding: 16px;
       font-size: 16px;
       cursor: pointer;
       outline:none;
@@ -99,8 +99,8 @@ $color_grey_dark: #a2a2a2;
           border-bottom: none !important;
         }
       }
-      @media (min-width: 640px) {
-        right: 50px;
+      @media (min-width: 640px){
+        right: 400px;
       }
       @media screen and (max-width: 480px) {
         right: 0;
@@ -422,7 +422,6 @@ body { background: #f1f1f1; }
   /* 480pxまでの幅の場合に適応される */
     .restaurant-pic {
       width: 100px;
-      // margin-right: 10px;
       height: 100px;
     }
   }
@@ -527,7 +526,7 @@ body { background: #f1f1f1; }
   }
   .created-message {
     font-size: 20px;
-    button {
+    a {
       margin-top: 10px;
       border: 1px solid orange;
       color: orange;
@@ -538,6 +537,25 @@ body { background: #f1f1f1; }
   }
 }
 
+
+.restaurant-data-sets {
+  display: block;
+  // display: none;
+  flex-direction: column;
+  margin: 1rem auto;
+  // remove button default style
+  text-align: unset;
+  border: none;
+  // margin: 18px 0;
+  box-shadow: 0 3px 7px -1px rgba(#000, .1);
+  margin-bottom: 1.6%;
+  background: $color_white;
+  line-height: 1.4;
+  font-family: sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+}
 
 
 // .blog-card {

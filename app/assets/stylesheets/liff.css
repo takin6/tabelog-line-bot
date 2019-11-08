@@ -219,9 +219,7 @@ input {
   opacity: 0.9;
 }
 
-/*budget arrow : NOT RESPONSIVE!! Has to be fixed*/
 #budget-arrow {
-  /*right: 48.5%; for pc*/
   top: 45%;
   position: absolute;
   width: 32px;
@@ -230,6 +228,18 @@ input {
   color: rgba(255, 255, 255, 0.5);
   font-size: 30px;
 }
+@media (min-width: 640px) {
+  #budget-arrow {
+    right: 48.5%;
+  }
+}
+@media screen and (max-width: 480px) {
+/* 480pxまでの幅の場合に適応される */
+  #budget-arrow {
+    right: 46%;
+  }
+}
+
 
 /*for loading*/
 .is-hide{
@@ -385,16 +395,3 @@ ul {
   background-color: chocolate;
   text-decoration: line-through;;
 }
-
-@media (min-width: 640px) {
-  .budget-arrow {
-    left: 48.5%;
-  }
-}
-@media screen and (max-width: 480px) {
-/* 480pxまでの幅の場合に適応される */
-  .budget-arrow {
-    left: 46%;
-  }
-}
-

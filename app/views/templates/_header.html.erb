@@ -7,24 +7,22 @@
   </div>
 
   <div class="user-menu">
-    <button onclick="onClickUserMenu()" class="dropbtn">
-      <% if user_signed_in? %>
-        <%= current_user.profile_picture_url %>
-      <% else %>
+    <% if user_signed_in? %>
+      <input type="image" class="dropbtn" onclick="onClickUserMenu()" src=<%= current_user.profile_picture_url %>>
+    <% else %>
+      <button onclick="onClickUserMenu()" class="dropbtn">
         <i class="fas fa-user"></i>
-      <% end %>
-    </button>
-    <div id="user-menu" class="user-menu-content">
+      </button>
+    <% end %>
+    <div class="user-menu-content">
       <% if user_signed_in?  %>
+        <%= link_to "マイリスト", restaurant_data_sets_path %>
+        <%= link_to "サインアウト", user_auth_logout_path, method: :delete %>
+        <a href="#">Uzu Meshiとは?</a>
+      <% else %>
         <%= link_to "ログイン", user_line_omniauth_authorize_path %>
         <a href="#">Uzu Meshiとは?</a>
-      <% else %>
-        <a href="#">My Lists</a>
-        <a href="#">サインアウト</a>
-        <a href="#">Uzu Meshiとは?</a>
       <% end %>
-      <!-- <a href="#">Link 2</a>
-      <a href="#">Link 3</a> -->
     </div>
   </div>
 </div>

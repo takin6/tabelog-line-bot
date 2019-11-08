@@ -1,0 +1,94 @@
+<div class="restaurants">
+  <% @restaurants.each do |restaurant|%>
+    <!-- <div class="restaurant"> -->
+    <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event)" >
+      <div class="contents">
+        <div class="restaurant-header">
+          <div class="select-icon">
+            <i class="far fa-check-circle"></i>
+          </div>
+          <div class="shop-name"><span class="shop-name-decorator"></span><%= restaurant[:name] %></div>
+          <div class="sub-header">
+            <div class="location">
+              <i class="fas fa-map-marker-alt" style="width: 2rem; padding: 1px; color: #E06650"></i><%= restaurant[:area_genre].split(" / ")[0]%>
+            </div>
+            <div class="category">
+              <i class="fa fa-list-ul" aria-hidden="true" style="width: 2rem; padding: 1px; color: dimgray"></i><%= restaurant[:area_genre].split(" / ")[1] %>
+            </div>
+          </div>
+        </div>
+        <div class="restaurant-pics">
+          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/114238/114238841.jpg" />
+          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/42357/42357890.jpg" />
+          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/40538/40538937.jpg" />
+        </div>
+        <div class="sub-contents">
+          <div class="reputation">
+            <div class="star-rating">
+              <div class="star-rating-front" style="width: 50%">★★★★★</div>
+              <div class="star-rating-back">★★★★★</div>
+            </div>
+            <div class="rating-text"><%= restaurant[:rating] %></div>
+          </div>
+          <div class="budget">
+            <div class="lunch-budget">
+              <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; background-color: #CB8131; color: white"></i> <%= Money.new(restaurant[:lunch_budget][0]).format %> ~ <%= Money.new(restaurant[:lunch_budget][1]).format %></div>
+            <div class="evening-budget">
+              <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= Money.new(restaurant[:dinner_budget][0]).format %> ~ <%= Money.new(restaurant[:dinner_budget][1]).format %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    </button>
+  <% end %>
+
+  <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
+</div>
+
+<% if current_chat_unit %>
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <button class="make-fav-list" type="button" data-toggle="modal" data-target="#createFavoriteListModal">
+      <span class="selected-restaurants-count">1</span> 個のリストを作成する
+    </button>
+  </nav>
+<% else %>
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
+      <span class="selected-restaurants-count">1</span> 個のリストを作成する
+    </button>
+  </nav>
+<% end %>
+
+<div class="modal fade" id="createFavoriteListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-warning" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <form onsubmit="return onSubmitRestaurantDataSet(event)">
+        <div class="modal-header text-center">
+          <h4 class="modal-title white-text w-100 font-weight-bold py-2">リストの作成</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="md-form mb-5">
+            <!-- <i class="fas fa-user prefix grey-text"></i> -->
+            <label data-error="wrong" data-success="right" for="form3">タイトル</label>
+            <input type="text" class="form-control validate" value=<%= @default_modal_text %>>
+          </div>
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer justify-content-center">
+          <button type="submit" class="btn btn-outline-warning waves-effect">作成 <i class="fas fa-paper-plane-o ml-1"></i></button>
+        </div> 
+      </form>
+
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
