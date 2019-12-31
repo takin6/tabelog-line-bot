@@ -1,3 +1,125 @@
+/*------------------------- header style -------------------------*/
+.header {
+  padding: 10px 0;
+  background: white;
+  font-size: x-small;
+  border-bottom: 1px solid orange;
+  text-align: center;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;;
+  align-items: center;
+  .header-logo {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 640px) {
+      width: 500px;
+    }
+    @media screen and (max-width: 480px) {
+      width: 300px;
+    }
+  }
+  .app-title {
+    font-size: 24px;
+    color: orange;
+    font-weight: bold;
+    line-height: 2;
+  }
+
+  .user-menu {
+    .dropbtn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      border: 1px solid orange;
+      background-color: white;
+      // padding: 16px;
+      font-size: 16px;
+      cursor: pointer;
+      outline:none;
+    }
+
+    .user-menu-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      right: 0;
+      z-index: 1;
+      a {
+        color: orange;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border-bottom: 1px solid orange;
+        &:last-child {
+          border-bottom: none !important;
+        }
+      }
+      @media (min-width: 640px){
+        right: 400px;
+      }
+      @media screen and (max-width: 480px) {
+        right: 0;
+      }
+    }
+  }
+
+  .show {display: block;}
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky-header {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky-header + .restaurants {
+  padding-top: 102px;
+}
+
+
+/*for loading*/
+.is-hide{
+  /*visibility:hiddenは名前の通り、要素はあるけど見えない状態。
+  display:noneは、要素も取得されず、完全にその場にない扱い。*/
+  visibility:hidden; 
+}
+.loading{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background:rgba(0,0,0,.5);
+  &:after {
+    content:"";
+    display:block;
+    position:fixed;
+    left:45%;
+    top:30%;
+    width:50px;
+    height:50px;
+    border-radius:50px;
+    margin-top:-10px;
+    margin-left:-10px;
+    border:6px solid lightgray;
+    border-right:6px solid white;
+    animation: rotate 1s infinite linear;
+    @keyframes rotate {
+      0%    { transform: rotate(0deg); }
+      100%  { transform: rotate(360deg); }
+    }
+
+  }
+}
+
+
 /*ページネーション自体のデザイン*/
 .pagination-wrapper {
   text-align: center;

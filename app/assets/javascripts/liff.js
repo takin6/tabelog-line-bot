@@ -12,7 +12,8 @@ window.onload = function (e) {
       initializeApp(data);
     });
   } else {
-    $(".section").removeClass("is-hide");
+    $(".loading").remove()
+    $(".main").removeClass("is-hide");
     // 一時的
     search_history = {location: "青山一丁目", meal_type: "dinner", lower_budget: 2000, upper_budget: 5000, custom_meal_genre: "", master_genres: null}
     fillCacheToForm(search_history);
@@ -22,6 +23,12 @@ window.onload = function (e) {
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   $("#location-choices").toggle(false);
+}
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function onClickUserMenu() {
+  $(".user-menu-content").toggle();
 }
 
 document.addEventListener('keydown', function (event) {
@@ -54,11 +61,12 @@ function initializeApp(data) {
       success: function (res, status) {
         var returnedSearchHistory = res.search_history;
 
-        if (returnedSearchHistory != null) {
+        if (returnedSearchHistory != "null") {
           fillCacheToForm(returnedSearchHistory)
         }
 
-        $(".section").removeClass("is-hide");
+        $(".loading").remove()
+        $(".main").removeClass("is-hide");
       },
       error: function (res) {
         window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus: " + res.status);
@@ -386,3 +394,4 @@ function enableInputMealGenre() {
   inputMealGenre.value = "";
   inputMealGenre.disabled = false
 }
+
