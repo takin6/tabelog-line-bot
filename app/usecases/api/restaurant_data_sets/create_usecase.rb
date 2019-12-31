@@ -11,6 +11,7 @@ module Api
         user = chat_unit.user
 
         restaurant_data_set = RestaurantDataSet.create!(
+          title: params[:title],
           mongo_custom_restaurants_id: params[:mongo_custom_restaurants_id],
           selected_restaurant_ids: params[:selected_restaurant_ids],
           user_id: user.id

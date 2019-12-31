@@ -1,6 +1,7 @@
 class RestaurantDataSetsController  < ApplicationController
   include SessionHelper
   before_action :get_mongo_custom_restaurants, :get_page, :embed_redirect_path_after_login, only: [:new]
+  before_action :get_restaurant_data_set, only: %i[show]
   layout 'restaurants'
 
   def index
@@ -24,10 +25,23 @@ class RestaurantDataSetsController  < ApplicationController
   end
 
   def show
+    @search_history = @restaurant_data_set.search_history
+    unless current_chat_unit && @search_history.chat_unit == current_chat_unit
+      redirect_to root_path
+    else
+      @search_history = @restaurant_data_set.search_history
+      @mongo_custom_restaurants = Mongo::CustomRestaurants.find_by(cache_id: @search_history.cache_id)
+      @selected_restaurants = @mongo_custom_restaurants.restaurants.select do |restaurant|
+        @restaurant_data_set.selected_restaurant_ids.include?(restaurant["id"])
+      end
+    end
+  end
+
+  def create
     unless current_chat_unit
       redirect_to root_path
     else
-      render 'show'
+      render 'create'
     end
   end
 
@@ -39,5 +53,9 @@ class RestaurantDataSetsController  < ApplicationController
 
   def get_mongo_custom_restaurants
     @mongo_custom_restaurants = Mongo::CustomRestaurants.find_by(cache_id: params[:cache_id])
+  end
+
+  def get_restaurant_data_set
+    @restaurant_data_set = RestaurantDataSet.find_by(cache_id: params[:cache_id])
   end
 end

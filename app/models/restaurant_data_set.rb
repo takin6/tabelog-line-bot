@@ -5,6 +5,11 @@ class RestaurantDataSet < ApplicationRecord
 
   validates :mongo_custom_restaurants_id, presence: true
   validates :selected_restaurant_ids, presence: true
+  validates :title, presence: true
+
+  def search_history
+    SearchHistory.find_by(cache_id: self.mongo_custom_restaurants_id)
+  end
 
   protected
 

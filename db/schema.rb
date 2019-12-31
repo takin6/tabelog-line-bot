@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_045123) do
 
   create_table "restaurant_data_sets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "title", null: false
     t.string "cache_id", null: false
     t.string "mongo_custom_restaurants_id", null: false
     t.json "selected_restaurant_ids", null: false

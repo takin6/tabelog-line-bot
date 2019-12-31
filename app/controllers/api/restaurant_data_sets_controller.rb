@@ -18,6 +18,7 @@ module Api
     def create_params
       params.require(:restaurant_data_sets)
             .permit(
+              :title,
               :mongo_custom_restaurants_id,
               selected_restaurant_ids: []
             )
