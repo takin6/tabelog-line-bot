@@ -14,9 +14,6 @@ window.onload = function (e) {
   } else {
     $(".loading").remove()
     $(".main").removeClass("is-hide");
-    // 一時的
-    search_history = {location: "青山一丁目", meal_type: "dinner", lower_budget: 2000, upper_budget: 5000, custom_meal_genre: "", master_genres: null}
-    fillCacheToForm(search_history);
   }
 };
 
@@ -59,10 +56,16 @@ function initializeApp(data) {
         }
       },
       success: function (res, status) {
-        var returnedSearchHistory = res.search_history;
+        var profile_picture_url = res.profile_picture_url
+        if (profile_picture_url != "null") {
+          $("#dropbtn-nouser").css("display", "none")
+          $("#dropbtn-img").css("display", "block")
+          $("#dropbtn-img").attr("src",profile_picture_url);
 
-        if (returnedSearchHistory != "null") {
-          fillCacheToForm(returnedSearchHistory)
+          $(".user-menu-content").empty();
+          $( ".user-menu-content" ).append( "<a href='/restaurant_data_sets'>マイリスト</a>" );
+          $( ".user-menu-content" ).append( "<a rel='nofollow' data-method='delete' href='/user/auth/logout'>サインアウト</a>" );
+          $( ".user-menu-content").append("<a href='#'>Uzu Meshiとは?</a>")
         }
 
         $(".loading").remove()
@@ -78,39 +81,6 @@ function initializeApp(data) {
     window.alert("Error getting profile: " + error);
     liff.closeWindow();
   });
-}
-
-function fillCacheToForm(returnedSearchHistory) {
-  $(".form-group").addClass("input-not-empty");
-
-  var formElements = ["location", "meal-type", "lower-budget", "upper-budget"]
-  formElements.map(function( element ) {
-    $("#"+element)[0].value = returnedSearchHistory[element.replace("-", "_")]
-  });
-
-  decidedLocation = returnedSearchHistory["location"]
-
-  $("#meal-genre")[0].value = returnedSearchHistory["custom_meal_genre"];
-
-  var returned_master_genres = returnedSearchHistory["master_genres"]
-
-  if (returned_master_genres == null) {
-    if (returnedSearchHistory["custom_meal_genre"] == null) {
-      genreButtons.addClass("selected");
-      genreSelectCount = 22;
-      disableInputMealGenre();
-      openGenreBar();
-    }
-  } else {
-    returned_master_genres.forEach(function(master_genre) {
-      $("#"+master_genre["id"]).addClass("selected");
-      genreSelectCount += 1;
-    });
-    openGenreBar();
-  }
-
-  $(".meal-genre-form-group").addClass("input-not-empty");
-  $("#genre-selection-text").text(genreSelectCount + " 個選択");
 }
 
 var lowerBudget = document.getElementById('lower-budget'); var upperBudget = document.getElementById('upper-budget');
@@ -394,4 +364,40 @@ function enableInputMealGenre() {
   inputMealGenre.value = "";
   inputMealGenre.disabled = false
 }
+
+
+
+// function fillCacheToForm(returnedSearchHistory) {
+//   $(".form-group").addClass("input-not-empty");
+
+//   var formElements = ["location", "meal-type", "lower-budget", "upper-budget"]
+//   formElements.map(function( element ) {
+//     $("#"+element)[0].value = returnedSearchHistory[element.replace("-", "_")]
+//   });
+
+//   decidedLocation = returnedSearchHistory["location"]
+
+//   $("#meal-genre")[0].value = returnedSearchHistory["custom_meal_genre"];
+
+//   var returned_master_genres = returnedSearchHistory["master_genres"]
+
+//   if (returned_master_genres == null) {
+//     if (returnedSearchHistory["custom_meal_genre"] == null) {
+//       genreButtons.addClass("selected");
+//       genreSelectCount = 22;
+//       disableInputMealGenre();
+//       openGenreBar();
+//     }
+//   } else {
+//     returned_master_genres.forEach(function(master_genre) {
+//       $("#"+master_genre["id"]).addClass("selected");
+//       genreSelectCount += 1;
+//     });
+//     openGenreBar();
+//   }
+
+//   $(".meal-genre-form-group").addClass("input-not-empty");
+//   $("#genre-selection-text").text(genreSelectCount + " 個選択");
+// }
+
 

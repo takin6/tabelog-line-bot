@@ -10,7 +10,8 @@
     <% if user_signed_in? %>
       <input type="image" class="dropbtn" onclick="onClickUserMenu()" src=<%= current_user.profile_picture_url %>>
     <% else %>
-      <button onclick="onClickUserMenu()" class="dropbtn">
+      <input type="image" class="dropbtn" id="dropbtn-img" onclick="onClickUserMenu()" src="#" style="display: none" >
+      <button onclick="onClickUserMenu()" class="dropbtn" id="dropbtn-nouser">
         <i class="fas fa-user"></i>
       </button>
     <% end %>
