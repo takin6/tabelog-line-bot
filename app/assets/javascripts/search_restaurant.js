@@ -220,7 +220,7 @@ function updateSuggestWords(result) {
 
     let stationList = "";
     result.forEach(station_json => {
-      stationList += `<li class="location-choice-element" id=${station_json["id"]} onclick="onClickLocationChoice(event)"><a href="#">${station_json["name"]}</a></li>`
+      stationList += `<li class="location-choice-element" id=${station_json["id"]} onclick="onClickLocationChoice(event)"><div>${station_json["name"]}</div></li>`
     });
 
     const html = `<ul class="location-choice-list">${stationList}</ul>`;

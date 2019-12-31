@@ -19,6 +19,11 @@ module Workers
           type: "uri",
           label: "レストランを検索",
           uri: "https://line.me/R/app/" + LineLiff.find_by(name: "search_restaurants").liff_id
+        },
+        {
+          type: "uri",
+          label: "My Listを見る",
+          uri: "https://line.me/R/app/" + LineLiff.find_by(name: "restaurant_data_sets").liff_id
         }] 
       })
       message_params.push({ message_type: "text", chat_unit: chat_unit, message: "もしもお邪魔でしたら「ティラミス bye」とメッセージを送ってください。悲しいけど退出します。"}) if chat_unit.chat_type_room? || chat_unit.chat_type_group?
