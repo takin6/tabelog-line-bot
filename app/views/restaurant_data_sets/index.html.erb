@@ -1,3 +1,37 @@
-<div class="restaurant-data-sets">
-  
-</div>
+<section class="restaurant-data-sets">
+  <h2 class="r-data-sets-count">
+    全<%= @restaurant_data_sets.count %>個 のリスト 
+  </h2>
+  <ul>
+    <% @restaurant_data_sets.each do |restaurant_data_set| %>
+      <li class="restaurant-data-set">
+        <a href="restaurant_data_sets/<%= restaurant_data_set.cache_id %>">
+
+          <div class="r-data-set-image">
+            <img src="/images/logo.png">
+          </div>
+
+          <div class="restaurant-data-set-detail">
+            <i class="fas fa-chevron-right fa-lg arrow-icon"></i>
+
+            <ul class="r-tags">
+              <% JSON.parse(restaurant_data_set.search_history.master_genres).each do |genre| %>
+                <li class=""><%= genre %></li>
+              <% end %>
+            </ul>
+
+            <h2><%= restaurant_data_set.title %></h2>
+
+            <ul class="r-options">
+              <li>
+                <% if restaurant_data_set.search_history.meal_type == "dinner" %>
+                  <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= restaurant_data_set.search_history.lower_budget.format %> ~ <%= restaurant_data_set.search_history.upper_budget.format %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</section>

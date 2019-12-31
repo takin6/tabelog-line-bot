@@ -15,6 +15,9 @@
             <div class="category">
               <i class="fa fa-list-ul" aria-hidden="true" style="width: 2rem; padding: 1px; color: dimgray"></i><%= restaurant[:area_genre].split(" / ")[1] %>
             </div>
+            <div class="redirect-link">
+              <i class="fas fa-link" style="width: 2rem; padding: 1px; color: #33CCFF"></i><a href="<%= restaurant["redirect_url"] %>" target="_blank" onclick="onClickRedirectUrl(event); return false;">レストランのリンク</a>
+            </div>
           </div>
         </div>
         <div class="restaurant-pics">
@@ -43,7 +46,11 @@
     </button>
   <% end %>
 
-  <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
+  <% if @restaurants.count > 9 %>
+    <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
+  <% else %>
+    <a href="#" class="noContent" id="loadMore">No Content</a>
+  <% end %>
 </div>
 
 <% if current_chat_unit %>
@@ -78,7 +85,7 @@
           <div class="md-form mb-5">
             <!-- <i class="fas fa-user prefix grey-text"></i> -->
             <label data-error="wrong" data-success="right" for="form3">タイトル</label>
-            <input type="text" class="form-control validate" value=<%= @default_modal_text %>>
+            <input type="text" class="form-control validate" id="restaurant-data-set-title" value=<%= @default_modal_text %> required>
           </div>
         </div>
 

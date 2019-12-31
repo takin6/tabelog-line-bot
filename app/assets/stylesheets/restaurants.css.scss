@@ -1,128 +1,8 @@
-/*for loading*/
-.is-hide{
-  /*visibility:hiddenは名前の通り、要素はあるけど見えない状態。
-  display:noneは、要素も取得されず、完全にその場にない扱い。*/
-  visibility:hidden; 
-}
-.loading{
-  position:fixed;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-  background:rgba(0,0,0,.5);
-  &:after {
-    content:"";
-    display:block;
-    position:fixed;
-    left:45%;
-    top:30%;
-    width:50px;
-    height:50px;
-    border-radius:50px;
-    margin-top:-10px;
-    margin-left:-10px;
-    border:6px solid lightgray;
-    border-right:6px solid white;
-    animation: rotate 1s infinite linear;
-    @keyframes rotate {
-      0%    { transform: rotate(0deg); }
-      100%  { transform: rotate(360deg); }
-    }
-
-  }
-}
-
 // constant
 $color_white: #fff;
 $color_prime: #5ad67d;
 $color_grey: #e2e2e2;
 $color_grey_dark: #a2a2a2;
-
-/* Style the header */
-.header {
-  padding: 10px 0;
-  background: white;
-  font-size: x-small;
-  border-bottom: 1px solid orange;
-  text-align: center;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;;
-  align-items: center;
-  .header-logo {
-    display: flex;
-    flex-direction: column;
-    @media (min-width: 640px) {
-      width: 500px;
-    }
-    @media screen and (max-width: 480px) {
-      width: 300px;
-    }
-  }
-  .app-title {
-    font-size: 24px;
-    color: orange;
-    font-weight: bold;
-    line-height: 2;
-  }
-
-  .user-menu {
-    .dropbtn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50px;
-      border: 1px solid orange;
-      background-color: white;
-      // padding: 16px;
-      font-size: 16px;
-      cursor: pointer;
-      outline:none;
-    }
-
-    .user-menu-content {
-      display: none;
-      position: absolute;
-      background-color: #f1f1f1;
-      overflow: auto;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      right: 0;
-      z-index: 1;
-      a {
-        color: orange;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        border-bottom: 1px solid orange;
-        &:last-child {
-          border-bottom: none !important;
-        }
-      }
-      @media (min-width: 640px){
-        right: 400px;
-      }
-      @media screen and (max-width: 480px) {
-        right: 0;
-      }
-    }
-  }
-
-  .show {display: block;}
-}
-
-/* The sticky class is added to the header with JS when it reaches its scroll position */
-.sticky-header {
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  width: 100%;
-  text-align: center;
-}
-/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
-.sticky-header + .restaurants {
-  padding-top: 102px;
-}
 
 * {
   box-sizing: border-box;
@@ -130,6 +10,8 @@ $color_grey_dark: #a2a2a2;
 
 body { background: #f1f1f1; }
 
+
+// ------------------------ restaurant_data_sets # new ---------------------------
 .restaurant  {
   display: block;
   // display: none;
@@ -191,6 +73,12 @@ body { background: #f1f1f1; }
           // margin-left: 20px;
           overflow: hidden;
           white-space: nowrap;
+        }
+        .redirect-link {
+          a:link { color: #1A0DAB; }
+          a:visited { color: purple; }
+          a:hover { color: #202124; }
+          a:active { color: #1A0DAB; }
         }
       }
     }
@@ -510,6 +398,7 @@ body { background: #f1f1f1; }
   button {
     border: 1px solid orange;
     color: orange;
+    background: white;
     &:hover {
       color: orange;
     }
@@ -537,12 +426,11 @@ body { background: #f1f1f1; }
   }
 }
 
+// ------------ restaurant_data_sets # index --------------
 
 .restaurant-data-sets {
   display: block;
-  // display: none;
   flex-direction: column;
-  margin: 1rem auto;
   // remove button default style
   text-align: unset;
   border: none;
@@ -555,6 +443,484 @@ body { background: #f1f1f1; }
   border-radius: 5px;
   overflow: hidden;
   z-index: 0;
+  @media (min-width: 640px) {
+    margin-left: 20rem;
+    margin-right: 20rem;
+    .r-data-sets-count {
+      padding: 8px 12px;
+      border: solid #e6e6e6;
+      font-size: 14px;
+      color: #666;
+      &:first-child {
+        border-width: 0 0 1px;
+      }
+    }
+    .r-data-set-image {
+      display: table-cell;
+      width: 391px;
+      height: 150px;
+      padding: 10px;
+      img { height: 130px; }    }
+    ul {
+      padding: 0;
+      list-style-type: none;
+      li {
+        margin-left: 150px;
+        margin-right: 150px;
+      }
+      a {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        vertical-align: bottom;
+        color: #222;
+        text-decoration: none;
+        text-shadow: 0 0 2px #fff;
+        border-bottom: 1px solid darkorange;
+        .arrow-icon {
+          position: absolute;
+          top: 40%;
+          color: gray;
+          right: 30px;
+        }
+        .restaurant-data-set-detail {
+          display: table-cell;
+          // height: 159px;
+          padding: 10px;
+          vertical-align: middle;
+          // background-color: bisque;
+          width: 100%;
+          .r-tags {
+            z-index: 1;
+            position: absolute;
+            top: 5px;
+            // left: 30rem;
+            li {
+              margin: inherit;
+              overflow: hidden;
+              float: left;
+              max-width: calc(100vw / 2 - (10px * 2));
+              margin-top: 6px;
+              margin-right: 6px;
+              padding: 2px 6px;
+              border: 1px solid darkorange;
+              border-radius: 2px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              font-size: 12px;
+              color: darkorange;
+              font-weight: 700;
+            }
+          }
+          h2 {
+            position: absolute;
+            top: 40%;
+            // left: 30rem;
+            overflow: hidden;
+            display: -webkit-box;
+            margin-top: 0;
+            padding-right: 42px;
+            padding-left: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 20px;
+            text-overflow: ellipsis;
+          }
+          .r-options {
+            position: absolute;
+            bottom: 17px;
+            // left: 30rem;
+            overflow: hidden;
+            color: #2866a7;
+            li {
+              margin: inherit;
+              color: dimgray;
+              font-weight: 500;
+              // font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 480px) {
+    min-height: 640px;
+    .r-data-sets-count {
+      padding: 8px 12px;
+      border: solid #e6e6e6;
+      font-size: 14px;
+      color: #666;
+      &:first-child {
+        border-width: 0 0 1px;
+      }
+    }
+  /* 480pxまでの幅の場合に適応される */
+    .r-data-set-image {
+      display: none;
+    }
+    ul {
+      padding: 0;
+      list-style-type: none;
+      a {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        vertical-align: bottom;
+        color: #222;
+        text-decoration: none;
+        text-shadow: 0 0 2px #fff;
+        .arrow-icon {
+          position: absolute;
+          top: 40%;
+          color: gray;
+          right: 10px;
+        }
+        .restaurant-data-set-detail {
+          width: 100%;
+          height: 14rem;
+          background-color: bisque;
+          list-style: none;
+          margin-bottom: 10px;
+          padding: 10px;
+          .r-tags {
+            z-index: 1;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            li {
+              overflow: hidden;
+              float: left;
+              max-width: calc(100vw / 2 - (10px * 2));
+              margin-top: 6px;
+              margin-right: 6px;
+              padding: 2px 6px;
+              border: 1px solid darkorange;
+              border-radius: 2px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              font-size: 12px;
+              color: darkorange;
+              font-weight: 700;
+            }
+          }
+          h2 {
+            position: absolute;
+            top: 40%;
+            left: 0;
+            overflow: hidden;
+            display: -webkit-box;
+            margin-top: 0;
+            padding-right: 42px;
+            padding-left: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 20px;
+            text-overflow: ellipsis;
+          }
+          .r-options {
+            position: absolute;
+            bottom: 17px;
+            left: 10px;
+            overflow: hidden;
+            color: #2866a7;
+            li {
+              color: dimgray;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// --------------  restaurant_data_set show  -----------------
+.r-data-set-view {
+  @media (min-width: 640px) {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+  @media screen and (max-width: 480px) {
+    min-height: 640px;
+  }
+  .r-data-set-count-pc { 
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
+  }
+  .r-data-set-count-mobile { 
+    @media (min-width: 640px) {
+      display: none;
+    }
+    @media screen and (max-width: 480px) {
+      border-bottom: 1px solid lightgray;
+      padding-left: 2rem;
+      padding-bottom: 0.4rem; 
+    }
+  }
+  .r-data-set-info {
+    @media (min-width: 640px) {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem;
+      background: lightgray;
+    }
+    @media screen and (max-width: 480px) {
+      padding-top: 1rem!important;
+      padding-bottom: 1rem;
+      background-color: blanchedalmond;
+    }
+    .r-data-set-info-header {
+      text-align: center;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      .r-data-set-title {
+        font-size: 3rem;
+      }
+    }
+
+    .send-text-wrapper {
+      text-align: center !important;
+      max-width: 100% !important;
+      padding: 0.5rem !important;
+      margin: 0px auto !important;
+      position: absolute;
+      @media (min-width: 640px) {
+        right: 25%;
+        top: 18%;
+      }
+      @media screen and (max-width: 480px) {
+        right: 60%;
+      }
+
+      .send-text-button {
+        box-sizing: border-box !important;
+        text-align: center !important;
+        position: relative !important;
+        padding-left: 50px !important;
+        color: rgb(255, 255, 255) !important;
+        font-size: 1.0625rem !important;
+        letter-spacing: 0.04em !important;
+        display: inline-block !important;
+        background-color: rgb(0, 195, 0) !important;
+        transition: background 0.4s ease 0s !important;
+        text-decoration: none !important;
+        border-radius: 4px !important;
+        @media (min-width: 640px) {
+          width: 150px !important;
+          height: 50px !important;
+        }
+        @media screen and (max-width: 480px) {
+          // width: 240px !important;
+          height: 30px !important;
+        }
+
+        .fa-line {
+          speak: none !important;
+          font-style: normal !important;
+          font-weight: normal !important;
+          text-transform: none !important;
+          line-height: 1 !important;
+          -webkit-font-smoothing: antialiased !important;
+          font-size: 26px !important;
+          position: absolute !important;
+          left: 13px !important;
+          top: 50% !important;
+          overflow: hidden !important;
+          margin: -13px 0px 0px !important;
+          font-variant: normal !important;
+        }
+
+        .send-text-text {
+          @media (min-width: 640px) {
+            display: inline-block !important;
+            line-height: 50px !important;
+            font-size: 17px;
+            &:after {
+              content: "" !important;
+              display: block !important;
+              height: 100% !important;
+              width: 1px !important;
+              position: absolute !important;
+              top: 0px !important;
+              left: 50px !important;
+              background: rgba(255, 255, 255, 0.5) !important;
+            }
+          }
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .delete-data-set-wrapper {
+      text-align: center !important;
+      // max-width: 460px !important;
+      max-width: 100% !important;
+      padding: 0.5rem !important;
+      margin: 0px auto !important;
+      position: absolute;
+      @media (min-width: 640px) {
+        right: 14.3%;
+        top: 18%;
+      }
+      @media screen and (max-width: 480px) {
+        right: 30%;
+      }
+      .delete-data-set-button {
+        box-sizing: border-box !important;
+        text-align: center !important;
+        position: relative !important;
+        padding-left: 50px !important;
+        // margin-bottom: 0.5rem !important;
+        color: rgb(255, 255, 255) !important;
+        font-size: 1.0625rem !important;
+        letter-spacing: 0.04em !important;
+        display: inline-block !important;
+        background-color: red !important;
+        transition: background 0.4s ease 0s !important;
+        text-decoration: none !important;
+        border-radius: 4px !important;
+        @media (min-width: 640px) {
+          width: 145px !important;
+          height: 50px !important;
+        }
+        @media screen and (max-width: 480px) {
+          height: 30px !important;
+        }
+
+        .fa-trash-alt {
+          speak: none !important;
+          font-style: normal !important;
+          font-weight: normal !important;
+          text-transform: none !important;
+          line-height: 1 !important;
+          -webkit-font-smoothing: antialiased !important;
+          font-size: 26px !important;
+          position: absolute !important;
+          left: 13px !important;
+          top: 50% !important;
+          overflow: hidden !important;
+          margin: -13px 0px 0px !important;
+          font-variant: normal !important;
+        }
+        .delete-data-set-text {
+          @media (min-width: 640px) {
+            display: inline-block !important;
+            line-height: 50px !important;
+            font-size: 17px;
+            &:after {
+              content: "" !important;
+              display: block !important;
+              height: 100% !important;
+              width: 1px !important;
+              position: absolute !important;
+              top: 0px !important;
+              left: 50px !important;
+              background: rgba(255, 255, 255, 0.5) !important;
+            }
+          }
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
+    }
+    .r-data-set-detail {
+      box-sizing: border-box !important;
+      position: relative !important;
+      color: rgb(0, 190, 210) !important;
+      // cursor: pointer !important;
+      border-radius: 4px !important;
+      height: 3rem;
+      @media (min-width: 640px) {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        background: rgb(255, 255, 255) !important;
+        overflow: hidden !important;
+        margin-left: 20rem;
+        margin-right: 20rem;
+      }
+      @media screen and (max-width: 480px) {
+        padding-left: 6rem;
+        margin-top: 4rem;
+      }
+
+      &:last-child {
+        @media (min-width: 640px) {
+          margin-top: 1rem;
+        }
+      }
+      .r-data-set-detail-component.tags{
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+      }
+      .r-data-set-detail-component {
+        font-size: 1.4rem;
+        // shared
+        -webkit-box-align: center !important;
+        display: flex !important;
+        align-items: center !important;
+        line-height: 1.4375rem !important;
+        box-sizing: border-box !important;
+        @media (min-width: 640px) {
+          width: 33.3333% !important;
+          border-right: 1px solid rgb(238, 238, 238) !important;
+          padding: 0.5rem 1rem !important;
+        }
+        @media screen and (max-width: 480px) {
+          width: 100% !important;
+          padding: 0.5rem 0px 0px !important;
+          padding: calc(0.15625rem) 0.5rem 0.5rem !important;
+          flex: 2 1 0% !important;
+          flex-wrap: wrap;
+        }
+        &:last-child {
+          border-right: none !important;
+        }
+
+        .r-data-set-detail-molecule-title {
+          font-weight: 800 !important;
+          padding-right: 1rem !important;
+          white-space: nowrap !important;
+          color: rgb(45, 45, 45) !important;
+          font-size: 16px;
+        }
+
+        .r-data-set-detail-molecule-content {
+          text-overflow: ellipsis !important;
+          white-space: nowrap !important;
+          color: rgba(45, 45, 45, 0.74) !important;
+          overflow: hidden !important;
+          @media screen and (max-width: 480px) {
+            font-size: 16px;
+            position: absolute;
+            left: 50%;
+          }
+        }
+        .r-data-set-detail-molecule-content-tags {
+          margin: inherit;
+          float: left;
+          max-width: calc(100vw / 2 - (10px * 2));
+          margin-right: 6px;
+          margin-bottom: 0.4rem;
+          padding: 2px 6px;
+          border: 1px solid darkorange;
+          border-radius: 2px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 12px;
+          color: darkorange;
+          font-weight: 700;
+          @media (min-width: 640px) {
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
 }
 
 
