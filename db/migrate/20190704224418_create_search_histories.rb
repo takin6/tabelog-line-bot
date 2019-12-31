@@ -1,8 +1,6 @@
 class CreateSearchHistories < ActiveRecord::Migration[5.2]
   def change
     create_table :search_histories do |t|
-      t.belongs_to :chat_unit, null: false, foreign_key: true
-
       t.integer :lower_budget, null: false, default: 0
       t.integer :upper_budget, null: false, default: 0
       t.integer :meal_type, null: false, default: 1

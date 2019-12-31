@@ -2,9 +2,7 @@ module Api
   class CustomRestaurantsController < ActionController::API
 
     def create
-      # とりあえずchat_unitはあるものとする
-      current_chat_unit = User.second.chat_unit
-      mongo_custom_restaurants = Api::Restaurants::CreateUsecase.new(current_chat_unit, create_params).execute
+      mongo_custom_restaurants = Api::Restaurants::CreateUsecase.new(create_params).execute
 
       render json: { mongo_custom_restaurants: mongo_custom_restaurants }
     end

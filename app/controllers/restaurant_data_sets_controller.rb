@@ -25,8 +25,7 @@ class RestaurantDataSetsController  < ApplicationController
   end
 
   def show
-    @search_history = @restaurant_data_set.search_history
-    unless current_chat_unit && @search_history.chat_unit == current_chat_unit
+    unless current_user && @restaurant_data_set.user == current_user
       redirect_to root_path
     else
       @search_history = @restaurant_data_set.search_history

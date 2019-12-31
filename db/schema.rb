@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 2019_11_06_045123) do
   end
 
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "chat_unit_id", null: false
     t.integer "meal_type", default: 1, null: false
     t.json "master_genres"
     t.string "custom_meal_genres"
@@ -126,7 +125,6 @@ ActiveRecord::Schema.define(version: 2019_11_06_045123) do
     t.string "lower_budget_currency", default: "JPY", null: false
     t.integer "upper_budget_cents", default: 0, null: false
     t.string "upper_budget_currency", default: "JPY", null: false
-    t.index ["chat_unit_id"], name: "index_search_histories_on_chat_unit_id"
   end
 
   create_table "station_search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -187,7 +185,6 @@ ActiveRecord::Schema.define(version: 2019_11_06_045123) do
   add_foreign_key "message_texts", "messages"
   add_foreign_key "messages", "chat_units"
   add_foreign_key "restaurant_data_sets", "users"
-  add_foreign_key "search_histories", "chat_units"
   add_foreign_key "station_search_histories", "search_histories"
   add_foreign_key "station_search_histories", "stations"
   add_foreign_key "stations", "regions"

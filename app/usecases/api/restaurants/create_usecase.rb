@@ -1,15 +1,14 @@
 module Api
   module Restaurants
     class CreateUsecase
-      attr_reader :chat_unit, :params
-        def initialize(chat_unit, params)
-        @chat_unit = chat_unit
+      attr_reader :params
+        def initialize(params)
         @params = params
       end
 
       def execute
         # recieve
-        search_history = SearchHistory.create_from_params(chat_unit.id, params)
+        search_history = SearchHistory.create_from_params(params)
 
         if Mongo::Restaurants.where(station_id: search_history.station_id).count == 0
           return ServiceResult.new(false, "レストランが一件も検索されませんでした")

@@ -4,7 +4,6 @@ class ChatUnit < ApplicationRecord
   has_one :chat_group, dependent: :destroy
 
   has_many :messages, dependent: :destroy
-  has_many :search_histories, dependent: :destroy
 
   enum chat_type: %i[user room group], _prefix: true
 
