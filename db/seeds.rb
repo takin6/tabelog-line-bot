@@ -14,7 +14,8 @@ User.create!(chat_unit: chat_unit2, name: "bさん", line_id: "bbbb", profile_pi
 chat_unit3 = ChatUnit.create!(chat_type: :room)
 ChatRoom.create!(chat_unit: chat_unit3, line_id: "sample_room")
 
-LineLiff.create(name: "search_restaurants", liff_id: ENV["LIFF_URL"])
+LineLiff.create(name: "search_restaurants", liff_id: ENV["SEARCH_HISTORY_LIFF_URL"])
+LineLiff.create(name: "restaurant_data_sets", liff_id: ENV["RESTAURANT_DATA_SET_LIFF_URL"] )
 
 csv = CSV.read(Rails.root.join("db", "seeds", "001_regions.csv"))
 csv.shift

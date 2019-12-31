@@ -58,6 +58,14 @@ module Mongo
       return current_page + 1
     end
 
+    def station_name
+      Mongo::Restaurants.find(self.mongo_restaurants_id).station_name
+    end
+
+    def selected_genres
+      SearchHistory.find_by(cache_id: self.cache_id).master_genres
+    end
+
     private
 
     def self.sort_with_search_history(search_history, restaurants)

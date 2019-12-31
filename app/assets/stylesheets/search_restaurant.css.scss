@@ -1,3 +1,7 @@
+.user-menu-content {
+  z-index: 30 !important;
+}
+
 .container {
   max-width: 1024px;
 }
@@ -15,7 +19,12 @@
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);*/
   position: relative;
+  background-color: gray;
+}
 
+input {
+  /*change the color of cusor to white*/
+  caret-color: white;
 }
 
 #booking {
@@ -70,7 +79,7 @@
   height: 60px;
   padding: 0px 25px;
   border: none;
-  border-radius: 40px;
+  border-radius: 4px;
   color: #fff;
   -webkit-box-shadow: 0px 0px 0px 2px transparent;
   box-shadow: 0px 0px 0px 2px transparent;
@@ -177,7 +186,7 @@
   height: 60px;
   padding: 10px 30px;
   width: 100%;
-  border-radius: 40px;
+  border-radius: 4px;
   border: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -200,7 +209,7 @@
   height: 60px;
   padding: 10px 30px;
   width: 100%;
-  border-radius: 40px;
+  border-radius: 4px;
   border: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -214,10 +223,7 @@
   opacity: 0.9;
 }
 
-/*budget arrow : NOT RESPONSIVE!! Has to be fixed*/
 #budget-arrow {
-  left: 46%;
-  /*right: 48.5%; for pc*/
   top: 45%;
   position: absolute;
   width: 32px;
@@ -226,39 +232,16 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 30px;
 }
-
-/*for loading*/
-.is-hide{
-  /*visibility:hiddenは名前の通り、要素はあるけど見えない状態。
-  display:noneは、要素も取得されず、完全にその場にない扱い。*/
-  visibility:hidden; 
+@media (min-width: 640px) {
+  #budget-arrow {
+    right: 48.5%;
+  }
 }
-.loading{
-  position:fixed;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-  background:rgba(0,0,0,.5);
-}
-.loading::after{
-  content:"";
-  display:block;
-  position:fixed;
-  left:45%;
-  top:30%;
-  width:50px;
-  height:50px;
-  border-radius:50px;
-  margin-top:-10px;
-  margin-left:-10px;
-  border:6px solid lightgray;
-  border-right:6px solid white;
-  animation: rotate 1s infinite linear;
-}
-@keyframes rotate {
-  0%    { transform: rotate(0deg); }
-  100%  { transform: rotate(360deg); }
+@media screen and (max-width: 480px) {
+/* 480pxまでの幅の場合に適応される */
+  #budget-arrow {
+    right: 46%;
+  }
 }
 
 
@@ -267,49 +250,6 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
-
-/* Dropdown Button */
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 40%;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  margin-left: 7%;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
@@ -320,9 +260,36 @@ ul {
   padding: 0;
 }
 
-.location-choice-element {
-  border-bottom: 1px solid #AFAFAF;
-  background-color: lightgray;
+.location-choice-list {
+  display: block;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  .location-choice-element {
+    border-bottom: 1px solid #AFAFAF;
+    background-color: dimgray;
+    width: 95%;
+    margin: auto;
+    color: white !important;
+    cursor: pointer;
+    @media (min-width: 640px) {
+      height: 3rem;
+    }
+    @media screen and (max-width: 480px) {
+      height: 4rem;
+    }
+    &:first-child {
+      border-top: 1px solid orange;
+    }
+    div {
+      @media (min-width: 640px) {
+        padding: 0.3rem;
+      }
+      @media screen and (max-width: 480px) {
+        padding: 1rem;
+      }
+    }
+  }
 }
 
 /*genre bar*/
@@ -382,3 +349,41 @@ ul {
   text-decoration: line-through;;
 }
 
+
+/*.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 40%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-left: 7%;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+*/

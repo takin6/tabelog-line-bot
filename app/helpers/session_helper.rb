@@ -16,4 +16,9 @@ module SessionHelper
     session.delete(:chat_unit_id)
     @current_chat_unit = nil
   end
+
+  def embed_redirect_path_after_login
+    session[:redirect_path_after_login] = request.url
+  end
+
 end

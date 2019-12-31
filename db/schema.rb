@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_10_211857) do
+ActiveRecord::Schema.define(version: 2019_11_06_045123) do
 
   create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "chat_unit_id", null: false
@@ -100,8 +100,18 @@ ActiveRecord::Schema.define(version: 2019_09_10_211857) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "restaurant_data_sets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.string "cache_id", null: false
+    t.string "mongo_custom_restaurants_id", null: false
+    t.json "selected_restaurant_ids", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_restaurant_data_sets_on_user_id"
+  end
+
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "chat_unit_id", null: false
     t.integer "meal_type", default: 1, null: false
     t.json "master_genres"
     t.string "custom_meal_genres"
@@ -115,7 +125,6 @@ ActiveRecord::Schema.define(version: 2019_09_10_211857) do
     t.string "lower_budget_currency", default: "JPY", null: false
     t.integer "upper_budget_cents", default: 0, null: false
     t.string "upper_budget_currency", default: "JPY", null: false
-    t.index ["chat_unit_id"], name: "index_search_histories_on_chat_unit_id"
   end
 
   create_table "station_search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -153,7 +162,19 @@ ActiveRecord::Schema.define(version: 2019_09_10_211857) do
     t.string "profile_picture_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.index ["chat_unit_id"], name: "index_users_on_chat_unit_id"
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "chat_groups", "chat_units"
@@ -163,7 +184,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_211857) do
   add_foreign_key "message_restaurants", "messages"
   add_foreign_key "message_texts", "messages"
   add_foreign_key "messages", "chat_units"
-  add_foreign_key "search_histories", "chat_units"
+  add_foreign_key "restaurant_data_sets", "users"
   add_foreign_key "station_search_histories", "search_histories"
   add_foreign_key "station_search_histories", "stations"
   add_foreign_key "stations", "regions"

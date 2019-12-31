@@ -1,0 +1,29 @@
+<div class="header" id="header">
+  <div class="header-logo">
+    <%= link_to "Uzu Meshi", new_search_restaurant_path, class: "app-title", onclick: "onClickClearCache()" %>
+    <% if restaurants %>
+      <span class="total-count">検索結果：<%=restaurants.count %>件</span>
+    <% end %>
+  </div>
+
+  <div class="user-menu">
+    <% if user_signed_in? %>
+      <input type="image" class="dropbtn" onclick="onClickUserMenu()" src=<%= current_user.profile_picture_url %>>
+    <% else %>
+      <input type="image" class="dropbtn" id="dropbtn-img" onclick="onClickUserMenu()" src="#" style="display: none" >
+      <button onclick="onClickUserMenu()" class="dropbtn" id="dropbtn-nouser">
+        <i class="fas fa-user"></i>
+      </button>
+    <% end %>
+    <div class="user-menu-content">
+      <% if user_signed_in?  %>
+        <%= link_to "マイリスト", restaurant_data_sets_path %>
+        <%= link_to "サインアウト", user_auth_logout_path, method: :delete %>
+        <a href="#">Uzu Meshiとは?</a>
+      <% else %>
+        <%= link_to "ログイン", user_line_omniauth_authorize_path %>
+        <a href="#">Uzu Meshiとは?</a>
+      <% end %>
+    </div>
+  </div>
+</div>

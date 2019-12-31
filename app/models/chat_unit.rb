@@ -1,10 +1,10 @@
 class ChatUnit < ApplicationRecord
   has_one :user, dependent: :destroy
+  # 将来的に、chat_room has_many usersにしたい。その時、userはchat_userとなる？
   has_one :chat_room, dependent: :destroy
   has_one :chat_group, dependent: :destroy
 
   has_many :messages, dependent: :destroy
-  has_many :search_histories, dependent: :destroy
 
   enum chat_type: %i[user room group], _prefix: true
 

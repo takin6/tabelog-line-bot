@@ -1,0 +1,60 @@
+<%# The container tag
+  - available local variables
+    current_page:  a page object for the currently displayed page
+    total_pages:   total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+    paginator:     the paginator that renders the pagination tags inside
+-%>
+<%= paginator.render do -%>
+  <nav class="pagination" role="navigation" aria-label="pager">
+    <% if !current_page.first? && current_page-2 > 1 %>
+      <%= first_page_tag %>
+    <% end %>
+
+    <% if current_page == total_pages %>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(current_page - 3).url %>><%= current_page - 3 %></a>
+      </span>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(current_page - 2).url %>><%= current_page - 2 %></a>
+      </span>
+    <% end %>
+    <% if current_page == total_pages - 1 %>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(current_page - 2).url %>><%= current_page - 2 %></a>
+      </span>
+    <% end %>
+    <% if current_page == total_pages - 2 %>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(current_page - 2).url %>><%= current_page - 2 %></a>
+      </span>
+    <% end %>
+
+    <% each_page do |page| %>
+      <% if page.display_tag? -%>
+        <%= page_tag page %>
+      <% end -%>
+    <% end -%>
+
+    <% if current_page.first? %>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(3).url %>>3</a>
+      </span>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(4).url %>>4</a>
+      </span>
+    <% end %>
+    <% if current_page == 2 %>
+      <span class="page">
+        <a rel="prev" href=<%= paginator.page_tag(4).url %>>4</a>
+      </span>
+    <% end %>
+
+    <% unless current_page.out_of_range? %>
+      <% if !current_page.last? && current_page+2 < total_pages%>
+        <%= last_page_tag %>
+      <% end %>
+    <% end %>
+  </nav>
+<% end -%>

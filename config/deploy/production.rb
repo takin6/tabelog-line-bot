@@ -1,3 +1,5 @@
+require "capistrano-bundler"
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -60,5 +62,6 @@
 #     # password: "please use keys"
 #   }
 
-server ENV['AWS_IP_ADDRESS'], user: 'takayuki', roles: %w{app db web}
-set :ssh_options, keys: '~/.ssh/tiramis_key_rsa'
+server ENV['AWS_IP_ADDRESS'], user: 'ec2-user', roles: %w{app db web}
+# set :ssh_options, keys: '~/tiramis-docker/config/tiramis_key_rsa'
+set :ssh_options, keys: '/app/config/deploy/aws_config/uzumeshi-private-key.pem'

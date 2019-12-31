@@ -1,7 +1,6 @@
 class SearchHistory < ApplicationRecord
   before_create :generate_cache_id
 
-  belongs_to :chat_unit
   has_one :station_search_history, dependent: :destroy
   has_one :station, through: :station_search_history
 
@@ -23,9 +22,8 @@ class SearchHistory < ApplicationRecord
     false
   end
 
-  def self.create_from_params(chat_unit_id, params)
+  def self.create_from_params(params)
     search_history = SearchHistory.create!(
-      chat_unit_id: chat_unit_id,
       lower_budget_cents: params[:budget][:lower].to_i,
       upper_budget_cents: params[:budget][:upper].to_i,
       meal_type: params[:meal_type],

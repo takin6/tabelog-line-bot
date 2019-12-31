@@ -1,0 +1,4 @@
+<div class="pagination-wrapper">
+  <%= paginate @restaurants, params: {controller: 'restaurants', action: 'index'}, window: 1 %>
+  <div>%= page_entries_info @restaurants %></div>
+</div>

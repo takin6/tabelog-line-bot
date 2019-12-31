@@ -1,17 +1,19 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.1"
 
-set :application, "tiramis"
-set :repo_url, "git@github.com:takin6/tiramis.git"
+set :application, "uzumeshi"
+set :repo_url, "git@github.com:takin6/uzumeshi.git"
 
 set :rails_env, "production"
+set :user, "ec2-user"
 
+set :pty, true
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :branch, 'master'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/projects/tiramis"
+set :deploy_to, "/var/www/uzumeshi"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -34,7 +36,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/sockets',
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 env_vals = {}
-File.read(".env").split("\n").map do |env|
+File.read("/app/config/.env").split("\n").map do |env|
   key, val = env.split("=")
   env_vals[key] = val
 end
@@ -49,13 +51,21 @@ set :keep_releases, 5
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+#rbenvをシステムにインストールしたか? or ユーザーローカルにインストールしたか?
+set :rbenv_type, :user # :system or :user
+# rubyのversion
 set :rbenv_ruby, '2.6.3'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
 
 set :log_level, :debug
 
 set :sidekiq_role, :app
 set :sidekiq_config, "config/sidekiq.yml"
 set :sidekiq_env, 'production'
+# set :bundle_env_variables, { nokogiri_use_system_libraries: 1 }
+
 
 namespace :deploy do
   desc 'Restart application'
