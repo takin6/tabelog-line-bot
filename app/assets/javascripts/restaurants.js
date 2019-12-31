@@ -1,8 +1,30 @@
+window.onload = function (e) {
+  if (liff._auth == null) {
+    console.log("liff not detected");
+    $(".loading").remove()
+    $(".main").removeClass("is-hide");
+  } else {
+    liff.init(function (data) {
+      initializeApp(data);
+    });
+  }
+};
+
 // sticky header: https://www.w3schools.com/howto/howto_js_sticky_header.asp
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() { addOrRemoveSticky() };
 
 window.onload = function() {
+  if (liff._auth == null) {
+    console.log("liff not detected");
+    $(".loading").remove()
+    $(".main").removeClass("is-hide");
+  } else {
+    liff.init(function (data) {
+      initializeApp(data);
+    });
+  }
+
   initializeSession();
   changeSelectedRestaurantsCountText();
 

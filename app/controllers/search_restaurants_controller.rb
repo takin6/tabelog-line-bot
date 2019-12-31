@@ -1,5 +1,5 @@
 class SearchRestaurantsController < ApplicationController
-  layout 'liff'
+  layout 'search_restaurant'
 
   def new
     @master_restaurant_genres = MasterRestaurantGenre.all

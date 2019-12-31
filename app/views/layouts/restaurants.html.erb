@@ -46,10 +46,11 @@
         <%= yield %>
     </div>
 
-    <!-- <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script> -->
+    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 
+  <%= javascript_include_tag 'liff' %>
   <%= javascript_include_tag 'restaurants' %>
 </html>
 

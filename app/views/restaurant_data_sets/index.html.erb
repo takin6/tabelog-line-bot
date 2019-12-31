@@ -25,8 +25,14 @@
             <ul class="r-options">
               <li>
                 <% if restaurant_data_set.search_history.meal_type == "dinner" %>
-                  <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= restaurant_data_set.search_history.lower_budget.format %> ~ <%= restaurant_data_set.search_history.upper_budget.format %>
+                  <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i>
+                <% else %>
+                  <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; background-color: #CB8131; color: white"></i>
                 <% end %>
+
+                <%= restaurant_data_set.search_history.lower_budget_cents == 0 ? "指定なし" : restaurant_data_set.search_history.lower_budget.format %>
+                ~
+                <%= restaurant_data_set.search_history.upper_budget_cents == 0 ? "指定なし" : restaurant_data_set.search_history.upper_budget.format %>
               </li>
             </ul>
           </div>
