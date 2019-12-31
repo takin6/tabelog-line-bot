@@ -8,7 +8,9 @@ class RestaurantDataSetsController  < ApplicationController
     unless current_user
       head :bad_request
     else
-      @restaurant_data_sets = current_user.restaurant_data_sets
+      @restaurant_data_sets = current_user.restaurant_data_sets do |restaurant_data_set|
+        restaurant_data_set.decorate
+      end
     end
   end
 
