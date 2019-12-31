@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(version: 2019_11_07_205518) do
     t.string "cache_id", null: false
     t.string "mongo_custom_restaurants_id", null: false
     t.json "selected_restaurant_ids", null: false
-    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_restaurant_data_sets_on_user_id"

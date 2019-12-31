@@ -120,7 +120,6 @@ function onSubmitRestaurantDataSet(event) {
         title: $("#restaurant-data-set-title").val(),
         mongo_custom_restaurants_id: window.location.href.split("cache_id=")[1],
         selected_restaurant_ids: getValuesFromSession('selectedRestaurantIds'),
-        // title: 
       }
     },
     success: function (res, status) {
