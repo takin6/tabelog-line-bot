@@ -18,7 +18,7 @@ default: &default
 
 development:
   <<: *default
-  database: tabelog-line-bot_development
+  database: uzumeshi_development
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   port: <%= ENV['DB_PORT'] %>
@@ -30,7 +30,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: tabelog-line-bot_test
+  database: uzumeshi_test
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   port: <%= ENV['DB_PORT'] %>
@@ -58,7 +58,7 @@ test:
 #
 production:
   <<: *default
-  database: tabelog-line-bot_production
+  database: uzumeshi_production
   username: <%= ENV['DB_USER_PRODUCTION'] %>
   password: <%= ENV['DB_PASSWORD_PRODUCTION'] %>
   host: <%= ENV['DB_HOST_PRODUCTION'] %>

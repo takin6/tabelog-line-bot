@@ -5,7 +5,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: tabelog_line_bot_development
+      database: uzumeshi_development
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -155,7 +155,7 @@ development:
 test:
   clients:
     default:
-      database: tabelog_line_bot_test
+      database: uzumeshi_test
       hosts:
         - <%= ENV['MONGO_HOST'] || '127.0.0.1:27017' %>
       options:
@@ -165,7 +165,7 @@ test:
 production:
   clients:
     default:
-      database: tabelog_line_bot_production
+      database: uzumeshi_production
       hosts:
         - <%= ENV['MONGO_HOST'] || '127.0.0.1:27017' %>
       options:
