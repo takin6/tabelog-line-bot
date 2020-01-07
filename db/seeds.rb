@@ -23,10 +23,16 @@ csv.each do |id, name|
   Region.create(id: id, name: name)
 end
 
-csv = CSV.read(Rails.root.join("db", "seeds", "002_stations.csv"))
+csv = CSV.read(Rails.root.join("db", "seeds", "003_areas.csv"))
 csv.shift
 csv.each do |id, region_id, name|
-  Station.create(id: id, region_id: region_id, name: name)
+  Area.create(id: id, region_id: region_id, name: name)
+end
+
+csv = CSV.read(Rails.root.join("db", "seeds", "002_stations.csv"))
+csv.shift
+csv.each do |id, area_id, name|
+  Station.create(id: id, area_id: area_id, name: name)
 end
 
 csv = CSV.read(Rails.root.join("db", "seeds", "100_genre.csv"))

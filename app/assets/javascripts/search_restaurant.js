@@ -36,10 +36,10 @@ var inputUpperBudget = document.getElementById("upper-budget");
 var decidedLocation;
 
 function onInputLocation(e) {
-  decidedLocation = "";
+  decidedLocation = null;
   inputLocation.setCustomValidity("場所を正しく入力してください");
   getSuggetWords();
-  if (e.currentTarget.value.length > 1 && $(".location-choice-list").length > 0 && decidedLocation == "") {
+  if (e.currentTarget.value.length > 1 && $(".location-choice-list").length > 0 && decidedLocation == null) {
     $("#location-choices").toggle(true)
   } else {
     $("#location-choices").toggle(false)
@@ -47,10 +47,8 @@ function onInputLocation(e) {
 }
 
 function onClickLocationChoice(e) {
-  // idにする
-  var userChoice = e.currentTarget.innerText
-  decidedLocation = userChoice;
-  inputLocation.value = userChoice;
+  decidedLocation = parseInt(e.currentTarget.getAttribute("key"));
+  inputLocation.value = e.currentTarget.innerText.trim();
   inputLocation.setCustomValidity("");
 }
 
@@ -86,7 +84,10 @@ function onSubmitSearchRestaurant(event) {
     url: '/api/custom_restaurants',
     data: {
       line_liff: {
-        location: decidedLocation.trim(),
+        location: {
+          id: parseInt(document.querySelectorAll(`[key="${decidedLocation}"]`)[0].getAttribute("data-id")),
+          type: document.querySelectorAll(`[key="${decidedLocation}"]`)[0].getAttribute("data-type").trim()
+        },
         meal_type: inputMealType.value,
         genre: {
           custom_input: ["指定なし", ""].includes(inputMealGenre.value) ? undefined : inputMealGenre.value,
@@ -193,37 +194,37 @@ function validateBudget() {
 var timeout = null
 function getSuggetWords() {
   clearTimeout(timeout);
-  // 2文字以上入力された場合にサジェストワードを取得
-  if (inputLocation.value.length > 1) {
-　　// setTimeoutを使ってapiが呼ばれるまでに時間を置く
-    timeout = setTimeout(function () {
-      $.ajax({
-        type: 'GET',
-        url: '/api/stations/suggests?query='+inputLocation.value,
-        success: function (res, status) {
-          var result = res.stations;
-          updateSuggestWords(result);
-        },
-        error: function (res) {
-          window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus: " + res.status);
-          liff.closeWindow();
-        },
-        complete: function(data) {}
-      });
-    }, 300);
-  }
+  // setTimeoutを使ってapiが呼ばれるまでに時間を置く
+  timeout = setTimeout(function () {
+    $.ajax({
+      type: 'GET',
+      url: '/api/stations/suggests?query='+inputLocation.value,
+      success: function (res, status) {
+        updateSuggestWords(res);
+      },
+      error: function (res) {
+        window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus: " + res.status);
+        liff.closeWindow();
+      },
+      complete: function(data) {}
+    });
+  }, 300);
 }
 
 function updateSuggestWords(result) {
   if (result.length > 0) {
     const dropdownMenu = document.querySelector("#location-choices");
 
-    let stationList = "";
-    result.forEach(station_json => {
-      stationList += `<li class="location-choice-element" id=${station_json["id"]} onclick="onClickLocationChoice(event)"><div>${station_json["name"]}</div></li>`
+    let suggestList = "";
+    result.forEach( function(suggest_json, index) {
+      if (suggest_json["type"] == "station") {
+        suggestList += `<li class="location-choice-element" key=${index} data-id=${suggest_json["id"]} data-type="station" onclick="onClickLocationChoice(event)"><div><i class="fas fa-subway fa-lg" style="color: lightgray; margin-right: 3rem;"></i> ${suggest_json["name"]}</div></li>`
+      } else {
+        suggestList += `<li class="location-choice-element" key=${index} data-id=${suggest_json["id"]} data-type="area" onclick="onClickLocationChoice(event)"><div><i class="far fa-building fa-lg" style="color: lightgray; margin-right: 3rem;"></i> ${suggest_json["name"]}</div></li>`
+      }
     });
 
-    const html = `<ul class="location-choice-list">${stationList}</ul>`;
+    const html = `<ul class="location-choice-list">${suggestList}</ul>`;
 
     dropdownMenu.innerHTML = html;
     displaySuggestList();

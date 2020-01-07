@@ -5,14 +5,23 @@ module Api
         query = params[:query]
 
         render json: {} unless query
+        result = []
 
-        response = Station.search(query)
-        result = response.to_a[0..4].map do |result_station|
-          { id: result_station["_source"][:id], name: result_station["_source"][:name] }
+        station_response = Station.search(params[:query])
+        suggest_stations = station_response.to_a[0..4].map do |station|
+          { id: station["_source"][:id], name: station["_source"][:name], type: station["_source"][:type]}
         end
-        exact_match = result.select {|station| station[:name].include?(query) }
-        # 上位５件のみ表示
-        render json: { stations: exact_match.present? ? exact_match : result }
+        result.append(suggest_stations)
+
+        area_response = Area.search(params[:query])
+        suggest_areas = area_response.to_a[0..4].map do |area|
+          { id: area["_source"][:id], name: area["_source"][:name], type: area["_source"][:type] }
+        end
+        result.append(suggest_areas)
+
+        exact_match = suggest_stations.select {|station| station[:name].include?(query) }
+        # exact_matchがあったら、areaも上位1件のみ表示。
+        render json: exact_match.present? ? [exact_match, suggest_areas[0]].flatten : result.flatten
       end
 
       private

@@ -1,10 +1,12 @@
 class SearchHistory < ApplicationRecord
   before_create :generate_cache_id
 
-  has_one :station_search_history, dependent: :destroy
-  has_one :station, through: :station_search_history
+  has_one :location_search_history, dependent: :destroy
+  has_one :area, through: :location_search_history, source: :location, source_type: 'Area'
+  has_one :station, through: :location_search_history, source: :location, source_type: 'Station'
 
-  delegate :id, :name, to: :station, prefix: :station
+  delegate :id, :name, to: :station, prefix: :station, allow_nil: true
+  delegate :id, :name, to: :area, prefix: :area, allow_nil: true
 
   enum meal_type: %i[lunch dinner]
 
@@ -33,8 +35,12 @@ class SearchHistory < ApplicationRecord
       # other_requests: params[:other_requests]
     )
 
-    station = Station.find_by(name: params[:location])
-    StationSearchHistory.create!(station: station, search_history: search_history)
+    if params[:location][:type] == "station"
+      location = Station.find_by(id: params[:location][:id])
+    else
+      location = Area.find_by(id: params[:location][:id])
+    end
+    LocationSearchHistory.create!(location: location, search_history: search_history)
 
     search_history
   end

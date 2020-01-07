@@ -17,9 +17,9 @@ class RestaurantDataSetsController  < ApplicationController
   def new
     if @mongo_custom_restaurants.present?
       @restaurants = @mongo_custom_restaurants.restaurants
-      station_name = @mongo_custom_restaurants.station_name
+      location_name = @mongo_custom_restaurants.location_name
       formatted_current_date = DatetimeUtil.get_formatted_date
-      @default_modal_text = (formatted_current_date + "&nbsp;" + station_name).html_safe
+      @default_modal_text = (formatted_current_date + "&nbsp;" + location_name).html_safe
   	  # @restaurants = Kaminari.paginate_array(@mongo_custom_restaurnats.restaurants).page(@page).per(10)
   	else
   	  head :bad_request

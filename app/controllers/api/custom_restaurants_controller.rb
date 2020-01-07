@@ -12,7 +12,8 @@ module Api
     def create_params
       params.require(:line_liff)
             .permit(
-              :location, :meal_type,
+              :meal_type,
+              location: %i[id type],
               genre: [
                 :custom_input,
                 master_genres: []

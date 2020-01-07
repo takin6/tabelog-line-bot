@@ -2,11 +2,13 @@ namespace :elasticsearch do
   desc "create elasticsearch index for stations"
   task :create_search_index => :environment do
     Station.create_index!
+    Area.create_index!
   end
 
   desc "input elasticsearch documents"
   task :create_suggest_keyword => :environment do
     Station.__elasticsearch__.import
+    Area.__elasticsearch__.import
   end
 
   desc "sample search"

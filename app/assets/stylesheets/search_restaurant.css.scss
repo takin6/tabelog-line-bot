@@ -273,7 +273,9 @@ ul {
     color: white !important;
     cursor: pointer;
     @media (min-width: 640px) {
-      height: 3rem;
+      height: 5rem;
+      padding: 1rem;
+      font-size: 14px;
     }
     @media screen and (max-width: 480px) {
       height: 4rem;
@@ -348,7 +350,6 @@ ul {
   background-color: chocolate;
   text-decoration: line-through;;
 }
-
 
 /*.dropbtn {
   background-color: #3498DB;

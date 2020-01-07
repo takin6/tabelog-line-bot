@@ -4,17 +4,19 @@ module Mongo
     include Mongoid::Timestamps
 
     field :cache_id
-    field :mongo_restaurants_id
     field :meal_type
     field :max_page
     field :restaurants
 
     def self.create_document!(search_history, mongo_restaurants)
-      restaurants = sort_with_search_history(search_history, mongo_restaurants.restaurants)
+      if mongo_restaurants.is_a?(Array)
+        restaurants = sort_with_search_history(search_history, mongo_restaurants.map(&:restaurants).flatten)
+      else
+        restaurants = sort_with_search_history(search_history, mongo_restaurants.restaurants)
+      end
       document = [
         insert_one: {
           cache_id: search_history.cache_id,
-          mongo_restaurants_id: mongo_restaurants.id.to_s,
           max_page: (restaurants.count / 9.0).ceil,
           meal_type: search_history.meal_type,
           restaurants: restaurants
@@ -58,8 +60,8 @@ module Mongo
       return current_page + 1
     end
 
-    def station_name
-      Mongo::Restaurants.find(self.mongo_restaurants_id).station_name
+    def location_name
+      SearchHistory.find_by(cache_id: self.cache_id).location_search_history.location.name
     end
 
     def selected_genres

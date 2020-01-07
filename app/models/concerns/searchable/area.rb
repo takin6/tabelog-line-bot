@@ -1,13 +1,13 @@
 module Searchable
-  module Station
+  module Area
     extend ActiveSupport::Concern
 
     included do
       include Elasticsearch::Model
 
       # a. サジェスト用のindex
-      index_name "station_#{Rails.env}"
-      document_type "station"
+      index_name "area_#{Rails.env}"
+      document_type "area"
 
       # b. self.analyzer_settingsで下のほうに定義したanalyzerを使えるようにする。
       settings analysis: self.analyzer_settings do
@@ -36,7 +36,7 @@ module Searchable
         attributes
           .symbolize_keys
           .slice(:id, :name)
-          .merge(type: "station")
+          .merge(type: "area")
           .merge(
             created_at: created_at.strftime("%Y-%m-%d %H:%M:%S")
           )
@@ -87,7 +87,7 @@ module Searchable
                 order: {
                   _count: "desc"
                 },
-                size: "5"
+                # size: "5"
               }
             }
           }
