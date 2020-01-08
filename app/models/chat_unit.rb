@@ -31,4 +31,30 @@ class ChatUnit < ApplicationRecord
     
     self.messages.where(status: :reply).count == 0 ? true : false
   end
+
+  def self.create_or_find_all_entities!(user_params)
+    chat_unit = nil
+
+    ActiveRecord::Base.transaction do
+      user = User.find_by(
+        line_id: user_params[:line_id],
+        name: user_params[:name],
+        profile_picture_url: user_params[:profile_picture_url]
+      )
+
+      unless user
+        chat_unit = ChatUnit.create!(chat_type: :user)
+        user = User.create!(
+          chat_unit: chat_unit, 
+          line_id: user_params[:line_id],
+          name: user_params[:name],
+          profile_picture_url: user_params[:profile_picture_url]
+        )
+      else
+        chat_unit = user.chat_unit
+      end
+    end
+
+    return chat_unit
+  end
 end

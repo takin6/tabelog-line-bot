@@ -34,7 +34,7 @@ module Messenger
         "type": "bubble",
         "hero": {
           "type": "image",
-          "url": restaurant[:thumbnail_image_url],
+          "url": restaurant[:thumbnail_image_urls][0],
           "size": "full",
           "aspectRatio": "20:15",
           "aspectMode": "cover"

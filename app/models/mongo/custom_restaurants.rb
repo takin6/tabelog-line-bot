@@ -10,7 +10,7 @@ module Mongo
 
     def self.create_document!(search_history, mongo_restaurants)
       if mongo_restaurants.is_a?(Array)
-        restaurants = sort_with_search_history(search_history, mongo_restaurants.map(&:restaurants).flatten)
+        restaurants = sort_with_search_history(search_history, mongo_restaurants.map(&:restaurants).flatten.uniq)
       else
         restaurants = sort_with_search_history(search_history, mongo_restaurants.restaurants)
       end

@@ -14,25 +14,25 @@ User.create!(chat_unit: chat_unit2, name: "bさん", line_id: "bbbb", profile_pi
 chat_unit3 = ChatUnit.create!(chat_type: :room)
 ChatRoom.create!(chat_unit: chat_unit3, line_id: "sample_room")
 
-LineLiff.create(name: "search_restaurants", liff_id: ENV["SEARCH_HISTORY_LIFF_URL"])
-LineLiff.create(name: "restaurant_data_sets", liff_id: ENV["RESTAURANT_DATA_SET_LIFF_URL"] )
+LineLiff.create!(name: "search_restaurants", liff_id: ENV["SEARCH_HISTORY_LIFF_URL"])
+LineLiff.create!(name: "restaurant_data_sets", liff_id: ENV["RESTAURANT_DATA_SET_LIFF_URL"] )
 
 csv = CSV.read(Rails.root.join("db", "seeds", "001_regions.csv"))
 csv.shift
 csv.each do |id, name|
-  Region.create(id: id, name: name)
+  Region.create!(id: id, name: name)
 end
 
 csv = CSV.read(Rails.root.join("db", "seeds", "003_areas.csv"))
 csv.shift
 csv.each do |id, region_id, name|
-  Area.create(id: id, region_id: region_id, name: name)
+  Area.create!(id: id, region_id: region_id, name: name)
 end
 
 csv = CSV.read(Rails.root.join("db", "seeds", "002_stations.csv"))
 csv.shift
 csv.each do |id, area_id, name|
-  Station.create(id: id, area_id: area_id, name: name)
+  Station.create!(id: id, area_id: area_id, name: name)
 end
 
 csv = CSV.read(Rails.root.join("db", "seeds", "100_genre.csv"))

@@ -20,4 +20,26 @@ namespace :scraping do
       end
     end
   end
+
+  namespace :tabelog do
+    desc "crawling restaurant pictures"
+    task :crawl_restaurant_pictures => :environment do
+      header = CSV.read(Rails.root.join("db", "seeds", "200_master_restaurants.csv"), headers: true).headers
+      header[-1] = "thumbnail_image_urls"
+
+      reference_data = CSV.open(Rails.root.join("db", "seeds", "200_master_restaurants.csv"), "r")
+      reference_data.shift
+      CSV.open(Rails.root.join("db", "seeds", "201_master_genres_restaurants_ver2.csv"), "w") do |csv|
+        csv << header
+        reference_data.each.with_index(1) do |row, index|
+          pictures = Scraper::Tabelog::TabelogPictureScraper.new(row[-2]).execute
+          row[-1] = pictures
+          csv << row
+          sleep(10)
+        end
+      end
+    end
+  end
 end
+
+

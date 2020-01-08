@@ -33,13 +33,7 @@ module Api
     def find_chat_unit
       case chat_unit_kind
       when "user"
-        user = User.find_by(
-          line_id: validate_chat_unit_param[:user][:line_id],
-          name: validate_chat_unit_param[:user][:name],
-          profile_picture_url: validate_chat_unit_param[:user][:profile_picture_url]
-        )
-
-        chat_unit = user.chat_unit
+        chat_unit = ChatUnit.create_or_find_all_entities!(validate_chat_unit_param[:user])
       when "room"
         chat_unit = ChatRoom.create_or_find_all_entities!(validate_chat_unit_param[:room][:line_id], validate_chat_unit_param[:user])
       when "group"

@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2020_01_07_090024) do
 
-  create_table "area_search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "area_id", null: false
-    t.bigint "search_history_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["area_id"], name: "index_area_search_histories_on_area_id"
-    t.index ["search_history_id"], name: "index_area_search_histories_on_search_history_id"
-  end
-
   create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "region_id", null: false
     t.string "name", null: false
@@ -154,15 +145,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
     t.string "upper_budget_currency", default: "JPY", null: false
   end
 
-  create_table "station_search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "station_id", null: false
-    t.bigint "search_history_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["search_history_id"], name: "index_station_search_histories_on_search_history_id"
-    t.index ["station_id"], name: "index_station_search_histories_on_station_id"
-  end
-
   create_table "stations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "area_id"
     t.string "name", null: false
@@ -204,8 +186,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
-  add_foreign_key "area_search_histories", "areas"
-  add_foreign_key "area_search_histories", "search_histories"
   add_foreign_key "areas", "regions"
   add_foreign_key "chat_groups", "chat_units"
   add_foreign_key "chat_rooms", "chat_units"
@@ -216,8 +196,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
   add_foreign_key "message_texts", "messages"
   add_foreign_key "messages", "chat_units"
   add_foreign_key "restaurant_data_sets", "users"
-  add_foreign_key "station_search_histories", "search_histories"
-  add_foreign_key "station_search_histories", "stations"
   add_foreign_key "stations", "areas"
   add_foreign_key "user_communities", "users"
   add_foreign_key "users", "chat_units"
