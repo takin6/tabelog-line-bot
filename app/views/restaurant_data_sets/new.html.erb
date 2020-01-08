@@ -21,12 +21,9 @@
           </div>
         </div>
         <div class="restaurant-pics">
-          <% restaurant["thumbnail_image_urls"][0..7].each do |thumbnail_image_url| %>
-            <img class="restaurant-pic" src=<%= thumbnail_image_url%> />
+          <% restaurant["thumbnail_image_urls"][0..7].each do |url| %>
+            <img class="restaurant-pic" src=<%= url.split("/")[0..-2].join("/") + "/150x150_square_" + url.split("/")[-1] %> />
           <% end %>
-          <!-- <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/114238/114238841.jpg" />
-          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/42357/42357890.jpg" />
-          <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/40538/40538937.jpg" /> -->
         </div>
         <div class="sub-contents">
           <div class="reputation">

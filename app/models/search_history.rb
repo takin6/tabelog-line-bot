@@ -7,6 +7,7 @@ class SearchHistory < ApplicationRecord
 
   delegate :id, :name, to: :station, prefix: :station, allow_nil: true
   delegate :id, :name, to: :area, prefix: :area, allow_nil: true
+  delegate :location, to: :location_search_history, allow_nil: true
 
   enum meal_type: %i[lunch dinner]
 

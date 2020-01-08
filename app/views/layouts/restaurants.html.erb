@@ -38,13 +38,16 @@
   </head>
 
   <body>
-    <div class="loading">
+<!--     <div class="loading">
         <div class="loading_icon"></div>
     </div>
     <div class="main is-hide">
-        <%= render partial: "templates/header",locals: { restaurants: @restaurants } %>
-        <%= yield %>
-    </div>
+        %= render partial: "templates/header",locals: { restaurants: @restaurants } %>
+        %= yield %>
+    </div> -->
+
+    <%= render partial: "templates/header",locals: { restaurants: @restaurants } %>
+    <%= yield %>
 
     <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

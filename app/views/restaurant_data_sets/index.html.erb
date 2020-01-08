@@ -15,8 +15,15 @@
             <i class="fas fa-chevron-right fa-lg arrow-icon"></i>
 
             <ul class="r-tags">
-              <% JSON.parse(restaurant_data_set.search_history.master_genres).each do |genre| %>
-                <li class=""><%= genre %></li>
+              <% if JSON.parse(restaurant_data_set.search_history.master_genres).count > 5 %>
+                <% JSON.parse(restaurant_data_set.search_history.master_genres)[0..5].each do |genre| %>
+                  <li class=""><%= genre %></li>
+                <% end %>
+                <li class="" style="border: none !important;">…</li>
+              <% else %>
+                <% JSON.parse(restaurant_data_set.search_history.master_genres).each do |genre| %>
+                  <li class=""><%= genre %></li>
+                <% end %>
               <% end %>
             </ul>
 

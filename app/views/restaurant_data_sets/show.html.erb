@@ -9,45 +9,80 @@
       <!-- position: absolute;
     right: 30 rem;-->
       <!-- %= link_to "マイリスト", restaurant_data_sets_path, class: "btn btn-outline-warning waves-effect" %> -->
-      <div class="send-text-wrapper">
-        <a class="send-text-button" href="#" rel="noopener noreferer">
-          <i class="fab fa-line"></i>
-          <span class="send-text-text">LINEで送る</span>
-        </a>
-      </div>
+      <div class="action-buttons">
+        <div class="send-text-wrapper">
+          <a class="send-text-button" href="#" rel="noopener noreferer">
+            <i class="fab fa-line"></i>
+            <span class="send-text-text">LINEで送る</span>
+          </a>
+        </div>
 
-      <div class="delete-data-set-wrapper">
-        <a class="delete-data-set-button" href="#" rel="noopener noreferer">
-          <i class="far fa-trash-alt"></i>
-          <span class="delete-data-set-text">削除</span>
-        </a>
+        <div class="delete-data-set-wrapper">
+          <a class="delete-data-set-button" href="#" rel="noopener noreferer">
+            <i class="far fa-trash-alt"></i>
+            <span class="delete-data-set-text">削除</span>
+          </a>
+        </div>
       </div>
     </div>
     <!-- <button class="btn btn-outline-warning waves-effect send-text"><i class="fab fa-line" style="color: green"></i>テキスト形式</button> -->
     <h5 class="r-data-set-count-pc" style="text-align: center">全 <%=@selected_restaurants.count %> 件のリスト</h5>
 
     <div class="r-data-set-detail">
-      <div class="r-data-set-detail-component">
-        <div class="r-data-set-detail-molecule-title"><i class="fas fa-map-marker-alt" style="width: 1.5rem; padding: 1px; color: #E06650"></i>場所</div>
-        <div class="r-data-set-detail-molecule-content"><%= @search_history.station_name %></div>
+      <div class="r-data-set-detail-row">
+        <div class="r-data-set-detail-component">
+          <div class="r-data-set-detail-molecule-title"><i class="fas fa-map-marker-alt" style="width: 1.5rem; padding: 1px; color: #E06650"></i>場所</div>
+          <div class="r-data-set-detail-molecule-content"><%= @search_history.location.name %></div>
+        </div>
+        <div class="r-data-set-detail-component">
+          <div class="r-data-set-detail-molecule-title"><i class="fas fa-utensils" style="width: 1.5rem; padding: 1px; color: orange"></i>食事タイプ</div>
+          <div class="r-data-set-detail-molecule-content">
+            <% if @search_history.dinner?%>
+              <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; margin-right: 0.5rem; background-color: #326AA2; color: white"></i>ディナー
+            <% else %>
+              <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; margin-right: 0.5rem;background-color: #CB8131; color: white"></i>ランチ
+            <% end %>
+          </div>
+        </div>
+        <div class="r-data-set-detail-component">
+          <div class="r-data-set-detail-molecule-title"><i class="fas fa-yen-sign" style="width: 1.5rem; padding: 1px; color: green"></i>予算</div>
+          <div class="r-data-set-detail-molecule-content"><%= @search_history.lower_budget.format %> ~ <%= @search_history.upper_budget.format %><!-- 2000~5000 --></div>
+        </div>
       </div>
-      <div class="r-data-set-detail-component">
-        <div class="r-data-set-detail-molecule-title"><i class="fas fa-utensils" style="width: 1.5rem; padding: 1px; color: orange"></i>食事タイプ</div>
-        <div class="r-data-set-detail-molecule-content">
-          <% if @search_history.dinner?%>
-            <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; margin-right: 0.5rem; background-color: #326AA2; color: white"></i>ディナー
+
+      <div class="r-data-set-detail-row">
+        <div class="r-data-set-detail-component">
+          <div class="r-data-set-detail-molecule-title"><i class="fas fa-align-left" style="width: 1.5rem; padding: 1px; color: gray"></i>ジャンル</div>
+
+          <% if JSON.parse(@search_history.master_genres).count > 5 %>
+            <div class="r-data-set-detail-molecule-content indent">
+              <% JSON.parse(@search_history.master_genres).each do |genre| %>
+                <div class="r-data-set-detail-molecule-content-tags"><%= genre %></div>
+              <% end %>
+              <% if @search_history.custom_meal_genres %>
+                <% JSON.parse(@search_history.custom_meal_genres).each do |genre| %>
+                  <div class="r-data-set-detail-molecule-content-tags"><%= genre %></div>
+                <% end %>
+              <% end %>
+            </div>
+
           <% else %>
-            <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; margin-right: 0.5rem;background-color: #CB8131; color: white"></i>ランチ
+            <div class="r-data-set-detail-molecule-content">
+              <% JSON.parse(@search_history.master_genres).each do |genre| %>
+                <div class="r-data-set-detail-molecule-content-tags"><%= genre %></div>
+              <% end %>
+              <% if @search_history.custom_meal_genres %>
+                <% JSON.parse(@search_history.custom_meal_genres).each do |genre| %>
+                  <div class="r-data-set-detail-molecule-content-tags"><%= genre %></div>
+                <% end %>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>
-      <div class="r-data-set-detail-component">
-        <div class="r-data-set-detail-molecule-title"><i class="fas fa-yen-sign" style="width: 1.5rem; padding: 1px; color: green"></i>予算</div>
-        <div class="r-data-set-detail-molecule-content"><%= @search_history.lower_budget.format %> ~ <%= @search_history.upper_budget.format %><!-- 2000~5000 --></div>
-      </div>
     </div>
 
-    <div class="r-data-set-detail">
+    <!-- <div class="r-data-set-detail">
       <div class="r-data-set-detail-component tags">
         <div class="r-data-set-detail-molecule-title"><i class="fas fa-align-left" style="width: 1.5rem; padding: 1px; color: gray"></i>ジャンル</div>
         <% JSON.parse(@search_history.master_genres).each do |genre| %>
@@ -59,7 +94,7 @@
           <% end %>
         <% end %>
       </div>
-    </div>
+    </div> -->
   </div>
 
 
@@ -86,9 +121,9 @@
             </div>
           </div>
           <div class="restaurant-pics">
-            <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/114238/114238841.jpg" />
-            <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/42357/42357890.jpg" />
-            <img class="restaurant-pic" src="https://tblg.k-img.com/restaurant/images/Rvw/40538/40538937.jpg" />
+            <% restaurant["thumbnail_image_urls"][0..7].each do |url| %>
+              <img class="restaurant-pic" src=<%= url.split("/")[0..-2].join("/") + "/150x150_square_" + url.split("/")[-1] %> />
+            <% end %>
           </div>
           <div class="sub-contents">
             <div class="reputation">

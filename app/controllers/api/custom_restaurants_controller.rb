@@ -2,9 +2,13 @@ module Api
   class CustomRestaurantsController < ActionController::API
 
     def create
-      mongo_custom_restaurants = Api::Restaurants::CreateUsecase.new(create_params).execute
+      result = Api::Restaurants::CreateUsecase.new(create_params).execute
 
-      render json: { mongo_custom_restaurants: mongo_custom_restaurants }
+      if result.try(:error).present?
+        render json: { errors: result.error }, status: :not_found
+      else
+        render json: { mongo_custom_restaurants: result }
+      end
     end
 
     private
