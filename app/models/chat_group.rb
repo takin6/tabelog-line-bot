@@ -1,9 +1,5 @@
 class ChatGroup < ApplicationRecord
-  belongs_to :chat_unit
-
-  has_many :user_communities, as: :community 
-  has_many :users, through: :user_community
-
+  has_many :chat_units, as: :chat_community, dependent: :destroy
   validates :line_id, presence: true
 
   def messenger_wrapper
@@ -16,30 +12,33 @@ class ChatGroup < ApplicationRecord
   end
 
   def self.create_or_find_all_entities!(group_line_id, user_params)
-    chat_group = nil
+    chat_unit = nil
 
     ActiveRecord::Base.transaction do
-      chat_group = ChatGroup.find_by(line_id: group_line_id)
-      unless chat_group
-        chat_unit = ChatUnit.create!(chat_type: :group)
-        chat_group = ChatGroup.create!(chat_unit: chat_unit, line_id: group_line_id)
-      end
-
       user = User.find_by(line_id: user_params[:line_id])
+
       unless user
-        chat_unit = ChatUnit.create!(chat_type: :group)
         user = User.create!(
-          chat_unit: chat_unit, 
           line_id: user_params[:line_id],
           name: user_params[:name],
           profile_picture_url: user_params[:profile_picture_url]
         )
-        UserCommunity.create!(community: chat_group, user: user)
+        chat_room = ChatGroup.create!(line_id: group_line_id)
+        chat_unit = ChatUnit.create!(chat_type: :group, user: user, chat_community: chat_room)
       else
-        UserCommunity.create!(community: chat_group, user: user) if user.chat_groups.include?(chat_group)
+        chat_room = ChatGroup.find_by(line_id: group_line_id)
+        if chat_room
+          chat_unit = chat_room.chat_units.to_a.find {|chat_unit| chat_unit.user == user}
+          unless chat_unit
+            chat_unit = ChatUnit.create!(chat_type: :group, user: user, chat_community: chat_room)
+          end
+        else
+          chat_room = ChatGroup.create!(line_id: group_line_id)
+          chat_unit = ChatUnit.create!(chat_type: :group, user: user, chat_community: chat_room)
+        end
       end
     end
 
-    return chat_group.chat_unit
+    return chat_unit
   end
 end

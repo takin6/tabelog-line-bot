@@ -2,11 +2,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :rememberable, :validatable, :omniauthable, :trackable
-  belongs_to :chat_unit
 
-  has_many :communities, class_name: "UserCommunity", dependent: :delete_all
-  has_many :chat_rooms, through: :communities, source: :community, source_type: 'ChatRoom'
-  has_many :chat_groups, through: :communities, source: :community, source_type: 'ChatGroup'
+  has_many :chat_units, dependent: :destroy
+  # user has only 1 chat_user
+  has_many :chat_users, through: :chat_units, source: :chat_community, source_type: 'ChatUser'
+  has_many :chat_rooms, through: :chat_units, source: :chat_community, source_type: 'ChatRoom'
+  has_many :chat_groups, through: :chat_units, source: :chat_community, source_type: 'ChatGroup'
 
   has_many :search_histories, dependent: :destroy
   has_many :messages, dependent: :destroy

@@ -1,8 +1,6 @@
 class ChatUnit < ApplicationRecord
-  has_one :user, dependent: :destroy
-  # 将来的に、chat_room has_many usersにしたい。その時、userはchat_userとなる？
-  has_one :chat_room, dependent: :destroy
-  has_one :chat_group, dependent: :destroy
+  belongs_to :user
+  belongs_to :chat_community, polymorphic: true
 
   has_many :messages, dependent: :destroy
 
@@ -11,11 +9,11 @@ class ChatUnit < ApplicationRecord
   def reply_to_entity(messages)
     case chat_type
     when "user"
-      user.reply_to_user(messages)
+      chat_community.reply_to_user(messages)
     when "room"
-      chat_room.reply_to_room(messages)
+      chat_community.reply_to_room(messages)
     when "group"
-      chat_group.reply_to_group(messages)
+      chat_community.reply_to_group(messages)
     end
   end
 
@@ -30,31 +28,5 @@ class ChatUnit < ApplicationRecord
     return false unless self.chat_type_group?
     
     self.messages.where(status: :reply).count == 0 ? true : false
-  end
-
-  def self.create_or_find_all_entities!(user_params)
-    chat_unit = nil
-
-    ActiveRecord::Base.transaction do
-      user = User.find_by(
-        line_id: user_params[:line_id],
-        name: user_params[:name],
-        profile_picture_url: user_params[:profile_picture_url]
-      )
-
-      unless user
-        chat_unit = ChatUnit.create!(chat_type: :user)
-        user = User.create!(
-          chat_unit: chat_unit, 
-          line_id: user_params[:line_id],
-          name: user_params[:name],
-          profile_picture_url: user_params[:profile_picture_url]
-        )
-      else
-        chat_unit = user.chat_unit
-      end
-    end
-
-    return chat_unit
   end
 end

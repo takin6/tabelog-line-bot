@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_090024) do
+ActiveRecord::Schema.define(version: 2020_01_11_124759) do
 
   create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "region_id", null: false
@@ -21,24 +21,31 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
   end
 
   create_table "chat_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "chat_unit_id", null: false
     t.string "line_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chat_unit_id"], name: "index_chat_groups_on_chat_unit_id"
   end
 
   create_table "chat_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "chat_unit_id", null: false
     t.string "line_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chat_unit_id"], name: "index_chat_rooms_on_chat_unit_id"
   end
 
   create_table "chat_units", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.integer "chat_type", null: false
+    t.string "chat_community_type"
+    t.bigint "chat_community_id"
     t.boolean "is_blocking", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_community_type", "chat_community_id"], name: "index_chat_units_on_chat_community_type_and_chat_community_id"
+    t.index ["user_id"], name: "index_chat_units_on_user_id"
+  end
+
+  create_table "chat_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "line_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,13 +84,30 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
     t.index ["message_id"], name: "index_message_buttons_on_message_id"
   end
 
+  create_table "message_line_share_buttons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "restaurant_data_subset_id", null: false
+    t.text "text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_data_subset_id"], name: "index_message_line_share_buttons_on_restaurant_data_subset_id"
+  end
+
   create_table "message_postbacks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "message_id", null: false
-    t.integer "mongo_custom_restaurants_id", null: false
+    t.integer "restaurant_data_subset_id", null: false
     t.integer "page", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_message_postbacks_on_message_id"
+  end
+
+  create_table "message_restaurant_data_subsets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.string "restaurant_data_subset_id", null: false
+    t.integer "page", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_restaurant_data_subsets_on_message_id"
   end
 
   create_table "message_restaurants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -129,6 +153,17 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
     t.index ["user_id"], name: "index_restaurant_data_sets_on_user_id"
   end
 
+  create_table "restaurant_data_subsets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "restaurant_data_set_id", null: false
+    t.bigint "chat_unit_id"
+    t.json "selected_restaurant_ids", null: false
+    t.integer "message_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_unit_id"], name: "index_restaurant_data_subsets_on_chat_unit_id"
+    t.index ["restaurant_data_set_id"], name: "index_restaurant_data_subsets_on_restaurant_data_set_id"
+  end
+
   create_table "search_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.integer "meal_type", default: 1, null: false
     t.json "master_genres"
@@ -154,18 +189,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
     t.index ["area_id"], name: "index_stations_on_area_id"
   end
 
-  create_table "user_communities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "community_type", null: false
-    t.bigint "community_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["community_type", "community_id"], name: "index_user_communities_on_community_type_and_community_id"
-    t.index ["user_id"], name: "index_user_communities_on_user_id"
-  end
-
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.bigint "chat_unit_id", null: false
     t.string "line_id", null: false
     t.string "name", null: false
     t.string "profile_picture_url"
@@ -181,22 +205,22 @@ ActiveRecord::Schema.define(version: 2020_01_07_090024) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.index ["chat_unit_id"], name: "index_users_on_chat_unit_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "areas", "regions"
-  add_foreign_key "chat_groups", "chat_units"
-  add_foreign_key "chat_rooms", "chat_units"
+  add_foreign_key "chat_units", "users"
   add_foreign_key "location_search_histories", "search_histories"
   add_foreign_key "message_buttons", "messages"
+  add_foreign_key "message_line_share_buttons", "restaurant_data_subsets"
   add_foreign_key "message_postbacks", "messages"
+  add_foreign_key "message_restaurant_data_subsets", "messages"
   add_foreign_key "message_restaurants", "messages"
   add_foreign_key "message_texts", "messages"
   add_foreign_key "messages", "chat_units"
   add_foreign_key "restaurant_data_sets", "users"
+  add_foreign_key "restaurant_data_subsets", "chat_units"
+  add_foreign_key "restaurant_data_subsets", "restaurant_data_sets"
   add_foreign_key "stations", "areas"
-  add_foreign_key "user_communities", "users"
-  add_foreign_key "users", "chat_units"
 end

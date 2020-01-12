@@ -1,8 +1,5 @@
 class ChatRoom < ApplicationRecord
-  belongs_to :chat_unit
-
-  has_many :user_communities, as: :community, dependent: :destroy
-  has_many :users, through: :user_communities
+  has_many :chat_units, as: :chat_community, dependent: :destroy
 
   validates :line_id, presence: true
 
@@ -16,30 +13,54 @@ class ChatRoom < ApplicationRecord
   end
 
   def self.create_or_find_all_entities!(room_line_id, user_params)
-    chat_room = nil
+    chat_unit = nil
 
     ActiveRecord::Base.transaction do
-      chat_room = ChatRoom.find_by(line_id: room_line_id)
-      unless chat_room
-        chat_unit = ChatUnit.create!(chat_type: :room)
-        chat_room = ChatRoom.create!(chat_unit: chat_unit, line_id: room_line_id)
-      end
-
       user = User.find_by(line_id: user_params[:line_id])
+
       unless user
-        chat_unit = ChatUnit.create!(chat_type: :room)
         user = User.create!(
-          chat_unit: chat_unit, 
           line_id: user_params[:line_id],
           name: user_params[:name],
           profile_picture_url: user_params[:profile_picture_url]
         )
-        UserCommunity.create!(community: chat_room, user: user)
+        chat_room = ChatRoom.create!(line_id: room_line_id)
+        chat_unit = ChatUnit.create!(chat_type: :room, user: user, chat_community: chat_room)
       else
-        UserCommunity.create!(community: chat_room, user: user) if user.chat_rooms.include?(chat_room)
+        chat_room = ChatRoom.find_by(line_id: room_line_id)
+        if chat_room
+          chat_unit = chat_room.chat_units.to_a.find {|chat_unit| chat_unit.user == user}
+          unless chat_unit
+            chat_unit = ChatUnit.create!(chat_type: :room, user: user, chat_community: chat_room)
+          end
+        else
+          chat_room = ChatRoom.create!(line_id: room_line_id)
+          chat_unit = ChatUnit.create!(chat_type: :room, user: user, chat_community: chat_room)
+        end
       end
     end
 
-    return chat_room.chat_unit
+    return chat_unit
+    # ActiveRecord::Base.transaction do
+    #   chat_room = ChatRoom.find_by(line_id: room_line_id)
+    #   unless chat_room
+    #     chat_unit = ChatUnit.create!(chat_type: :room)
+    #     chat_room = ChatRoom.create!(chat_unit: chat_unit, line_id: room_line_id)
+    #   end
+
+    #   user = User.find_by(line_id: user_params[:line_id])
+    #   unless user
+    #     chat_unit = ChatUnit.create!(chat_type: :room)
+    #     user = User.create!(
+    #       chat_unit: chat_unit, 
+    #       line_id: user_params[:line_id],
+    #       name: user_params[:name],
+    #       profile_picture_url: user_params[:profile_picture_url]
+    #     )
+    #     UserCommunity.create!(community: chat_room, user: user)
+    #   else
+    #     UserCommunity.create!(community: chat_room, user: user) if user.chat_rooms.include?(chat_room)
+    #   end
+    # end
   end
 end

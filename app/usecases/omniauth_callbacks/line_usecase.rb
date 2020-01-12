@@ -6,28 +6,13 @@ module OmniauthCallbacks
     end
 
     def execute
-      display_name = omniauth.info["name"]
-      profile_picture_url = omniauth.info["image"]
-      line_id = omniauth["uid"]
+      chat_unit = ChatUser.create_or_find_all_entities!({
+        line_id: omniauth["uid"],
+        name: omniauth.info["name"],
+        profile_picture_url: omniauth.info["image"]
+      })
 
-      return find_or_create_user(line_id, profile_picture_url, display_name)
-    end
-
-    private
-
-    def find_or_create_user(line_id, profile_picture_url,  display_name)
-      user = nil
-
-      ActiveRecord::Base.transaction do
-        user = User.find_by(line_id: line_id, name: display_name, profile_picture_url: profile_picture_url)
-
-        unless user
-          chat_unit = ChatUnit.create!(chat_type: :user)
-          user = User.create!(chat_unit: chat_unit, line_id: line_id, name: display_name, profile_picture_url: profile_picture_url)
-        end
-      end
-
-      return user
+      return chat_unit
     end
   end
 end

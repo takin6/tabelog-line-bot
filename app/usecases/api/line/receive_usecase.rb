@@ -46,9 +46,9 @@ module Api
         when "user"
           find_or_create_user(source["userId"], client)
         when "room"
-          find_or_create_room(source["roomId"], client)
+          find_or_create_room(source["userId"], source["roomId"], client)
         when "group"
-          find_or_create_group(source["groupId"], client)
+          find_or_create_group(source["userId"], source["groupId"], client)
         end
       end
 
@@ -58,52 +58,31 @@ module Api
         return nil if profile_response&.message == "Not Found"
         profile = JSON.parse(profile_response.body)
 
-        chat_unit = nil
-
-        ActiveRecord::Base.transaction do
-          user = User.find_by(line_id: line_id, name: profile['displayName'], profile_picture_url: profile['pictureUrl'])
-
-          unless user
-            chat_unit = ChatUnit.create!(chat_type: :user)
-            user = User.create!(chat_unit: chat_unit, line_id: line_id, name: profile['displayName'], profile_picture_url: profile['pictureUrl'])
-          end
-
-          chat_unit = user.chat_unit
-        end
+        chat_unit = ChatUser.create_or_find_all_entities!(line_id: line_id, name: profile['displayName'], profile_picture_url: profile['pictureUrl'] )
 
         return chat_unit
       end
 
-      def find_or_create_room(room_id, client)
-        chat_unit = nil
-        # プレミアムアカウントでしか、get_room_member_idsできないらしい。。
-        ActiveRecord::Base.transaction do
-          chat_room = ChatRoom.find_by(line_id: room_id)
+      def find_or_create_room(user_line_id, room_line_id, client)
+        user_profile_response = client.get_room_member_profile(room_line_id, user_line_id)
+        return nil if user_profile_response&.message == "Not Found"
+        profile = JSON.parse(user_profile_response.body)
 
-          unless chat_room
-            chat_unit = ChatUnit.create!(chat_type: :room)
-            chat_room = ChatRoom.create!(chat_unit_id: chat_unit.id, line_id: room_id)
-          end
-
-          chat_unit = chat_room.chat_unit
-        end
+        chat_unit = ChatRoom.create_or_find_all_entities!(room_line_id, {
+          line_id: profile["userId"], name: profile['displayName'], profile_picture_url: profile['pictureUrl']
+        })
 
         return chat_unit
       end
 
-      def find_or_create_group(group_id, client)
-        chat_unit = nil
-        # プレミアムアカウントでしか、get_group_member_idsできないらしい。。
-        ActiveRecord::Base.transaction do
-          chat_group = ChatGroup.find_by(line_id: group_id)
+      def find_or_create_group(user_line_id, group_line_id, client)
+        user_profile_response = client.get_group_member_profile(group_line_id, user_line_id)
+        return nil if user_profile_response&.message == "Not Found"
+        profile = JSON.parse(user_profile_response.body)
 
-          unless chat_group
-            chat_unit = ChatUnit.create!(chat_type: :group)
-            chat_group = ChatGroup.create!(chat_unit_id: chat_unit.id, line_id: group_id)
-          end
-
-          chat_unit = chat_group.chat_unit
-        end
+        chat_unit = ChatGroup.create_or_find_all_entities!(group_line_id, {
+          line_id: profile["userId"], name: profile['displayName'], profile_picture_url: profile['pictureUrl']
+        })
 
         return chat_unit
       end

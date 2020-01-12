@@ -11,6 +11,7 @@ module Messenger
              :create_rich_menu_image, 
              :set_default_rich_menu, 
              :get_room_member_profile, 
+             :get_group_member_profile,
              :leave_room,
              :leave_group,
              to: :client
@@ -22,7 +23,7 @@ module Messenger
       }
     end
 
-    def post_messages(user, messages)
+    def post_messages(chat_community, messages)
       message_params = []
       messages.each do |message|
         Rails.logger.info "#{message.line_post_param}"
@@ -30,13 +31,13 @@ module Messenger
       end
 
       api_response = client.push_message(
-        user.line_id,
+        chat_community.line_id,
         message_params
       )
 
       unless api_response.is_a?(Net::HTTPSuccess)
         File.open(Rails.root.join('spec', 'fixtures', 'failed_flex_message.json'),"w") do |file| 
-          flex_mesasage = messages.select {|message| message.restaurants? }[0]
+          flex_mesasage = messages.select {|message| message.restaurant_data_subsets? }[0]
           file.puts JSON.pretty_generate(flex_mesasage.line_post_param)
         end
         raise "line api error"

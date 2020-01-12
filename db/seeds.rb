@@ -7,12 +7,17 @@ require 'csv'
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-chat_unit1 = ChatUnit.create!(chat_type: :user)
-User.create!(chat_unit: chat_unit1, name: "aさん", line_id: "aaaa", profile_picture_url: "https://thumbs.dreamstime.com/z/comical-face-illustration-facial-expression-31912062.jpg")
-chat_unit2 = ChatUnit.create!(chat_type: :user)
-User.create!(chat_unit: chat_unit2, name: "bさん", line_id: "bbbb", profile_picture_url: nil)
-chat_unit3 = ChatUnit.create!(chat_type: :room)
-ChatRoom.create!(chat_unit: chat_unit3, line_id: "sample_room")
+user1 = User.create!(name: "aさん", line_id: "aaaa", profile_picture_url: "https://thumbs.dreamstime.com/z/comical-face-illustration-facial-expression-31912062.jpg")
+chat_user1 = ChatUser.create!(line_id: "aaaa")
+chat_unit1 = ChatUnit.create!(user: user1, chat_type: :user, chat_community: chat_user1)
+
+user2 = User.create!(name: "bさん", line_id: "bbbb", profile_picture_url: nil)
+chat_user2 = ChatUser.create!(line_id: "bbbb")
+chat_unit2 = ChatUnit.create!(user: user2, chat_type: :user, chat_community: chat_user2)
+
+chat_room1 = ChatRoom.create!(line_id: "sample_room")
+ChatUnit.create!(user: user1, chat_type: :room, chat_community: chat_room1)
+ChatUnit.create!(user: user2, chat_type: :room, chat_community: chat_room1)
 
 LineLiff.create!(name: "search_restaurants", liff_id: ENV["SEARCH_HISTORY_LIFF_URL"])
 LineLiff.create!(name: "restaurant_data_sets", liff_id: ENV["RESTAURANT_DATA_SET_LIFF_URL"] )
