@@ -25,6 +25,9 @@ function initializeApp(data) {
           $("#dropbtn-nouser").css("display", "none")
           $("#dropbtn-img").css("display", "block")
           $("#dropbtn-img").attr("src",profile_picture_url);
+        } else {
+          $("#dropbtn-nouser").empty();
+          $("#dropbtn-nouser").append('<i class="fas fa-portrait fa-2x"></i>')
         }
         $(".user-menu-content").empty();
         $( ".user-menu-content" ).append( "<a href='/restaurant_data_sets'>マイリスト</a>" );
