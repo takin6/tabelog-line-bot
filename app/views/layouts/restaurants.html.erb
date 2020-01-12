@@ -33,21 +33,20 @@
     <![endif]-->
     <%= stylesheet_link_tag    'shared_components',  media: 'all' %>
     <%= stylesheet_link_tag    'restaurants', media: 'all' %>
+    <%= include_gon %>
     <%= javascript_include_tag 'application' %>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   </head>
 
   <body>
-<!--     <div class="loading">
+    <div class="loading">
         <div class="loading_icon"></div>
     </div>
     <div class="main is-hide">
-        %= render partial: "templates/header",locals: { restaurants: @restaurants } %>
-        %= yield %>
-    </div> -->
-
-    <%= render partial: "templates/header",locals: { restaurants: @restaurants } %>
-    <%= yield %>
+        <%= render partial: "templates/header",locals: { restaurants: @restaurants } %>
+        <%= yield %>
+    </div>
 
     <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

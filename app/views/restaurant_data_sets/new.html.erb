@@ -1,7 +1,7 @@
 <div class="restaurants">
   <% @restaurants.each do |restaurant|%>
     <!-- <div class="restaurant"> -->
-    <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event)" >
+    <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event, 'selectedRestaurantIds')" >
       <div class="contents">
         <div class="restaurant-header">
           <div class="select-icon">
@@ -22,7 +22,7 @@
         </div>
         <div class="restaurant-pics">
           <% restaurant["thumbnail_image_urls"][0..7].each do |url| %>
-            <img class="restaurant-pic" src=<%= url.split("/")[0..-2].join("/") + "/150x150_square_" + url.split("/")[-1] %> />
+            <img class="lozad restaurant-pic" src="" data-src=<%= url.split("/")[0..-2].join("/") + "/150x150_square_" + url.split("/")[-1] %> />
           <% end %>
         </div>
         <div class="sub-contents">
@@ -35,9 +35,9 @@
           </div>
           <div class="budget">
             <div class="lunch-budget">
-              <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; background-color: #CB8131; color: white"></i> <%= Money.new(restaurant[:lunch_budget][0]).format %> ~ <%= Money.new(restaurant[:lunch_budget][1]).format %></div>
+              <i class="fas fa-sun" aria-hidden="true" style="padding: 1px; background-color: #CB8131; color: white"></i> <%= restaurant[:lunch_budget][0] == 0 ? "指定なし" : Money.new(restaurant[:lunch_budget][0]).format %> ~ <%= Money.new(restaurant[:lunch_budget][1]).format %></div>
             <div class="evening-budget">
-              <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= Money.new(restaurant[:dinner_budget][0]).format %> ~ <%= Money.new(restaurant[:dinner_budget][1]).format %>
+              <i class="fas fa-moon" aria-hidden="true" style="padding: 1px; background-color: #326AA2; color: white"></i> <%= restaurant[:lunch_budget][1] == 0 ? "指定なし" : Money.new(restaurant[:dinner_budget][0]).format %> ~ <%= Money.new(restaurant[:dinner_budget][1]).format %>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
   <% end %>
 
   <% if @restaurants.count > 9 %>
-    <a href="#" id="loadMore" onclick="onClickLoadMore(event)">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
+    <a href="#" id="loadMore" onclick="onClickLoadMore(event)" style="margin-bottom: 100px">次の10件<br>表示件数 <span id="display-count">9</span> / <%= @restaurants.count %></a>
   <% else %>
     <a href="#" class="noContent" id="loadMore">No Content</a>
   <% end %>
@@ -55,14 +55,22 @@
 
 <% if current_chat_unit %>
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
-    <button class="make-fav-list" type="button" data-toggle="modal" data-target="#createFavoriteListModal">
-      <span class="selected-restaurants-count">1</span> 個のリストを作成する
+    <button class="make-fav-list" style="margin-right: 10px !important" type="button" data-toggle="modal" data-target="#createFavoriteListModal" onclick="onClickMakeFavListPartial(event)">
+      <span class="selected-restaurants-count">0</span> 個のリストを作成する
+    </button>
+
+    <button class="make-fav-list" style="margin-left: 10px !important" type="button" data-toggle="modal" data-target="#createFavoriteListModal" onclick="onClickMakeFavListAll(event)">
+      全てをリストに追加する
     </button>
   </nav>
 <% else %>
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
-      <span class="selected-restaurants-count">1</span> 個のリストを作成する
+      <span class="selected-restaurants-count">0</span> 個のリストを作成する
+    </button>
+
+    <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
+      全てをリストに追加する
     </button>
   </nav>
 <% end %>
@@ -85,7 +93,7 @@
           <div class="md-form mb-5">
             <!-- <i class="fas fa-user prefix grey-text"></i> -->
             <label data-error="wrong" data-success="right" for="form3">タイトル</label>
-            <input type="text" class="form-control validate" id="restaurant-data-set-title" value=<%= @default_modal_text %> required>
+            <input type="text" class="form-control validate" id="restaurant-data-set-title" value=<%= @default_modal_text %> required maxlength="30">
           </div>
         </div>
 

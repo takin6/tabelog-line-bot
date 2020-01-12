@@ -4,15 +4,10 @@ module Api
 
     def create
       chat_unit = find_chat_unit
-
       hold_chat_unit_to_session(chat_unit)
       unless current_chat_unit&.is_blocking
-        if chat_unit.chat_type == "user"
-          sign_in chat_unit.user
-          render json: { profile_picture_url: chat_unit.user.profile_picture_url }
-        else
-          head :ok
-        end
+        sign_in chat_unit.user
+        render json: { profile_picture_url: chat_unit.user.profile_picture_url }
       else
         message = current_chat_unit ? "ブロックを解除してから検索してください" : "無効なセッションです"
         render json: { errors: message }, status: :bad_request
@@ -33,7 +28,7 @@ module Api
     def find_chat_unit
       case chat_unit_kind
       when "user"
-        chat_unit = ChatUnit.create_or_find_all_entities!(validate_chat_unit_param[:user])
+        chat_unit = ChatUser.create_or_find_all_entities!(validate_chat_unit_param[:user])
       when "room"
         chat_unit = ChatRoom.create_or_find_all_entities!(validate_chat_unit_param[:room][:line_id], validate_chat_unit_param[:user])
       when "group"

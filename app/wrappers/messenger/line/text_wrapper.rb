@@ -41,11 +41,11 @@ module Messenger
       private
 
       def user_wants_instruction?
-        return true if ["マニュアル", "ティラミス", "フォーム", "検索フォーム"].include?(text)
+        return true if ["マニュアル", "うずめし", "うず飯", "uzumeshi", "Uzumeshi", "フォーム", "検索フォーム"].include?(text.strip)
       end
 
       def user_wants_to_dismember?
-        return true if ["ティラミス bye"].include?(text)
+        return true if ["うずめし bye", "うず飯 bye", "uzumeshi bye", "Uzumeshi bye"].include?(text.strip)
       end
     end
   end

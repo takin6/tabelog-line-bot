@@ -26,6 +26,10 @@ module Mongo
       return self.collection.bulk_write(document)
     end
 
+    def selected_restaurants(selected_restaurant_ids)
+      return restaurants.select { |restaurant| selected_restaurant_ids.include?(restaurant[:id]) }
+    end
+
     # display index for user
     def create_apparent_index(apparent_page)
       page = apparent_page - 1
@@ -66,6 +70,19 @@ module Mongo
 
     def selected_genres
       SearchHistory.find_by(cache_id: self.cache_id).master_genres
+    end
+
+    def default_modal_text
+      location_name = self.location_name
+      result = "[#{location_name}]" + "&nbsp;"
+
+      search_history = SearchHistory.find_by(cache_id: self.cache_id)
+      genre_text = search_history.genre_to_str(14)
+      result += genre_text + "&nbsp;" if not genre_text == "指定なし" 
+
+      result += meal_type = self.meal_type == "dinner" ? "ディナー" : "ランチ"
+
+      return result
     end
 
     private

@@ -8,17 +8,24 @@
 
   <div class="user-menu">
     <% if user_signed_in? %>
-      <input type="image" class="dropbtn" onclick="onClickUserMenu()" src=<%= current_user.profile_picture_url %>>
+      <% if current_user.profile_picture_url %>
+        <input type="image" class="dropbtn" onclick="onClickUserMenu()" src=<%= current_user.profile_picture_url %>>
+      <% else %>
+        <input type="image" class="dropbtn" id="dropbtn-img" onclick="onClickUserMenu()" src="#" style="display: none" >
+        <button onclick="onClickUserMenu()" class="dropbtn" id="dropbtn-nouser">
+          <i class="fas fa-portrait fa-2x"></i>
+        </button>
+      <% end %>
     <% else %>
       <input type="image" class="dropbtn" id="dropbtn-img" onclick="onClickUserMenu()" src="#" style="display: none" >
       <button onclick="onClickUserMenu()" class="dropbtn" id="dropbtn-nouser">
-        <i class="fas fa-user"></i>
+        <i class="fas fa-user fa-lg" style="margin-left: 0"></i>
       </button>
     <% end %>
     <div class="user-menu-content">
       <% if user_signed_in?  %>
         <%= link_to "マイリスト", restaurant_data_sets_path %>
-        <%= link_to "サインアウト", user_auth_logout_path, method: :delete %>
+        <%= link_to "サインアウト", user_auth_logout_path, method: :delete, class: "delete-session-link" %>
         <a href="#">Uzu Meshiとは?</a>
       <% else %>
         <%= link_to "ログイン", user_line_omniauth_authorize_path %>

@@ -1,6 +1,6 @@
 <section class="restaurant-data-sets">
   <h2 class="r-data-sets-count">
-    全<%= @restaurant_data_sets.count %>個 のリスト 
+    全<%= @restaurant_data_sets.count %>個 のリスト
   </h2>
   <ul>
     <% @restaurant_data_sets.each do |restaurant_data_set| %>
@@ -27,7 +27,7 @@
               <% end %>
             </ul>
 
-            <h2><%= restaurant_data_set.title %></h2>
+            <h2><%= restaurant_data_set.title %> <span style="font-size: 14px; font-weight: 200">(<%= restaurant_data_set.selected_restaurant_ids.count %>)</span></h2>
 
             <ul class="r-options">
               <li>

@@ -21,7 +21,16 @@ module Api
       else
         render json: { errors: result.error }, status: :unprocessable_entity
       end
+    end
 
+    def send_message
+      result = Api::Line::SendMessageUsecase.new(current_chat_unit, send_chat_params).execute
+
+      if result.success
+        head :ok
+      else
+        render json: { errors: result.error }, status: :unprocessable_entity
+      end
     end
 
     private
@@ -35,6 +44,16 @@ module Api
                 master_genres: []
               ],
               budget: %i[lower upper]
+            )
+    end
+
+    def send_chat_params
+      params.require(:send_message)
+            .permit(
+              :restaurant_data_set_id,
+              :destination_type,
+              :message_type,
+              selected_restaurant_ids: []
             )
     end
   end

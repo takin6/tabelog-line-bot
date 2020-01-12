@@ -78,6 +78,7 @@ function onResetSearchRestaurant() {
 
 function onSubmitSearchRestaurant(event) {
   event.preventDefault(); 
+  $('[type="submit"]').prop('disabled',true);
 
   $.ajax({
     type: 'POST',
@@ -112,6 +113,7 @@ function onSubmitSearchRestaurant(event) {
       } else {
         // alert(JSON.parse(res.responseText));
         window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus:" + res.status);
+        $('[type="submit"]').prop('disabled',false);
       }
     },
     complete: function(data) {}
@@ -250,7 +252,7 @@ function openGenreBar() {
   if (window.matchMedia('(min-width:640px)').matches) {
     budgetArrow.style.top = "35%"
   } else {
-    budgetArrow.style.top = "26%";
+    budgetArrow.style.top = "30%";
   }
 }
 

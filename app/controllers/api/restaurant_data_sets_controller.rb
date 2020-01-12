@@ -1,7 +1,6 @@
 module Api
   class RestaurantDataSetsController < ApplicationController
     include SessionHelper
-    layout 'restaurants'
 
     def create
       unless current_chat_unit

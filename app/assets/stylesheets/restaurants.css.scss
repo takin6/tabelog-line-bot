@@ -11,12 +11,17 @@ $color_grey_dark: #a2a2a2;
 body { background: #f1f1f1; }
 
 
+.restaurants {
+  height: auto !important;
+}
+
 // ------------------------ restaurant_data_sets # new ---------------------------
 .restaurant  {
   display: block;
   // display: none;
   flex-direction: column;
   margin: 1rem auto;
+  padding: 0;
   // remove button default style
   text-align: unset;
   border: none;
@@ -29,6 +34,9 @@ body { background: #f1f1f1; }
   border-radius: 5px;
   overflow: hidden;
   z-index: 0;
+  @media screen and (max-width: 480px) {
+    max-width: 345px;
+  }
   a {
     color: inherit;
     &:hover {
@@ -56,10 +64,22 @@ body { background: #f1f1f1; }
         font-size: 4rem;
         color: gray;
       }
+      .send-select-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 4rem;
+        height: 4rem;
+        font-size: 4rem;
+        color: gray;
+      }
       .shop-name {
         // separator
         font-size: 1.6rem;
         font-weight: bold;
+        @media screen and (max-width: 480px) {
+          margin-right: 3.2rem;
+        }
         .shop-name-decorator {
           border-left: 2px solid orange;
           margin-right: 1rem;
@@ -72,7 +92,10 @@ body { background: #f1f1f1; }
           margin: auto;
           // margin-left: 20px;
           overflow: hidden;
-          white-space: nowrap;
+          // white-space: nowrap;
+          @media screen and (max-width: 480px) {
+            margin-right: 3.2rem;
+          }
         }
         .redirect-link {
           a:link { color: #1A0DAB; }
@@ -136,9 +159,15 @@ body { background: #f1f1f1; }
           white-space: nowrap;
         }
         .evening-budget {
-          margin-left: 5rem;
+          margin-left: 1rem;
           overflow: hidden;
           white-space: nowrap;
+          @media (min-width: 640px) {
+            margin-left: 5rem;
+          }
+          @media screen and (max-width: 480px) {
+            margin-left: 1rem;
+          }
         }
       }
     }
@@ -350,10 +379,22 @@ body { background: #f1f1f1; }
   pointer-events: none;
 }
 
+.navbar-inverse.send-rds {
+  display: none;
+}
+
 .navbar-inverse {
   text-align: center;
   background-color: white;
   border-color: orange;
+  display: flex;
+
+  .max-restaurants-alert {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+
   .make-fav-list {
     width: 400px;
     display: block;
@@ -367,14 +408,76 @@ body { background: #f1f1f1; }
     border: 1px solid orange;
     // background-color: blue;
     transition: .3s;
+    @media screen and (max-width: 480px) {
+    /* 480pxまでの幅の場合に適応される */
+      width: 200px;
+    }
     .selected-restaurants-count {
       font-size: 20px;
     }
   }
-  @media screen and (max-width: 480px) {
-/* 480pxまでの幅の場合に適応される */
-    .make-fav-list {
+//   @media screen and (max-width: 480px) {
+// /* 480pxまでの幅の場合に適応される */
+//     .make-fav-list {
+//       width: 300px;
+//     }
+//   }
+  .send-partial-button-n1 {
+    width: 400px;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid orange;
+    color: white;
+    background-color: orange;
+    border: 1px solid orange;
+    // background-color: blue;
+    transition: .3s;
+    @media screen and (max-width: 480px) {
+    /* 480pxまでの幅の場合に適応される */
       width: 300px;
+    }
+  }
+  .send-partial-button {
+    margin-right: 10px !important;
+    width: 400px;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid orange;
+    color: white;
+    background-color: orange;
+    border: 1px solid orange;
+    // background-color: blue;
+    transition: .3s;
+    @media screen and (max-width: 480px) {
+    /* 480pxまでの幅の場合に適応される */
+      width: 300px;
+      margin-left: 1rem;
+    }
+  }
+  .send-all-button {
+    margin-left: 10px !important;
+    width: 400px;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid orange;
+    color: white;
+    background-color: orange;
+    border: 1px solid orange;
+    // background-color: blue;
+    transition: .3s;
+    @media screen and (max-width: 480px) {
+    /* 480pxまでの幅の場合に適応される */
+      width: 300px;
+      margin-right: 1rem;
     }
   }
 }
@@ -401,6 +504,155 @@ body { background: #f1f1f1; }
 }
 .modal-notify .modal-content {
     border-radius: 3px;
+}
+.modal-body {
+  // ===============
+  .control-group {
+    // display: inline-block;
+    vertical-align: top;
+    background: white;
+    text-align: left;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-left: 3rem;
+    padding: 0.3rem;
+
+    div[id*="message-option-menu"] {
+    // #message-option-menu {
+      margin-left: 3rem;
+      .card-body {
+        .message-option-labels {
+          display: flex;
+          justify-content: space-evenly;
+          margin-top: 0.2rem;
+          @media (min-width: 640px) {
+            margin-left: -16rem;
+          }
+          @media screen and (max-width: 480px) {
+            margin-left: -3.5rem;
+          }
+          .message-option-label {
+            font-weight: 300;
+            font-size: 14px;
+
+            .control__indicator {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      // .card {
+      //   .message-option-labels {
+      //     display: flex !important;
+      //     justify-content: space-evenly !important;
+      //     .message-option-label {
+      //       font-weight: 300 !important;
+      //       font-size: 14px !important;
+
+      //       .control__indicator {
+      //         border-radius: 50% !important;
+      //       }
+      //     }
+      //   }
+      // }
+    }
+  }
+
+  .control {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    // margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 14px;
+
+    input {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+    }
+  }
+
+  .control__indicator {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: lightgrey;
+  }
+
+  .control {
+    &:hover input ~ .control__indicator {
+      background: grey;
+    }
+
+    input {
+      &:focus ~ .control__indicator {
+        background: grey;
+      }
+
+      &:checked ~ .control__indicator {
+        background: orange;
+      }
+    }
+
+    &:hover input:not([disabled]):checked ~ .control__indicator {
+      background: orange;
+    }
+
+    input {
+      &:checked:focus ~ .control__indicator {
+        background: orange;
+      }
+
+      &:disabled ~ .control__indicator {
+        background: lightgrey;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .control__indicator:after {
+    content: '';
+    position: absolute;
+    display: none;
+  }
+
+  .control input:checked ~ .control__indicator:after {
+    display: block;
+  }
+
+  .control--radio {
+    .control__indicator:after {
+      left: 8px;
+      top: 4px;
+      width: 5px;
+      height: 11px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    input:disabled ~ .control__indicator:after {
+      border-color: orange;
+    }
+  }
+
+  // .control--radio {
+  //   .control__indicator:after {
+  //     left: 7px;
+  //     top: 7px;
+  //     height: 6px;
+  //     width: 6px;
+  //     border-radius: 50%;
+  //     background: white;
+  //   }
+
+  //   input:disabled ~ .control__indicator:after {
+  //     background: darkgrey;
+  //   }
+  // }
 }
 .modal-footer {
   justify-content: center!important;
@@ -435,6 +687,7 @@ body { background: #f1f1f1; }
     }
   }
 }
+
 
 // ------------ restaurant_data_sets # index --------------
 
@@ -537,6 +790,20 @@ body { background: #f1f1f1; }
             line-height: 20px;
             text-overflow: ellipsis;
           }
+          h5 {
+            position: absolute;
+            top: 50%;
+            // left: 30rem;
+            overflow: hidden;
+            display: -webkit-box;
+            margin-top: 0;
+            padding-right: 42px;
+            padding-left: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 20px;
+            text-overflow: ellipsis;
+          }
           .r-options {
             position: absolute;
             bottom: 17px;
@@ -628,6 +895,20 @@ body { background: #f1f1f1; }
             line-height: 20px;
             text-overflow: ellipsis;
           }
+          h5 {
+            position: absolute;
+            top: 50%;
+            // left: 30rem;
+            overflow: hidden;
+            display: -webkit-box;
+            margin-top: 0;
+            padding-right: 42px;
+            padding-left: 10px;
+            // font-weight: 700;
+            font-size: 16px;
+            line-height: 20px;
+            text-overflow: ellipsis;
+          }
           .r-options {
             position: absolute;
             bottom: 17px;
@@ -689,6 +970,16 @@ body { background: #f1f1f1; }
       .r-data-set-title {
         // font-size: 3rem;
         font-size: 2.5rem;
+        font-size: 2rem;
+        text-overflow: ellipsis;
+        // white-space: nowrap;
+        overflow: hidden;
+        @media (min-width: 640px) {
+          font-size: 2.5rem;
+        }
+        @media screen and (max-width: 480px) {
+          font-size: 2rem;
+        }
       }
     }
 

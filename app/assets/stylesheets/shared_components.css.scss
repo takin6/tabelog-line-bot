@@ -25,6 +25,16 @@
     color: orange;
     font-weight: bold;
     line-height: 2;
+
+    @media screen and (max-width: 480px) {
+      margin-left: 5rem;
+    }
+  }
+
+  .total-count {
+    @media screen and (max-width: 480px) {
+      margin-left: 5rem;
+    }
   }
 
   .user-menu {
@@ -38,6 +48,14 @@
       font-size: 16px;
       cursor: pointer;
       outline:none;
+    }
+
+    #dropbtn-nouser {
+      .fas {
+        @media screen and (max-width: 480px) {
+          margin-left: -3px;
+        }
+      }
     }
 
     .user-menu-content {

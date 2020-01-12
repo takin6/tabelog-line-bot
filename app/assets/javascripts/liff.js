@@ -1,7 +1,6 @@
 function initializeApp(data) {
   // userのvalidationを行う。悪意のあるユーザーを排除
   liff.getProfile().then(function (profile) {
-
     $.ajax({
       type: 'POST',
       url: '/api/validate_chat_unit',
@@ -22,16 +21,14 @@ function initializeApp(data) {
       },
       success: function (res, status) {
         var profile_picture_url = res.profile_picture_url
-        if (profile_picture_url != "null") {
+        if (profile_picture_url != null) {
           $("#dropbtn-nouser").css("display", "none")
           $("#dropbtn-img").css("display", "block")
           $("#dropbtn-img").attr("src",profile_picture_url);
-
-          $(".user-menu-content").empty();
-          $( ".user-menu-content" ).append( "<a href='/restaurant_data_sets'>マイリスト</a>" );
-          $( ".user-menu-content" ).append( "<a rel='nofollow' data-method='delete' href='/user/auth/logout'>サインアウト</a>" );
-          $( ".user-menu-content").append("<a href='#'>Uzu Meshiとは?</a>")
         }
+        $(".user-menu-content").empty();
+        $( ".user-menu-content" ).append( "<a href='/restaurant_data_sets'>マイリスト</a>" );
+        $( ".user-menu-content").append("<a href='#'>Uzu Meshiとは?</a>")
 
         $(".loading").remove()
         $(".main").removeClass("is-hide");

@@ -25,10 +25,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     return redirect_to root_path if @omniauth.blank?
 
     usecase = OmniauthCallbacks::LineUsecase.new(@omniauth)
-    user = usecase.execute
+    chat_unit = usecase.execute
 
-    hold_chat_unit_to_session(user.chat_unit)
-    sign_in user
+    hold_chat_unit_to_session(chat_unit)
+    sign_in chat_unit.user
 
     redirect_to session[:redirect_path_after_login] || root_path
   end

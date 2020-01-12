@@ -59,22 +59,28 @@ class SearchHistory < ApplicationRecord
     return result
   end
 
-  def genre_to_str
+  def genre_to_str(maximum=nil)
     result = []
     if custom_meal_genres
-      custom_meal_genres.split("、").map do |custom_genre|
+      custom_meal_genres.split("|").map do |custom_genre|
         result.push(custom_genre)
       end
     end
 
+    len = 0
     parsed_mater_genres = master_genres.is_a?(String) ? JSON.parse(master_genres) : master_genres
     if parsed_mater_genres
       parsed_mater_genres.map do |master_genre|
-        result.push(master_genre)
+        if maximum && len + master_genre.length > maximum
+          result.push("…")
+        else
+          len += master_genre.length
+          result.push(master_genre)
+        end
       end
     end
 
-    return result.join("、")
+    return result.join("|")
   end
 
   def to_json

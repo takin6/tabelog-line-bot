@@ -10,7 +10,7 @@
     right: 30 rem;-->
       <!-- %= link_to "マイリスト", restaurant_data_sets_path, class: "btn btn-outline-warning waves-effect" %> -->
       <div class="action-buttons">
-        <div class="send-text-wrapper">
+        <div class="send-text-wrapper" onclick="onClickSendTextButton(event)">
           <a class="send-text-button" href="#" rel="noopener noreferer">
             <i class="fab fa-line"></i>
             <span class="send-text-text">LINEで送る</span>
@@ -32,7 +32,7 @@
       <div class="r-data-set-detail-row">
         <div class="r-data-set-detail-component">
           <div class="r-data-set-detail-molecule-title"><i class="fas fa-map-marker-alt" style="width: 1.5rem; padding: 1px; color: #E06650"></i>場所</div>
-          <div class="r-data-set-detail-molecule-content"><%= @search_history.location.name %></div>
+          <div class="r-data-set-detail-molecule-content location" style="font-size: 12px !important"><%= @search_history.location.name %></div>
         </div>
         <div class="r-data-set-detail-component">
           <div class="r-data-set-detail-molecule-title"><i class="fas fa-utensils" style="width: 1.5rem; padding: 1px; color: orange"></i>食事タイプ</div>
@@ -46,7 +46,7 @@
         </div>
         <div class="r-data-set-detail-component">
           <div class="r-data-set-detail-molecule-title"><i class="fas fa-yen-sign" style="width: 1.5rem; padding: 1px; color: green"></i>予算</div>
-          <div class="r-data-set-detail-molecule-content"><%= @search_history.lower_budget.format %> ~ <%= @search_history.upper_budget.format %><!-- 2000~5000 --></div>
+          <div class="r-data-set-detail-molecule-content"><%= @search_history.lower_budget == 0 ? "指定なし" : @search_history.lower_budget.format %> ~ <%= @search_history.upper_budget == 0 ? "指定なし" : @search_history.upper_budget.format %><!-- 2000~5000 --></div>
         </div>
       </div>
 
@@ -81,20 +81,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="r-data-set-detail">
-      <div class="r-data-set-detail-component tags">
-        <div class="r-data-set-detail-molecule-title"><i class="fas fa-align-left" style="width: 1.5rem; padding: 1px; color: gray"></i>ジャンル</div>
-        <% JSON.parse(@search_history.master_genres).each do |genre| %>
-          <div class="r-data-set-detail-molecule-content-tags"><%= genre %></div>
-        <% end %>
-        <% if @search_history.custom_meal_genres %>
-          <% JSON.parse(@search_history.custom_meal_genres).each do |genre| %>
-            <div class="r-data-set-detail-molecule-content-tags"><%= genre %></div>
-          <% end %>
-        <% end %>
-      </div>
-    </div> -->
   </div>
 
 
@@ -104,9 +90,12 @@
   <div class="restaurants">
     <% @selected_restaurants.each do |restaurant|%>
       <!-- <div class="restaurant"> -->
-      <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event)" disabled>
+      <button class="restaurant" type="button" name="restaurant-id" value="<%= restaurant[:id]%>" onclick="onClickRestaurant(event, 'selectedSendRestaurantIds')" disabled>
         <div class="contents">
           <div class="restaurant-header">
+            <div class="send-select-icon" style="display: none">
+              <i class="far fa-check-circle"></i>
+            </div>
             <div class="shop-name"><span class="shop-name-decorator"></span><%= restaurant[:name] %></div>
             <div class="sub-header">
               <div class="location">
@@ -122,7 +111,7 @@
           </div>
           <div class="restaurant-pics">
             <% restaurant["thumbnail_image_urls"][0..7].each do |url| %>
-              <img class="restaurant-pic" src=<%= url.split("/")[0..-2].join("/") + "/150x150_square_" + url.split("/")[-1] %> />
+              <img class="lozad restaurant-pic" src="" data-src=<%= url.split("/")[0..-2].join("/") + "/150x150_square_" + url.split("/")[-1] %> />
             <% end %>
           </div>
           <div class="sub-contents">
@@ -142,7 +131,6 @@
             </div>
           </div>
         </div>
-      <!-- </div> -->
       </button>
     <% end %>
 
@@ -151,5 +139,151 @@
     <% else %>
       <a href="#" class="noContent" id="loadMore">No Content</a>
     <% end %>
+  </div>
+</div>
+
+
+<% if @selected_restaurants.count > 15 %>
+  <nav class="navbar navbar-inverse navbar-fixed-bottom send-rds" style="display: none">
+    <div class="alert-danger max-restaurants-alert" style="display: none">選択できるレストランの上限数は15個です。</div>
+
+    <button class="send-partial-button-n1" type="button" data-toggle="modal" data-target="#selectMessageDestinationModal" onclick="onClickSendPartialButton(event)">
+      <span class="selected-send-restaurants-count">0</span> 個のレストランを送信
+    </button>
+  </nav>
+<% else %>
+  <nav class="navbar navbar-inverse navbar-fixed-bottom send-rds" style="display: none">
+    <button class="send-partial-button" type="button" data-toggle="modal" data-target="#selectMessageDestinationModal" onclick="onClickSendPartialButton(event)">
+      <span class="selected-send-restaurants-count">0</span> 個のレストランを送信
+    </button>
+
+    <button class="send-all-button" type="button" data-toggle="modal" data-target="#selectMessageDestinationModal" onclick="onClickSendAllButton()">
+      全てのレストランを送信
+      <!-- <span class="selected-restaurants-count">1</span> 個のリストを送信する -->
+    </button>
+  </nav>
+<% end %>
+
+<div class="modal fade" id="selectMessageDestinationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-warning" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <form name="message-submit-form" onsubmit="return onSubmitSendRestaurantDataSet(event)">
+        <input type="hidden" name="restaurant_data_set_id" value=<%= @restaurant_data_set_id %> />
+
+        <div class="modal-header text-center">
+          <h4 class="modal-title white-text w-100 font-weight-bold py-2">メッセージの送信</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+        <div class="alert-danger select-destination-alert" style="display: none">送信先を選択してください</div>
+        <div class="alert-danger select-message-type-alert" style="display: none">メッセージタイプを選択してください</div>
+        <div class="modal-body">
+          <div class="md-form mb-5">
+            <!-- <i class="fas fa-user prefix grey-text"></i> -->
+            <label data-error="wrong" data-success="right" for="form3">送信先の選択</label>
+
+            <div class="control-group">
+              <div data-toggle="collapse" data-target="#message-option-menu-chat-unit" aria-expand="false" aria-control="message-option-modal" onclick="onClickSendToChatUnitMenu(event)">
+              <!-- <div class="toggle" data-target="#message-option-menu"> -->
+                <label class="control control--radio d-chat"><%= current_chat_unit.chat_type == "user" ? current_chat_unit.user.name : "このチャネル" %>
+                  <input type="radio" name="destination" value="current_chat_unit" required />
+                  <div class="control__indicator"></div>
+                </label>
+              </div>
+              <div class="collapse" id="message-option-menu-chat-unit">
+              <!-- <div id="message-option-menu"> -->
+                <div class="card-body">
+                  メッセージタイプの選択
+                  <div class="message-option-labels">
+
+                    <div class="message-option-label">
+                      <label class="control control--radio"><span style="margin-top: 1px">カルーセル</span>
+                        <input type="radio" name="message-type" value="carousel"/>
+                        <div class="control__indicator"></div>
+                      </label>
+                    </div>
+
+                    <div class="message-option-label">
+                      <label class="control control--radio">テキスト
+                        <input type="radio" name="message-type" value="text"/>
+                        <div class="control__indicator"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <% if current_chat_unit.chat_type != "user" %>
+                <div data-toggle="collapse" data-target="#message-option-menu-user" aria-expand="false" aria-control="message-option-modal" onclick="onClickSendToUserMenu(event)">
+                  <label class="control control--radio d-chat"><%= current_chat_unit.user.name %>
+                    <input type="radio" name="destination" value="current_chat_user" />
+                    <div class="control__indicator"></div>
+                  </label>
+                </div>
+                <div class="collapse" id="message-option-menu-user">
+                  <div class="card card-body">
+                    メッセージタイプの選択
+                    <div class="message-option-labels">
+
+                      <div class="message-option-label">
+                        <label class="control control--radio"><span style="margin-top: 1px">カルーセル</span>
+                          <input type="radio" name="message-type" value="carousel"/>
+                          <div class="control__indicator"></div>
+                        </label>
+                      </div>
+
+                      <div class="message-option-label">
+                        <label class="control control--radio">テキスト
+                          <input type="radio" name="message-type" value="text"/>
+                          <div class="control__indicator"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+
+              <div data-toggle="collapse" data-target="#message-option-menu-other-chat" aria-expand="false" aria-control="message-option-modal" onclick="onClickSendToOtherChatMenu()">
+                <label class="control control--radio d-chat">その他のチャットに送る
+                  <input type="radio" name="destination" value="custom_chat"/>
+                  <div class="control__indicator"></div>
+                </label>
+              </div>
+              <div class="collapse" id="message-option-menu-user">
+                <div class="card card-body">
+                  クリップボードにテキスト形式のメッセージを貼り付けてあるので、遷移先で貼り付けて送信してください。
+                </div>
+              </div>
+
+
+            </div>
+            <!-- <input type="text" class="form-control validate" id="restaurant-data-set-title" value=%= @default_modal_text %> required>
+          </div>
+        </div>
+
+        <!-- <button class="btn btn-primary"
+    data-toggle="collapse"
+    data-target="#example-1"
+    aria-expand="false"
+    aria-controls="example-1">Button</button>
+<div class="collapse" id="example-1">
+  <div class="card card-body">
+    Hypertext Markup Language (HTML) is ...
+  </div>
+</div> -->
+
+        <!--Footer-->
+        <div class="modal-footer justify-content-center">
+          <button type="submit" class="btn btn-outline-warning waves-effect">送信 <i class="fas fa-paper-plane-o ml-1"></i></button>
+        </div> 
+      </form>
+
+    </div>
+    <!--/.Content-->
   </div>
 </div>

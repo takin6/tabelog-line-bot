@@ -1,14 +1,14 @@
 module Messenger
   class RestaurantsFlexMessageValue
-    attr_reader :mongo_custom_restaurants_id, :selected_restaurants, :next_page, :meal_type
-    def initialize(mongo_custom_restaurants_id, current_page)
-      mongo_custom_restaurants = Mongo::CustomRestaurants.find(mongo_custom_restaurants_id)
-      from, to = mongo_custom_restaurants.create_mongo_index(current_page)
+    attr_reader :restaurant_data_subset_id, :selected_restaurants, :next_page, :meal_type
+    def initialize(restaurant_data_subset_id, current_page)
+      restaurant_data_subset = RestaurantDataSubset.find(restaurant_data_subset_id)
+      from, to = restaurant_data_subset.create_mongo_index(current_page)
 
-      @mongo_custom_restaurants_id = mongo_custom_restaurants_id
-      @next_page = mongo_custom_restaurants.next_page(current_page)
-      @meal_type = mongo_custom_restaurants.meal_type
-      @selected_restaurants = mongo_custom_restaurants.restaurants[from..to]
+      @restaurant_data_subset_id = restaurant_data_subset_id
+      @next_page = restaurant_data_subset.next_page(current_page)
+      @meal_type = restaurant_data_subset.meal_type
+      @selected_restaurants = restaurant_data_subset.selected_restaurants[from..to]
     end
 
     def line_post_param
@@ -193,7 +193,8 @@ module Messenger
               "action": {
                 "type": "postback",
                 "label": "もっと見る",
-                "data": "mongo_custom_restaurants_id=#{mongo_custom_restaurants_id}&page=#{next_page}"
+                "data": "restaurant_data_subset_id=#{restaurant_data_subset_id}&page=#{next_page}"
+                # "data": "mongo_custom_restaurants_id=#{mongo_custom_restaurants_id}&page=#{next_page}"
               }
             }
           ]
