@@ -8,7 +8,7 @@ window.onload = function(e) {
 
   authenticated = false
   if (liff._auth == null) {
-    if (gon.current_user == null) {
+    if (gon.current_user == null && !document.URL.includes("restaurant_data_sets/new?cache_id=")) {
       document.location.href="/search_restaurants/new";
     } else {
       console.log("liff not detected");

@@ -26,10 +26,10 @@
       <% if user_signed_in?  %>
         <%= link_to "マイリスト", restaurant_data_sets_path %>
         <%= link_to "サインアウト", user_auth_logout_path, method: :delete, class: "delete-session-link" %>
-        <a href="#">Uzu Meshiとは?</a>
+        <a href="/">Uzu Meshiとは?</a>
       <% else %>
         <%= link_to "ログイン", user_line_omniauth_authorize_path %>
-        <a href="#">Uzu Meshiとは?</a>
+        <a href="/">Uzu Meshiとは?</a>
       <% end %>
     </div>
   </div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: "home#index"
+
   devise_for :users, controllers: {
     omniauth_callbacks: "omniauth_callbacks"
   }
@@ -6,7 +8,6 @@ Rails.application.routes.draw do
     delete 'user/auth/logout', to: 'omniauth_callbacks#destroy'
   end
 
-  root to: "search_restaurants#new"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :search_restaurants, only: [:new]
   resources :restaurant_data_sets, only: %i[index new]

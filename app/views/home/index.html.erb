@@ -1,0 +1,108 @@
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-orange w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-orange" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="#lp_info" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Uzu Meshiの特徴</a>
+    <a href="#dev_info" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Developerについて</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#lp_info" class="w3-bar-item w3-button w3-padding-large">Uzu Meshiの特徴</a>
+    <a href="#dev_info" class="w3-bar-item w3-button w3-padding-large">Developerについて</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-orange w3-center lp-header" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Uzu Meshi</h1>
+  <p class="w3-xlarge">レストラン選びをもっと自由に</p>
+  <a href="/search_restaurants/new" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">検索はこちらから！</a>
+</header>
+
+<div class="w3-row-padding w3-padding-64 w3-container" id="lp_info">
+  <div class="w3-content">
+    <div class="w3-col">
+      <h1 style="text-align: center">Uzu Meshi</h1>
+    </div>
+    <div class="w3-col" style="text-align: center; margin-bottom: 2rem">
+      <div class="line-it-button" data-lang="ja" data-type="friend" data-lineid="@115qomxr" style="display: none;"></div>
+    </div>
+    <div class="w3-third">
+      <h5>Step1. レストランを検索</h5>
+
+      <i class="fas fa-search-plus fa-5x w3-padding-16 w3-text-orange w3-margin-right"></i>
+      <p class="w3-medium" style="text-align: left; margin-left: 50px; margin-right: 50px;">tabelog高順位のレストランを希望の条件で検索</p>
+    </div>
+    <div class="w3-third">
+      <h5>Step2. リストを作成</h5>
+
+      <i class="fas fa-list-ul fa-5x w3-padding-16 w3-text-orange w3-margin-right"></i>
+
+      <p class="w3-medium" style="text-align: left; margin-left: 50px; margin-right: 50px;">お気に入りのレストランをリストに登録</p>
+    </div>
+    <div class="w3-third">
+      <h5>Step3. LINEでシェア</h5>
+      <i class="fas fa-paper-plane fa-5x w3-padding-16 w3-text-orange w3-margin-right"></i>
+
+      <p class="w3-medium" style="text-align: left; margin-left: 50px; margin-right: 50px;">お友達に行きたいレストランをLINEでシェア</p>
+    </div>
+  </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64" id="dev_info">
+  <h1 class="w3-margin w3-xlarge">Developed By Takayuki Inoue</h1>
+  <h1 class="w3-margin w3-large">email: takayukiinoue116@gmail.com</h3>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+  <div class="w3-xlarge w3-padding-32">
+    <a href="https://github.com/takin6/uzumeshi" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+ </div>
+ <p>Copyright Takayuki Inoue. All rights reserved.</p>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</body>
+</html>
+
+<!-- contact form -->
+<!-- <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container" style="background-color: white !important; padding-top: 0 !important;">
+  <div class="w3-content">
+    <div class="w3-col" style="margin-bottom: 2rem;">
+      <h1 style="text-align: center">コンタクトフォーム</h1>
+    </div>
+    <div class="w3-col">
+      <form action="/action_page.php">
+        <label for="fname">名前</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name.." required>
+
+        <label for="email">メールアドレス</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
+
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea required>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div> -->
+    <!-- <div class="w3-third w3-center">
+      <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
+    </div>
+  <div>
+</div> -->
