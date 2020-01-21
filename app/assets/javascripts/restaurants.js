@@ -352,6 +352,29 @@ function send_to_chat_unit(destination_type, message_type, selected_restaurant_i
   });
 }
 
+function onSubmitDeleteRDS(e) {
+  event.preventDefault();
+  $('[type="submit"]').prop('disabled',true);
+  $.ajax({
+    type: 'DELETE',
+    url: `/api/restaurant_data_sets/${$('[name=restaurant_data_set_id]').val()}`,
+    success: function(res, status) {
+      clearCache();
+      window.location.href = '/restaurant_data_sets/deleted'
+    },
+    error: function (res, status) {
+      if (status == 505) {
+        window.alert('invalid session: ' + res.status);
+      } else {
+        // alert(JSON.parse(res.responseText));
+        window.alert(JSON.parse(res.responseText)["errors"] + "\nstatus:" + res.status);
+      }
+    },
+    complete: function(data) {}
+  })
+}
+
+
 // ----------------- DOM Setter --------------------------------- //
 // jquery object
 function addColorToRestaurant(element) {

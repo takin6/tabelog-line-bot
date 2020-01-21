@@ -3,6 +3,8 @@ class RestaurantDataSet < ApplicationRecord
 
   belongs_to :user
 
+  has_many :restaurant_data_subsets
+
   validates :mongo_custom_restaurants_id, presence: true
   validates :selected_restaurant_ids, presence: true
   validates :title, presence: true

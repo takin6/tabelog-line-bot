@@ -49,6 +49,15 @@ class RestaurantDataSetsController  < ApplicationController
     end
   end
 
+  def destroy
+    unless current_chat_unit
+      redirect_to root_path
+    else
+      gon.current_user = current_user
+      render 'deleted'
+    end
+  end
+
   def sent_message
     unless current_chat_unit
       redirect_to root_path

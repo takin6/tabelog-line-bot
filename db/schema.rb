@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_11_124759) do
+ActiveRecord::Schema.define(version: 2020_01_21_055802) do
 
   create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "region_id", null: false
@@ -221,6 +221,5 @@ ActiveRecord::Schema.define(version: 2020_01_11_124759) do
   add_foreign_key "messages", "chat_units"
   add_foreign_key "restaurant_data_sets", "users"
   add_foreign_key "restaurant_data_subsets", "chat_units"
-  add_foreign_key "restaurant_data_subsets", "restaurant_data_sets"
   add_foreign_key "stations", "areas"
 end
