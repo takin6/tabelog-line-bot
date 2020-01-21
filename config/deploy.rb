@@ -56,8 +56,8 @@ set :rbenv_type, :user # :system or :user
 # rubyのversion
 set :rbenv_ruby, '2.6.3'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
-set :rbenv_roles, :all # default value
+# set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+# set :rbenv_roles, :all # default value
 
 set :log_level, :debug
 
@@ -79,6 +79,40 @@ namespace :deploy do
       with rails_env: fetch(:rails_env) do
         within current_path do
           execute :bundle, :exec, :rake, 'db:create'
+        end
+      end
+    end
+  end
+
+  desc 'Create elasticsearch index'
+  task :elasticsearch_create do
+    on roles(:app) do 
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'elasticsearch:create_search_index'
+          execute :bundle, :exec, :rake, 'elasticsearch:create_suggest_keyword'
+        end
+      end
+    end
+  end
+
+  desc 'recreate mongo_restaurants'
+  task :recreate_restaurant_master_data do
+    on roles(:app) do 
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'adhoc:restaurant:recreate_master_data'
+        end
+      end
+    end
+  end
+
+  desc 'Drop database'
+  task :db_drop do
+    on roles(:db) do |host|
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'db:drop'
         end
       end
     end

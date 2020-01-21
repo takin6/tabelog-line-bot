@@ -93,10 +93,12 @@ namespace :adhoc do
       restaurant_keys = ["station_id", "id", "name", "rating", "area_genre", "master_genres", "lunch_budget", "dinner_budget", "redirect_url", "thumbnail_image_url"]
       pager_index = 0
 
-      CSV.open(Rails.root.join("db", "seeds", "300_master_restaurants.csv"), 'w') do |csv|
+      CSV.open(Rails.root.join("db", "seeds", "400_master_restaurants_tokyo_station.csv"), 'w') do |csv|
         csv << restaurant_keys
 
-        Mongo::Restaurants.all.map do |mongo_restaurant|
+        Mongo::Restaurants.where(station_id: 364).map do |mongo_restaurant|
+
+        # Mongo::Restaurants.all.map do |mongo_restaurant|
           station_id = mongo_restaurant.station_id
           p station_id
 
@@ -109,6 +111,32 @@ namespace :adhoc do
             csv << row_result
           end
         end
+      end
+    end
+
+    desc "recreate_master_data"
+    task :recreate_master_data => :environment do
+      Mongo::Restaurants.all.delete
+
+      csv_file = CSV.read(Rails.root.join("db", "seeds", "200_master_restaurants.csv"))
+      csv_file.shift
+      
+      station_id_restaurants_hash = {}
+      csv_file.each do |row|
+        if station_id_restaurants_hash[row[0]]
+          station_id_restaurants_hash[row[0]].push row[1..]
+        else
+          station_id_restaurants_hash[row[0]] = [row[1..]]
+        end
+      end
+
+      station_id_restaurants_hash.each do |station_id, restaurants|
+        restaurant_wrappers = restaurants.map { |restaurant_row| Mongo::RestaurantWrapper.new(restaurant_row) }
+        station = Station.find_by(id: station_id)
+
+        restaurants_hash = Mongo::RestaurantsWrapper.new(station, restaurant_wrappers).to_restaurant_document_from_csv
+
+        Mongo::Restaurants.collection.bulk_write([{ insert_one: restaurants_hash}])
       end
     end
   end
