@@ -13,7 +13,7 @@
             <!-- 場所（elastic search??） -->
             <div class="col-xs-13">
               <div class="form-group">
-                <input class="form-control" id="location" type="text" placeholder="場所" oninput="onInputLocation(event)" required>
+                <input class="form-control" id="location" type="text" placeholder="場所" oninput="onInputLocation(event)" required />
                 <span class="form-label">エリア・駅 (例: 渋谷、銀座)</span>
                 <div id="location-choices" class="dropdown-content" />
               </div>
@@ -54,7 +54,7 @@
                     <option value="0">指定なし</option>
                     <% (1..15).each do |i| %>
                       <% unless [1, 11, 13].include?(i) %>
-                        <option value=<%= "#{i}000" %>><%= "¥#{i},000" %></option>
+                        <option value=<%="#{i}000" %>><%= "¥#{i},000" %></option>
                       <% end %>
                     <% end %>
                   </select>
@@ -66,7 +66,7 @@
             <!-- ジャンル -->
             <div class="col-xs-13">
               <div class="form-group meal-genre-form-group">
-                <input class="form-control meal-genre" id="meal-genre" type="text" placeholder="ジャンル" onclick="onClickMealGenre()" onchange="onChangeMealGenre(event)">
+                <input class="form-control meal-genre" id="meal-genre" type="text" placeholder="ジャンル" onclick="onClickMealGenre()" onchange="onChangeMealGenre(event)" />
                 <span class="form-label">ジャンルを記入(例: もつ鍋、居酒屋) or 選択</span>
                 <div class="genre-bar">
                   <a href="javascript:void(0);" class="icon" onclick="onClickGenreBar()">
@@ -81,14 +81,12 @@
                   <% end %>
                 </div>
               </div>
+            </div>
             <!-- 用途　追加予定 -->
-
             <!-- その他要望　追加予定 -->
-
             <div class="form-btn" id="search-button">
               <button class="submit-btn" type="submit">Search!</button>
             </div>
-
             <div class="form-btn" id="reset-form" onclick="onResetSearchRestaurant()">
               <button class="reset-btn">Reset</button>
             </div>
