@@ -88,10 +88,10 @@ module Api
       end
 
       def handle_block_event(source)
-        # ここも修正必要
         user = User.find_by(line_id: source['userId'])
-        user.is_blocked = true
-        user.save!
+        chat_unit = user.chat_units.select { |chat_unit| chat_unit.chat_type == "user" }[0]
+        chat_unit.is_blocking = true
+        chat_unit.save!
 
         return ServiceResult.new(true)
       end
