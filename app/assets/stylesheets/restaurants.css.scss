@@ -697,6 +697,7 @@ body { background: #f1f1f1; }
 // ------------ restaurant_data_sets # index --------------
 
 .restaurant-data-sets {
+  min-height: 500px;
   display: block;
   flex-direction: column;
   // remove button default style

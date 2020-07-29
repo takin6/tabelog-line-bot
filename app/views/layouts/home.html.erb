@@ -31,6 +31,8 @@
     <p class="alert"><%= alert %></p> -->
     <%= yield %>
 
+    <%= render partial: "templates/footer",locals: { restaurants: @restaurants } %>
+
      <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
   </body>
 </html>

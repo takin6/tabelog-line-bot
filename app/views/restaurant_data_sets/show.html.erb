@@ -178,11 +178,11 @@
 <% else %>
   <nav class="navbar navbar-inverse navbar-fixed-bottom send-rds" style="display: none">
     <button class="send-partial-button" type="button" data-toggle="modal" data-target="#selectMessageDestinationModal" onclick="onClickSendPartialButton(event)">
-      <span class="selected-send-restaurants-count">0</span> 個のレストランを送信
+      <span class="selected-send-restaurants-count">0</span> 個選択
     </button>
 
     <button class="send-all-button" type="button" data-toggle="modal" data-target="#selectMessageDestinationModal" onclick="onClickSendAllButton()">
-      全てのレストランを送信
+      全てを送信
       <!-- <span class="selected-restaurants-count">1</span> 個のリストを送信する -->
     </button>
   </nav>
@@ -198,14 +198,23 @@
         <input type="hidden" name="restaurant_data_set_id" value=<%= @restaurant_data_set_id %> />
 
         <div class="modal-header text-center">
-          <h4 class="modal-title white-text w-100 font-weight-bold py-2">メッセージの送信</h4>
+          <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+            メッセージの送信
+          </h4>
+
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" class="white-text">&times;</span>
           </button>
         </div>
+
         <div class="alert-danger select-destination-alert" style="display: none">送信先を選択してください</div>
         <div class="alert-danger select-message-type-alert" style="display: none">メッセージタイプを選択してください</div>
         <div class="modal-body">
+          <div class="md-form mb-5 line-btn-container" style="height: 3rem; border-bottom: 1px solid #E5E5E5; margin-bottom: 1rem">
+            <span style="font-color: #E5E5E5">メッセージを送信するには、友達登録をする必要があります。</span>
+            <div class="line-it-button" data-lang="ja" data-type="friend" data-lineid="@115qomxr" style="display: none;"></div>
+          </div>
+
           <div class="md-form mb-5">
             <!-- <i class="fas fa-user prefix grey-text"></i> -->
             <label data-error="wrong" data-success="right" for="form3">送信先の選択</label>
@@ -278,12 +287,12 @@
                   <div class="control__indicator"></div>
                 </label>
               </div>
-              <div class="collapse" id="message-option-menu-user">
+
+              <div class="collapse" id="#">
                 <div class="card card-body">
                   クリップボードにテキスト形式のメッセージを貼り付けてあるので、遷移先で貼り付けて送信してください。
                 </div>
               </div>
-
 
             </div>
             <!-- <input type="text" class="form-control validate" id="restaurant-data-set-title" value=%= @default_modal_text %> required>
@@ -304,7 +313,7 @@
         <!--Footer-->
         <div class="modal-footer justify-content-center">
           <button type="submit" class="btn btn-outline-warning waves-effect">送信 <i class="fas fa-paper-plane-o ml-1"></i></button>
-        </div> 
+        </div>
       </form>
 
     </div>

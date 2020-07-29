@@ -10,6 +10,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
@@ -43,6 +45,7 @@
         <!-- <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p> -->
         <%= yield %>
+        <%= render partial: "templates/footer",locals: { restaurants: @restaurants } %>
     </div>
 
     <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>

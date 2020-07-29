@@ -28,7 +28,7 @@
         <%= link_to "サインアウト", user_auth_logout_path, method: :delete, class: "delete-session-link" %>
         <a href="/">Uzu Meshiとは?</a>
       <% else %>
-        <%= link_to "ログイン", user_line_omniauth_authorize_path %>
+        <%= link_to "ログイン", user_line_omniauth_authorize_path(:bot_prompt => "aggressive",:prompt => "consent") %>
         <a href="/">Uzu Meshiとは?</a>
       <% end %>
     </div>

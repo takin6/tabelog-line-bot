@@ -51,6 +51,8 @@ window.onload = function(e) {
     } else {
       $(".r-data-set-detail-molecule-content.location").css("font-size", "16px")
     }
+
+    $('.line-btn-container').hide();
   }
 
   // if (isMobile) {
@@ -92,6 +94,16 @@ $(window).on('load resize', function() {
     $(".user-menu-content").css("right", $(document).width() - ($('.user-menu').offset().left + $('.user-menu').width()));
   }
 });
+
+$('#selectMessageDestinationModal').on('shown.bs.modal',function(){      //correct here use 'shown.bs.modal' event which comes in bootstrap3
+  // $(this).find('iframe').attr('src','http://www.google.com')
+  var html = document.getElementsByTagName('html')[0];
+  var remSize = parseInt(window.getComputedStyle(html)['fontSize']);
+
+  var dom = $(this).find(".line-it-button");
+  dom.outerHeight(2*remSize);
+  dom.width(10*remSize);
+})
 
 // $(function(){
 //   $('[type="submit"]').click(function(){
@@ -283,11 +295,10 @@ function onSubmitSendRestaurantDataSet(event) {
     $(".restaurant").each(function(index, restaurant) {selected_restaurant_ids.push(restaurant.value)})
   }
 
-  $('[type="submit"]').prop('disabled',true);
-
   if (destination_type == "custom_chat") {
     send_to_custom_chat(selected_restaurant_ids)
   } else {
+    $('[type="submit"]').prop('disabled',true);
     send_to_chat_unit(destination_type, message_type, selected_restaurant_ids)
   }
 }
@@ -304,9 +315,8 @@ function send_to_custom_chat(selected_restaurant_ids) {
     },
     success: function (res, status) {
       // sessionStorage.setItem("mongo_custom_restaurants", JSON.stringify(res.mongo_custom_restaurants))
-      clearCache();
-      // url = encodeURI("http://line.me/R/msg/text/?")
-      window.location.href = encodeURI('http://line.me/R/msg/text/?' + res.message_text + '&from=line_scheme');
+      var url = encodeURI('http://line.me/R/msg/text/?' + res.message_text + '&from=line_scheme');
+      window.open(url, "_blank")
       // liff.closeWindow();
     },
     error: function (res, status) {

@@ -3,11 +3,12 @@
 }
 
 .container {
-  max-width: 1024px;
+  max-width: 750px !important;
+  background-image: url('/images/form_background.jpg');
 }
 
 .section {
-  background-color: gray;
+  background-color: white;
   position: relative;
   min-height: 100vh;
 }
@@ -20,7 +21,7 @@
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);*/
   position: relative;
-  background-color: gray;
+  background-color: #F1F1F1;
 }
 
 input {
@@ -39,10 +40,16 @@ input {
   margin: auto;
   padding: 40px;
   overflow: hidden;
-  background-image: url('/images/form_background.jpg');
+  // background-image: url('/images/form_background.jpg');
   background-size: cover;
   border-radius: 5px;
   z-index: 20;
+}
+
+@media (max-width: 480px) {
+  .booking-form {
+    background-image: url('/images/form_background.jpg');
+  }
 }
 
 .booking-form::before {
