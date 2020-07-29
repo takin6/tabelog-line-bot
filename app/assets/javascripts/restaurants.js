@@ -1,6 +1,10 @@
 // sticky header: https://www.w3schools.com/howto/howto_js_sticky_header.asp
 // When the user scrolls the page, execute myFunction
-window.onscroll = function() { addOrRemoveSticky() };
+window.onscroll = function() { 
+  if ($("#laodMore").length > 0) {
+    addOrRemoveSticky();
+  }
+};
 
 window.onload = function(e) {
   var observer = window.lozad()
@@ -88,12 +92,12 @@ window.onclick = function(event) {
   }
 }
 
-$(window).on('load resize', function() { 
-  // change right position of user menu content
-  if (window.matchMedia('(min-width:640px)').matches) {
-    $(".user-menu-content").css("right", $(document).width() - ($('.user-menu').offset().left + $('.user-menu').width()));
-  }
-});
+// $(window).on('load resize', function() { 
+//   // change right position of user menu content
+//   if (window.matchMedia('(min-width:640px)').matches) {
+//     $(".user-menu-content").css("right", $(document).width() - ($('.user-menu').offset().left + $('.user-menu').width()));
+//   }
+// });
 
 $('#selectMessageDestinationModal').on('shown.bs.modal',function(){      //correct here use 'shown.bs.modal' event which comes in bootstrap3
   // $(this).find('iframe').attr('src','http://www.google.com')

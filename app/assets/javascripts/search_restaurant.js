@@ -116,7 +116,9 @@ function onSubmitSearchRestaurant(event) {
         $('[type="submit"]').prop('disabled',false);
       }
     },
-    complete: function(data) {}
+    complete: function(data) {
+      $('[type="submit"]').prop('disabled',false);
+    }
   });
 
   // $.ajax({

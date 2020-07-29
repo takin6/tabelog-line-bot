@@ -22,6 +22,10 @@
   transform: translateY(-50%);*/
   position: relative;
   background-color: #F1F1F1;
+
+  @media (min-width: 640px) {
+    padding-bottom: 15rem;
+  }
 }
 
 input {

@@ -42,10 +42,8 @@
     </div>
     <div class="main is-hide">
         <%= render partial: "templates/header",locals: { restaurants: nil } %>
-        <!-- <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p> -->
         <%= yield %>
-        <%= render partial: "templates/footer",locals: { restaurants: @restaurants } %>
+        <%= render partial: "templates/footer",locals: { restaurants: nil } %>
     </div>
 
     <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>

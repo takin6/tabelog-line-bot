@@ -56,21 +56,21 @@
 <% if current_chat_unit %>
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <button class="make-fav-list" style="margin-right: 10px !important" type="button" data-toggle="modal" data-target="#createFavoriteListModal" onclick="onClickMakeFavListPartial(event)">
-      <span class="selected-restaurants-count">0</span> 個のリストを作成する
+      <span class="selected-restaurants-count">0</span> 個のリストを作成
     </button>
 
     <button class="make-fav-list" style="margin-left: 10px !important" type="button" data-toggle="modal" data-target="#createFavoriteListModal" onclick="onClickMakeFavListAll(event)">
-      全てをリストに追加する
+      全てをリストに追加
     </button>
   </nav>
 <% else %>
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
-      <span class="selected-restaurants-count">0</span> 個のリストを作成する
+      <span class="selected-restaurants-count">0</span> 個のリストを作成
     </button>
 
     <button class="make-fav-list" type="button" onclick="location.href=`/users/auth/line`">
-      全てをリストに追加する
+      全てをリストに追加
     </button>
   </nav>
 <% end %>
