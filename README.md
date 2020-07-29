@@ -19,8 +19,8 @@ https://uzumeshi.com/
 ## System Architecture
 <img width="892" alt="スクリーンショット 2020-07-29 22 13 39" src="https://user-images.githubusercontent.com/48932045/88804400-cf5fc780-d1e8-11ea-9671-2ddf4d4f62e7.png">
 
-## Local Setup
-See more on https://github.com/takin6/uzumeshi-docker
+## Setting up Development Environment
+https://github.com/takin6/uzumeshi-docker
 
 ## System Dependencies
 * Backend : Ruby on Rails (5.2), Ruby (2.6.3)
