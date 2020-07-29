@@ -51,7 +51,7 @@ gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-ra
 gem 'httparty'
 gem 'config'
 gem 'kaminari'
-gem 'omniauth-line'
+gem 'omniauth-line', github: "takin6/omniauth-line", branch: 'master'
 gem 'devise'
 gem 'gon'
 gem 'listen', '>= 3.0.5', '< 3.2'
