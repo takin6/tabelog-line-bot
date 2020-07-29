@@ -1,6 +1,6 @@
 # Uzumeshi
 
-## desciption
+## Description
 Uzumashi is an app that provides users with a wonderful dining experience by discovering selective recommended restaurants.
 
 Features
@@ -17,7 +17,7 @@ https://uzumeshi.com/
 ![M](https://user-images.githubusercontent.com/48932045/88786217-35d6ec80-d1cd-11ea-8576-d09324a33adc.png)
 
 ## System Architecture
-<img width="889" alt="スクリーンショット 2020-07-29 18 42 37" src="https://user-images.githubusercontent.com/48932045/88786292-5010ca80-d1cd-11ea-8d51-4f1ffd143196.png">
+<img width="892" alt="スクリーンショット 2020-07-29 22 13 39" src="https://user-images.githubusercontent.com/48932045/88804400-cf5fc780-d1e8-11ea-9671-2ddf4d4f62e7.png">
 
 ## Local Setup
 See more on https://github.com/takin6/uzumeshi-docker
